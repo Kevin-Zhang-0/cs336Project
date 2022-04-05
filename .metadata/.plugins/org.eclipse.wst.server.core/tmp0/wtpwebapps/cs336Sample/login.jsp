@@ -41,14 +41,14 @@
 		else{
 			
 		
-			//out.println(result.getString("user"));
-			//out.println(result.getString("pass"));
+			out.println(result.getString("user"));
+			out.println(result.getString("pass"));
 			
 			
 			//Close the connection. Don't forget to do it, otherwise you're keeping the resources of the server allocated.
 			con.close();
 
-			//out.print("select succeeded!");
+			out.print("select succeeded!");
 			
 		}
 		

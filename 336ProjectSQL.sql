@@ -1,5 +1,5 @@
 CREATE DATABASE  IF NOT EXISTS `336ProjectSQL` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `336Project`;
+USE `336ProjectSQL`;
 
 -- ------------------------------------------------------
 -- Server version	5.6.35-log
@@ -21,7 +21,7 @@ DROP TABLE IF EXISTS `credentials`;
 CREATE TABLE `credentials` (
   `user` varchar(50) NOT NULL DEFAULT '',
   `pass` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`name`)
+  PRIMARY KEY (`user`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
