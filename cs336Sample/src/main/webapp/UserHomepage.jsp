@@ -7,6 +7,18 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<% 
+out.print("Current User: " + session.getAttribute("username"));
+%>
+<br>
+		<form method="get" action="loginPage.jsp">	
+					
+			<input type="submit" value="Logout">
+		</form>
+		
+<br>
+	
+	
+	
 </body>
 </html>
