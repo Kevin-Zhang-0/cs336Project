@@ -4,7 +4,7 @@
 Servers/
 
    
-.metadata
+.metadata/
 bin/
 tmp/
 *.tmp
