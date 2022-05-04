@@ -25,6 +25,7 @@
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		
+		
 
 
 		//Make an insert statement for the Sells table:
@@ -35,7 +36,7 @@
 		//Create a Prepared SQL statement allowing you to introduce the parameters of the query
 		//PreparedStatement ps = con.prepareStatement(select);
 		ResultSet result = stmt.executeQuery(select);
-		if(result.next()==true){
+		if(username.length() == 0 || password.length() == 0 || result.next()==true){
 			out.print("Username is already taken");
 			session.setAttribute("username", null);
 			%>
