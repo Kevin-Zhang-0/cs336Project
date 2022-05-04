@@ -44,6 +44,7 @@
 			<input type="submit" value="Submit Auction Item">
 		</form>
 	<br>
+	<h1><% request.getParameter("closing_date");%></h1>
 	
 	
 	
