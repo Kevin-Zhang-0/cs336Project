@@ -17,26 +17,26 @@
 		<form method="post" action="loginLogic.jsp">
 			<table>
 				<tr>
-					<td>Shirt Name:</td><td><input type="text" name="name"></td>
+					<td>Shirt Name:</td><td><input type="text" name="shirt_name"></td>
 				</tr>
 			
 				<tr>    
-					<td>Sex(F|M):</td><td><input type="text" name="sex"></td>
+					<td>Sex(F|M):</td><td><input type="text" name="shirt_sex"></td>
 				</tr>
 				<tr>
-					<td>Size(L|M|S):</td><td><input type="text" name="size"></td>
+					<td>Size(L|M|S):</td><td><input type="text" name="shirt_size"></td>
 				</tr>
 				<tr>
-					<td>Initial Price:</td><td><input type="text" name="initial_price"></td>
+					<td>Initial Price:</td><td><input type="text" name="shirt_initial_price"></td>
 				</tr>
 				<tr>
-					<td>Lowest Selling Price:</td><td><input type="text" name="lowest_selling_price"></td>
+					<td>Lowest Selling Price:</td><td><input type="text" name="shirt_lowest_selling_price"></td>
 				</tr>
 				<tr>
-					<td>Bid Increments:</td><td><input type="text" name="bid_increments"></td>
+					<td>Bid Increments:</td><td><input type="text" name="shirt_bid_increments"></td>
 				</tr>
 				<tr>
-					<td>Closing Date:</td><td><input type="text" name="closing_date"></td>
+					<td>Closing Date:</td><td><input type="text" name="shirt_closing_date"></td>
 				</tr>
 				
 				

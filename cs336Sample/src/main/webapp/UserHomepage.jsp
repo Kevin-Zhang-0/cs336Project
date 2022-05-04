@@ -49,6 +49,10 @@ out.print("Current User: " + session.getAttribute("username"));
 	</tr>
 	
 	</table>
+	
+	<br>
+	
+	Current Auctions:
     
 	
  

@@ -40,6 +40,7 @@
 			out.print("Invalid username/password");
 			session.setAttribute("username", null);
 			%>
+			
 			<form method="post" action="createAccount.jsp">
 				
 				<input type="submit" value="back">   
