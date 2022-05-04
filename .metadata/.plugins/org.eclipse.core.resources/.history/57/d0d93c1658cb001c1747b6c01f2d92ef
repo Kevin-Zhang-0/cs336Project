@@ -1,5 +1,3 @@
-
-
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -26,7 +24,7 @@ out.print("Current User: " + session.getAttribute("username"));
 	<table>
 	<tr>
 		<td>	
-				<form method="get" action="shirt.jsp">	
+				<form method="get" action="loginPage.jsp">	
 					
 					<input type="submit" value="Shirt">
 				</form> 

@@ -78,3 +78,10 @@
 0:0:0:0:0:0:0:1 - - [06/Apr/2022:22:42:18 -0400] "GET /cs336Sample/UserHomepage.jsp HTTP/1.1" 200 284
 0:0:0:0:0:0:0:1 - - [06/Apr/2022:22:42:19 -0400] "GET /cs336Sample/HelloWorld.jsp? HTTP/1.1" 200 644
 0:0:0:0:0:0:0:1 - - [06/Apr/2022:22:43:24 -0400] "GET /cs336Sample/ HTTP/1.1" 404 767
+127.0.0.1 - - [06/Apr/2022:22:43:58 -0400] "GET / HTTP/1.1" 404 751
+0:0:0:0:0:0:0:1 - - [06/Apr/2022:22:43:58 -0400] "GET /cs336Sample/ HTTP/1.1" 200 649
+0:0:0:0:0:0:0:1 - - [06/Apr/2022:22:44:03 -0400] "POST /cs336Sample/loginLogic.jsp HTTP/1.1" 302 -
+0:0:0:0:0:0:0:1 - - [06/Apr/2022:22:44:03 -0400] "GET /cs336Sample/UserHomepage.jsp HTTP/1.1" 200 283
+0:0:0:0:0:0:0:1 - - [06/Apr/2022:22:44:05 -0400] "GET /cs336Sample/loginPage.jsp? HTTP/1.1" 200 649
+0:0:0:0:0:0:0:1 - - [06/Apr/2022:22:44:06 -0400] "POST /cs336Sample/loginLogic.jsp HTTP/1.1" 200 507
+0:0:0:0:0:0:0:1 - - [06/Apr/2022:22:44:08 -0400] "POST /cs336Sample/loginPage.jsp HTTP/1.1" 200 649
