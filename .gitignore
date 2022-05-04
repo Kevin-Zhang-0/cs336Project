@@ -5,6 +5,7 @@ Servers/
 
    
 .metadata
+.plugins
 bin/
 tmp/
 *.tmp
