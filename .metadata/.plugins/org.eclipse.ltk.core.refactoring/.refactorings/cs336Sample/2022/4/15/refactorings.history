@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;cs336Sample/src/main/webapp/HelloWorld.jsp&apos; to &apos;loginPage.jsp&apos;" description="Rename resource &apos;HelloWorld.jsp&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/main/webapp/HelloWorld.jsp" name="loginPage.jsp" stamp="1649299363544" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;cs336Sample/src/main/webapp/login.jsp&apos; to &apos;loginLogic.jsp&apos;" description="Rename resource &apos;login.jsp&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/main/webapp/login.jsp" name="loginLogic.jsp" stamp="1649299371661" updateReferences="true"/>
-</session>
