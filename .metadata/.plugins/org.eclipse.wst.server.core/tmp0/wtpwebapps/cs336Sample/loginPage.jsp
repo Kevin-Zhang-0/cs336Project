@@ -31,6 +31,19 @@
 	<br>
 	
 	
+	Don't have an account? Click here to create one!
+	
+	<br>
+	
+	<form method="get" action="createAccount.jsp">	
+					
+		<input type="submit" value="Create Account">
+		
+	</form>
+	
+	
+	
+	
 
 </body>
 </html>
