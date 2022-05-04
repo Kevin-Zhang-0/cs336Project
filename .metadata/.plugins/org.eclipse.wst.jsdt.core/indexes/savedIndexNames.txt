@@ -1,9 +1,3 @@
 INDEX VERSION 1.4+C:\Users\benja\OneDrive\Documents\Kevin's project\cs336Project\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-3429031261.index
-2476715922.index
-4283543005.index
 4283543005.index
 113571319.index
-1334022024.index
-2143952046.index
-3081778442.index

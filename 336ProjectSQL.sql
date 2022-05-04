@@ -69,3 +69,4 @@ create table `auction`(
     foreign key(`itemID`) references clothing(`itemID`)
 
 );
+

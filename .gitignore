@@ -3,8 +3,9 @@
 .settings
 Servers/
 
-   
+
 .metadata
+.metadata/
 .plugins
 bin/
 tmp/
