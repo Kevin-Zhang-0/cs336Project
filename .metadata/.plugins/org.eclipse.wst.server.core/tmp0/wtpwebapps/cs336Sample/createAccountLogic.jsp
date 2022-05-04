@@ -36,22 +36,7 @@
 		//Create a Prepared SQL statement allowing you to introduce the parameters of the query
 		//PreparedStatement ps = con.prepareStatement(select);
 		ResultSet result = stmt.executeQuery(select);
-		if(username.length() == 0 || password.length() == 0){
-			out.print("Invalid username/password");
-			session.setAttribute("username", null);
-			%>
-			<form method="post" action="createAccount.jsp">
-				
-				<input type="submit" value="back">   
-			</form>
-			 
-			    
-			<%
-			
-		}
-				
-				
-		else if(result.next()==true){
+		if(username.length() == 0 || password.length() == 0 || result.next()==true){
 			out.print("Username is already taken");
 			session.setAttribute("username", null);
 			%>
@@ -85,7 +70,7 @@
 			%>
 			<form method="post" action="loginPage.jsp">
 				
-				<input type="submit" value="Back">   
+				<input type="submit" value="back">   
 			</form>
 			
 			

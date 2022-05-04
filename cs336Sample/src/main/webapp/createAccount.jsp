@@ -11,9 +11,11 @@
 	Create Account
 	
 	<br>
+	<br>
 	
 	Enter Username and Password:
 	
+	<br>
 	<br>
 		<form method="post" action="createAccountLogic.jsp">
 			<table>
@@ -24,10 +26,15 @@
 					<td>Password:</td><td><input type="text" name="password"></td>
 				</tr>
 			</table>
-			<input type="submit" value="Login">
+			<input type="submit" value="Create">
 		</form>
 	<br>
-
+	
+	
+	<form method="post" action="loginPage.jsp">
+				
+		<input type="submit" value="Back">   
+	</form>
 
 </body>
 </html>
