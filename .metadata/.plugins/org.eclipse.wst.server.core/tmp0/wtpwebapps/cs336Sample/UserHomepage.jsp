@@ -18,7 +18,45 @@ out.print("Current User: " + session.getAttribute("username"));
 		
 <br>
 	
+<div class="auction-btn-group">
+
 	
+	<table>
+	<tr>
+		<td>	
+				<form method="get" action="shirt.jsp">	
+					
+					<input type="submit" value="Shirt">
+				</form> 
+		</td>
+		<td><form method="get" action="loginPage.jsp">	
+					
+			<input type="submit" value="Pants">
+			</form> 
+			</td>
+		<td> 
+			<form method="get" action="loginPage.jsp">	
+					
+			<input type="submit" value="Shoes">
+			</form>
+		
+		</td>
+	
+	
+	
+	</tr>
+	
+	</table>
+    
+	
+ 
+	
+ 	
+	
+ 	
+	
+	
+</div>	
 	
 </body>
-</html>
+</html>	
