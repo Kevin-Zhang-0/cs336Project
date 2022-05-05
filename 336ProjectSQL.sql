@@ -69,4 +69,68 @@ create table `auction`(
     foreign key(`itemID`) references clothing(`itemID`)
 
 );
+-- adding tables from here on 
 
+DROP TABLE IF EXISTS `admin`;
+create table `admin`(
+	`user` varchar(50) primary key,
+    foreign key(user) references credentials(user)
+);
+
+DROP TABLE IF EXISTS `customerRep`;
+create table `customerRep`(
+	`user` varchar(50) primary key,
+    foreign key(user) references credentials(user)
+);
+
+DROP TABLE IF EXISTS `endUser`;
+create table `endUser`(
+	`user` varchar(50) primary key,
+    foreign key(user) references credentials(user)
+);
+
+DROP TABLE IF EXISTS `helps`;
+create table `helps`(
+	`euid` varchar(50),
+    `crid` varchar(50),
+    primary key (euid, crid),
+    foreign key(euid) references endUser(user),
+    foreign key(crid) references endUser(user)
+);
+
+DROP TABLE IF EXISTS `holds`;
+create table `holds`(
+	`user` varchar(50),
+    `AuctionID` int,
+    primary key(user, AuctionID),
+    foreign key(user) references endUser(user),
+    foreign key(AuctionID) references auction(AuctionID)
+);
+
+DROP TABLE IF EXISTS `bid`;
+create table `bid`(
+	`bidID` int auto_increment primary key,
+    `user` varchar(50),
+    `AuctionID` int,
+    foreign key(user) references endUser(user),
+    foreign key(AuctionID) references auction(AuctionID)
+);
+
+DROP TABLE IF EXISTS `autobid`;
+create table `autobid`(
+	`upperLimit` float,
+    `creator` varchar(50),
+    `AuctionID` int,
+    primary key (creator, AuctionID),
+    foreign key(creator) references endUser(user),
+    foreign key(AuctionID) references auction(AuctionID)
+);
+
+DROP TABLE IF EXISTS `setAlert`;
+create table `setAlert`(
+	`user` varchar(50),
+    `itemID` int,
+    primary key (user, itemID),
+    foreign key(user) references endUser(user),
+    foreign key (itemID) references clothing(itemID)
+);
