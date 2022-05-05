@@ -15,12 +15,7 @@
 out.print("Please Select an Option That Matches Your Concerns");
 %>
 <br>
-		<form method="get" action="loginPage.jsp">	
-					
-			<input type="submit" value="Logout">
-		</form>
-		
-<br>
+
 	
 <div class="auction-btn-group">
 
@@ -43,10 +38,35 @@ out.print("Please Select an Option That Matches Your Concerns");
 	</table>
 </div>
 	
- 	
+<br>
+<div>
+	<table>
+		<tr>
+			<td>Ask a Question:</td>
+		</tr>
+			
+	</table>
+
+</div>
 	
- 	
+
+<table>
+	<tr>
+		
+		<td><form method="get" action="requestSubmitted.jsp">	
+<textarea name="custRequest" rows="10" cols="50" required>
+</textarea>
+			<input type="submit" value="Submit">
+			</form> 
+			</td>
+	</tr>
 	
+	</table>		
+<form method="post" action="UserHomepage.jsp">
+
+	<input type="submit" value="Back">   
+</form>
+
 	
 	
 </body>
