@@ -49,6 +49,11 @@
 		is.executeUpdate();
 
 		//Close the connection. Don't forget to do it, otherwise you're keeping the resources of the server allocated.
+		
+		//CHECK FOR AUTO BIDS HERE
+		
+		
+		
 		con.close();
 
 		out.print("Insert succeeded!");

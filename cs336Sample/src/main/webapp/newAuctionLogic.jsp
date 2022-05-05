@@ -75,8 +75,8 @@
 				is.setString(2, new_shirt_size);
 				is.executeUpdate();
 				
-				
-				String insertBid = "INSERT INTO auction(InitialPrice,CloseDate,LowestSelliingPrice,increment,CurrentPrice,itemID) " + "VALUES (?, ?, ?, ?, ?, ?)";
+				String creator = (String) session.getAttribute("username");
+				String insertBid = "INSERT INTO auction(InitialPrice,CloseDate,LowestSelliingPrice,increment,CurrentPrice,itemID,user,highest_bidder) " + "VALUES (?, ?, ?, ?, ?, ?,?,?)";
 				PreparedStatement bs = con.prepareStatement(insertBid);
 				bs.setFloat(1,Float.parseFloat(new_shirt_initial_price) );
 				bs.setString(2, new_shirt_closing_date);
@@ -84,8 +84,8 @@
 				bs.setFloat(4, Float.parseFloat(new_shirt_bid_increments));
 				bs.setString(5, new_shirt_initial_price);
 				bs.setInt(6, x);
-				
-				
+				bs.setString(7, creator);
+				bs.setString(8,null);
 				bs.executeUpdate();
 				
 				//Close the connection. Don't forget to do it, otherwise you're keeping the resources of the server allocated.
