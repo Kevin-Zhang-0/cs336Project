@@ -156,6 +156,8 @@ Search For An Type of Item
 		}
 	%>
  
+ 	<br>
+ 
 	<td> 
 			<form method="get" action="customerRepContact.jsp">	
 					
