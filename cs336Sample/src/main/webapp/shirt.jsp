@@ -56,7 +56,7 @@
 					<td>Bid Increments:</td><td><input type="text" name="shirt_bid_increments" required></td>
 				</tr>
 				<tr>
-					<td>Closing Date(DD.MM.YYYY):</td><td><input type="text" name="shirt_closing_date" required></td>
+					<td>Closing Date(YYYY.MM.DD):</td><td><input type="text" name="shirt_closing_date" required></td>
 				</tr>
 				
 				

@@ -25,7 +25,7 @@ try {
 			
 			//Get the combobox from the index.jsp
 			String auctionID = request.getParameter("auctionID");
-			
+			session.setAttribute("currAuctionID", auctionID);
 			//Make a SELECT query from the sells table with the price range specified by the 'price' parameter at the index.jsp
 			String str = "SELECT * FROM auction a, clothing c WHERE a.itemID = c.itemID AND a.AuctionID = " + auctionID;
 			
@@ -63,7 +63,8 @@ try {
 			<br><br>
 			
 		<% 
-			
+			float curr_p = result.getFloat("currentPrice");
+			float minimum_bid = curr_p + Float.valueOf(result.getString("increment"));
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-LL-dd HH:mm:ss.S");
 		
 			LocalDateTime currentTime = LocalDateTime.now();
@@ -77,6 +78,16 @@ try {
 			
 			if(currentTime.isBefore(closeDateTime)){ %>
 				Insert a Bid
+				<form method="post" action="bidLogic.jsp">
+			    
+					<td>Bid Amount: </td><td><input type="number" step="0.01" name="bidAMT" size = "10" min = "<%=minimum_bid%>" required ></td>
+					<input type="submit" value="Send Bid">
+			
+				</form>
+				
+				
+				
+				
 				
 				<br><br>
 				

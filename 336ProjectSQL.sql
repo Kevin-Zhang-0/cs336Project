@@ -28,6 +28,7 @@ CREATE TABLE `credentials` (
 LOCK TABLES `credentials` WRITE;
 /*!40000 ALTER TABLE `credentials` DISABLE KEYS */;
 INSERT INTO `credentials` VALUES ("admin","adminpass");
+INSERT INTO `credentials` VALUES ("u","u");
 /*!40000 ALTER TABLE `credentials` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -84,10 +85,12 @@ create table `customerRep`(
 );
 
 DROP TABLE IF EXISTS `endUser`;
+
 create table `endUser`(
 	`user` varchar(50) primary key,
     foreign key(user) references credentials(user)
 );
+INSERT INTO `endUser` VALUES ("u");
 
 DROP TABLE IF EXISTS `helps`;
 create table `helps`(
