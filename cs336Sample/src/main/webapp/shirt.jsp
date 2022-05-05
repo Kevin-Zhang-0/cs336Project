@@ -14,10 +14,14 @@
 	
 	
 	<br>
-		<form method="post" action="loginLogic.jsp">
+		<form method="post" action="newAuctionLogic.jsp">
 			<table>
 				<tr>
-					<td>Shirt Name:</td><td><input type="text" name="shirt_name"></td>
+					<td>Shirt Name:
+					<span class="error">${errors.origin}</span>
+					</td>
+					<td><input type="text" name="shirt_name"></td>
+					
 				</tr>
 			
 				<tr>    
@@ -44,7 +48,9 @@
 			<input type="submit" value="Submit Auction Item">
 		</form>
 	<br>
-	<h1><% request.getParameter("closing_date");%></h1>
+	<h1><% 
+	session.setAttribute("errors", null);
+	request.getParameter("closing_date");%></h1>
 	
 	
 	
