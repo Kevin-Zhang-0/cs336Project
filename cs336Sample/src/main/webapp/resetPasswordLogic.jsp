@@ -22,8 +22,8 @@
 		Statement stmt = con.createStatement();
 
 		//Get parameters from the HTML form at the HelloWorld.jsp
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
+		String username = session.getAttribute("username").toString();
+		String newPassword = request.getParameter("password");
 		
 		
 
@@ -35,8 +35,14 @@
 		
 		//Create a Prepared SQL statement allowing you to introduce the parameters of the query
 		//PreparedStatement ps = con.prepareStatement(select);
+		String currentUser = "";
+		String currentPass = "";
 		ResultSet result = stmt.executeQuery(select);
-		if(password.length() == 0){
+		while (result.next()){
+			currentUser = result.getString("user");
+			currentPass = result.getString("pass");
+		}
+		if(newPassword.length() == 0){
 			out.print("Invalid password");
 
 			%>
@@ -52,11 +58,10 @@
 		}
 				
 				
-		else if(result.next()==true){
-			out.print("Username is already taken");
-			session.setAttribute("username", null);
+		else if(currentPass.equals(newPassword)){
+			out.print("Password is the same as current password");
 			%>
-			<form method="post" action="createAccount.jsp">
+			<form method="post" action="resetPassword.jsp">
 				
 				<input type="submit" value="back">   
 			</form>
@@ -68,23 +73,24 @@
 		else{
 			
 			
-			String insert = "INSERT INTO credentials(user, pass)"
-					+ "VALUES (?, ?)";
-			PreparedStatement ps = con.prepareStatement(insert);
-			ps.setString(1, username);
-			ps.setString(2, password);
+			/*String update = "INSERT INTO credentials(user, pass)"
+					+ "VALUES (?, ?)";*/
+			String update = "UPDATE credentials\n"
+				+ "SET user = ?, pass = ?\n"
+				+ "WHERE user = ?";
+			PreparedStatement ps = con.prepareStatement(update);
+			ps.setString(1, currentUser);
+			ps.setString(2, newPassword);
+			ps.setString(3, currentUser);
 			ps.executeUpdate();
 			
-			session.setAttribute("username", null);
-			
-
 			con.close();
-			out.print("Account Creation Successful!");
+			out.print("Password Change Successful!");
 			
 			//response.sendRedirect("UserHomepage.jsp");
 			
 			%>
-			<form method="post" action="loginPage.jsp">
+			<form method="post" action="customerRepContact.jsp">
 				
 				<input type="submit" value="Back">   
 			</form>
@@ -105,7 +111,7 @@
 		
 	} catch (Exception ex) {
 		out.print(ex);
-		out.print("select failed :()");
+		out.print("something went wrong in password change");
 	}
 	%>
 
