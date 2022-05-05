@@ -77,82 +77,37 @@ out.print("Current User: " + session.getAttribute("username"));
 			
 			//Run the query against the database.
 			ResultSet result = stmt.executeQuery(str);
+	%>
+	
+			<table>
+				<tr>
+					<td>Auction</td>
+					<td>ItemName</td>
+					<td>ItemID</td>
+					<td>Current Price</td>
+					<td>Initial Price</td>
+					<td>Increment</td>
+					<td>Close Date/Time</td>
+					<td>Link</td>
+				</tr>
 
-			//Make an HTML table to show the results in:
-			out.print("<table>");
 
-			//make a row
-			out.print("<tr>");
-			//make a column
-			out.print("<td>");
-			//print out column header
-			out.print("Auction");
-			out.print("</td>");
-			
-			out.print("<td>");
-			out.print("ItemName");
-			out.print("</td>");
-			
-			//make a column
-			out.print("<td>");
-			out.print("ItemID");
-			out.print("</td>");
-			
-			//make a column
-			out.print("<td>");
-			out.print("Current Price");
-			out.print("</td>");
-			
-			out.print("<td>");
-			out.print("Initial Price");
-			out.print("</td>");
-			
-			out.print("<td>");
-			out.print("Increment");
-			out.print("</td>");
-			
+		<%  while (result.next()) { %>
+				<tr>
+					<td> <%= result.getString("AuctionID")%></td>
+					<td> <%= result.getString("name")%></td>
+					<td> <%= result.getString("itemID")%></td>
+					<td> <%= result.getString("currentPrice")%></td>
+					<td> <%= result.getString("InitialPrice")%></td>
+					<td> <%= result.getString("increment")%></td>
+					<td> <%= result.getString("CloseDate")%></td>
+					<td> <button class="goToAuctionButton">Link</button> </td>
+				</tr>
 
+		<% }%>
+			</table>
 			
-			out.print("</tr>");
-
-			//parse out the results
-			while (result.next()) {
-				//make a row
-				out.print("<tr>");
-				//make a column
-				
-				out.print("<td>");
-				//Print out current bar name:
-				out.print(result.getString("AuctionID"));
-				out.print("</td>");
-				
-				out.print("<td>");
-				out.print(result.getString("name"));
-				out.print("</td>");
-				
-				out.print("<td>");
-				//Print out current beer name:
-				out.print(result.getString("itemID"));
-				out.print("</td>");
-				
-				out.print("<td>");
-				//Print out current price
-				out.print(result.getString("currentPrice"));
-				out.print("</td>");
-				
-				out.print("<td>");
-				out.print(result.getString("InitialPrice"));
-				out.print("</td>");
-
-				out.print("<td>");
-				out.print(result.getString("increment"));
-				out.print("</td>");
-				
-				out.print("</tr>");
-
-			}
-			out.print("</table>");
-
+			<%
 			//close the connection.
 			con.close();
 
