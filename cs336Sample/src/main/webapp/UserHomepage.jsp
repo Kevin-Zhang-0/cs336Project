@@ -23,7 +23,10 @@ out.print("Current User: " + session.getAttribute("username"));
 <br>
 	
 <div class="auction-btn-group">
+<br>
 
+Want to auction an item? Choose which type of clothing you have
+<br>
 	
 	<table>
 	<tr>

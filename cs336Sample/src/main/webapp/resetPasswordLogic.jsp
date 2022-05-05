@@ -88,9 +88,10 @@
 			out.print("Password Change Successful!");
 			
 			//response.sendRedirect("UserHomepage.jsp");
-			
+			//set session username to null since we are logging the user out
+			session.setAttribute("username", null);
 			%>
-			<form method="post" action="customerRepContact.jsp">
+			<form method="post" action="loginPage.jsp">
 				
 				<input type="submit" value="Back">   
 			</form>

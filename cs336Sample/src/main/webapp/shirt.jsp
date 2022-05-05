@@ -41,22 +41,22 @@
 				</tr>
 			
 				<tr>    
-					<td>Sex(F|M):</td><td><input type="text" name="shirt_sex" required></td>
+					<td>Sex(F|M):</td><td><input type="text" maxlength="1" name="shirt_sex" required ></td>
 				</tr>
 				<tr>
-					<td>Size(L|M|S):</td><td><input type="text" name="shirt_size" required></td>
+					<td>Size(L|M|S):</td><td><input type="text" maxlength="1" name="shirt_size" required></td>
 				</tr>
 				<tr>
-					<td>Initial Price:</td><td><input type="text" name="shirt_initial_price" required></td>
+					<td>Initial Price:</td><td><input type="number" step="0.01" name="shirt_initial_price" required></td>
 				</tr>
 				<tr>
-					<td>Lowest Selling Price:</td><td><input type="text" name="shirt_lowest_selling_price" required></td>
+					<td>Lowest Selling Price:</td><td><input type="number" step="0.01" name="shirt_lowest_selling_price" required></td>
 				</tr>
 				<tr>
-					<td>Bid Increments:</td><td><input type="text" name="shirt_bid_increments" required></td>
+					<td>Bid Increments:</td><td><input type="number" step="0.01" name="shirt_bid_increments" required></td>
 				</tr>
 				<tr>
-					<td>Closing Date(DD.MM.YYYY):</td><td><input type="text" name="shirt_closing_date" required></td>
+					<td>Closing Date(YYYY.MM.DD):</td><td><input type="text" name="shirt_closing_date" required></td>
 				</tr>
 				
 				
