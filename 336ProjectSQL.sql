@@ -112,6 +112,8 @@ create table `bid`(
 	`bidID` int auto_increment primary key,
     `user` varchar(50),
     `AuctionID` int,
+    `price` int,
+    `time` datetime,
     foreign key(user) references endUser(user),
     foreign key(AuctionID) references auction(AuctionID)
 );
