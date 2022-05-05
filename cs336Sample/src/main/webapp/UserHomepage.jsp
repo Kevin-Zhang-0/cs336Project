@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Homepage</title>
 </head>
 <body>
 <% 
@@ -45,7 +45,7 @@ out.print("Current User: " + session.getAttribute("username"));
 			</form>
 		
 		</td>
-	
+		
 	
 	
 	</tr>
@@ -156,7 +156,15 @@ Search For An Type of Item
 		}
 	%>
  
-	
+ 	<br>
+ 
+	<td> 
+			<form method="get" action="customerRepContact.jsp">	
+					
+			<input type="submit" value="Contact a Customer Representative">
+			</form>
+		
+	</td>
  	
 	
  	

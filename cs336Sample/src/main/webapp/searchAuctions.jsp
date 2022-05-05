@@ -2,14 +2,17 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
 
-<%@ page import="java.io.*,java.util.*,java.sql.*"%>
+<%@ page import="java.io.*,java.util.*,java.sql.*, java.time.LocalDateTime, java.time.format.DateTimeFormatter"%>
+
+
+
 
     
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Search Auctions</title>
 </head>
 <body>
 <% 
@@ -70,12 +73,16 @@ To view an auction, enter the auctionID number.
 			else{ //female
 				query += " AND c.sex = \"f\"";
 			}
+			
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
+			String time = LocalDateTime.now().format(formatter);
+			
 			//out.print(query);
 			if(ongoing.equals("ongoing")){
-
+				query += " AND a.CloseDate >= \"" + time + "\"";
 			}
 			else{ //finished
-				
+				query += " AND a.CloseDate < \"" + time + "\"";
 			}
 			
 			//Run the query against the database.

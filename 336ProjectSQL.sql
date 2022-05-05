@@ -32,6 +32,7 @@
 -- /*!40000 ALTER TABLE `credentials` ENABLE KEYS */;
 -- UNLOCK TABLES;
 
+<<<<<<< HEAD
 -- DROP TABLE IF EXISTS `clothing`;
 -- create table `clothing`(
 -- 	`itemID` int auto_increment primary key,
@@ -68,6 +69,44 @@
 -- 	`itemID` int,
 --    -- `ObserverID` varchar(50),
 --     foreign key(`itemID`) references clothing(`itemID`)
+=======
+DROP TABLE IF EXISTS `clothing`;
+create table `clothing`(
+	`itemID` int auto_increment primary key,
+    `name` varchar(50),
+    `sex` varchar(1)
+);
+DROP TABLE IF EXISTS `shirt`;
+create table `shirt`(
+	`itemID` int primary key,
+    foreign key (`itemID`) references clothing(`itemID`),
+    `size` varchar(5)
+);
+DROP TABLE IF EXISTS `pants`;
+create table `pants`(
+	`itemID` int primary key,
+    foreign key (`itemID`) references clothing(`itemID`),
+    `WaistWidth` int,
+    `LegLength` int
+);
+DROP TABLE IF EXISTS `shoe`;
+create table `shoe`(
+	`itemID` int primary key,
+    foreign key (`itemID`) references clothing(`itemID`),
+    `size` int
+);
+DROP TABLE IF EXISTS `auction`;
+create table `auction`(
+	`AuctionID`int auto_increment primary key,
+    `InitialPrice` float,
+    `CloseDate`datetime,
+    `LowestSelliingPrice` float,
+    `increment`float, 
+    `CurrentPrice`float, 
+	`itemID` int,
+   -- `ObserverID` varchar(50),
+    foreign key(`itemID`) references clothing(`itemID`)
+>>>>>>> 3867ca288c6b4656aebdd173f82ddbd22b57e239
 
 -- );
 -- -- adding tables from here on 
@@ -108,6 +147,7 @@
 --     foreign key(AuctionID) references auction(AuctionID)
 -- );
 
+<<<<<<< HEAD
 -- DROP TABLE IF EXISTS `bid`;
 -- create table `bid`(
 -- 	`bidID` int auto_increment primary key,
@@ -116,6 +156,18 @@
 --     foreign key(user) references endUser(user),
 --     foreign key(AuctionID) references auction(AuctionID)
 -- );
+=======
+DROP TABLE IF EXISTS `bid`;
+create table `bid`(
+	`bidID` int auto_increment primary key,
+    `user` varchar(50),
+    `AuctionID` int,
+    `price` int,
+    `time` datetime,
+    foreign key(user) references endUser(user),
+    foreign key(AuctionID) references auction(AuctionID)
+);
+>>>>>>> 3867ca288c6b4656aebdd173f82ddbd22b57e239
 
 -- DROP TABLE IF EXISTS `autobid`;
 -- create table `autobid`(
