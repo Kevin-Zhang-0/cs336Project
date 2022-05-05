@@ -39,20 +39,20 @@ create table `clothing`(
 );
 DROP TABLE IF EXISTS `shirt`;
 create table `shirt`(
-	`itemID` int auto_increment primary key,
+	`itemID` int primary key,
     foreign key (`itemID`) references clothing(`itemID`),
     `size` varchar(5)
 );
 DROP TABLE IF EXISTS `pants`;
 create table `pants`(
-	`itemID` int auto_increment primary key,
+	`itemID` int primary key,
     foreign key (`itemID`) references clothing(`itemID`),
     `WaistWidth` int,
     `LegLength` int
 );
 DROP TABLE IF EXISTS `shoe`;
 create table `shoe`(
-	`itemID` int auto_increment primary key,
+	`itemID` int primary key,
     foreign key (`itemID`) references clothing(`itemID`),
     `size` int
 );
