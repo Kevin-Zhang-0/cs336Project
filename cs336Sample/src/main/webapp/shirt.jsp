@@ -10,37 +10,53 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<%
+	String i1= "";
+	String i2= "";
+	String i3= "";
+	String i4= "";
+	String i5= "";
+	String i6 = "";
+	String i7= "";
 	
+	if(request.getAttribute("errors")!=null&& !(((HashMap)request.getAttribute("errors")).isEmpty())){
+		i1 = (String) session.getAttribute("shirt_name");
+		i2 = (String) session.getAttribute("shirt_sex");
+		i3 = (String) session.getAttribute("shirt_size");
+		i4 = (String) session.getAttribute("shirt_initial_price");
+		i5 = (String) session.getAttribute("shirt_lowest_selling_price");
+		i6 = (String) session.getAttribute("shirt_bid_increments");
+		i7 = (String) session.getAttribute("shirt_closing_date");
+	}
 	
-	
+	%>
 	<br>
 		<form method="post" action="newAuctionLogic.jsp">
 			<table>
 				<tr>
-					<td>Shirt Name:
-					<span class="error">${errors.origin}</span>
-					</td>
-					<td><input type="text" name="shirt_name"></td>
+					<td>Shirt Name:</td>					
+					<td><input type="text" name="shirt_name" value = "<%=i1%>" required></td>
+					<td><span class="error">${errors.origin}</span></td>
 					
 				</tr>
 			
 				<tr>    
-					<td>Sex(F|M):</td><td><input type="text" name="shirt_sex"></td>
+					<td>Sex(F|M):</td><td><input type="text" name="shirt_sex" required></td>
 				</tr>
 				<tr>
-					<td>Size(L|M|S):</td><td><input type="text" name="shirt_size"></td>
+					<td>Size(L|M|S):</td><td><input type="text" name="shirt_size" required></td>
 				</tr>
 				<tr>
-					<td>Initial Price:</td><td><input type="text" name="shirt_initial_price"></td>
+					<td>Initial Price:</td><td><input type="text" name="shirt_initial_price" required></td>
 				</tr>
 				<tr>
-					<td>Lowest Selling Price:</td><td><input type="text" name="shirt_lowest_selling_price"></td>
+					<td>Lowest Selling Price:</td><td><input type="text" name="shirt_lowest_selling_price" required></td>
 				</tr>
 				<tr>
-					<td>Bid Increments:</td><td><input type="text" name="shirt_bid_increments"></td>
+					<td>Bid Increments:</td><td><input type="text" name="shirt_bid_increments" required></td>
 				</tr>
 				<tr>
-					<td>Closing Date:</td><td><input type="text" name="shirt_closing_date"></td>
+					<td>Closing Date(DD.MM.YYYY):</td><td><input type="text" name="shirt_closing_date" required></td>
 				</tr>
 				
 				
@@ -49,6 +65,7 @@
 		</form>
 	<br>
 	<h1><% 
+	
 	session.setAttribute("errors", null);
 	request.getParameter("closing_date");%></h1>
 	
