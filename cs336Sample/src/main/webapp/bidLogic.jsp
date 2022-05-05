@@ -11,6 +11,7 @@
 </head>
 <body>
 <%
+	
 	try {
 
 		//Get the database connection
@@ -29,11 +30,12 @@
 		
 
 		//Make an insert statement for the Sells table:
-		String update_currentprice = "UPDATE auction SET CurrentPrice = " + Float.toString(bid_amt) + "  WHERE AuctionID =" + Integer.toString(curr_AuctionID);
+		String update_currentprice = "UPDATE auction SET CurrentPrice = " + Float.toString(bid_amt) + ", highest_bidder = \""+ (String)session.getAttribute("username")  + "\" WHERE AuctionID =" + Integer.toString(curr_AuctionID) + ";";
 		//Create a Prepared SQL statement allowing you to introduce the parameters of the query
+		out.print(update_currentprice);
 		PreparedStatement ps = con.prepareStatement(update_currentprice);
 
-	
+		
 		
 		ps.executeUpdate();
 		
@@ -56,9 +58,10 @@
 		
 		con.close();
 
-		out.print("Insert succeeded!");
+		response.sendRedirect("UserHomepage.jsp");
 		
 	} catch (Exception ex) {
+		
 		out.print(ex);
 	}
 %>
