@@ -45,7 +45,7 @@ out.print("Current User: " + session.getAttribute("username"));
 			</form>
 		
 		</td>
-	
+		
 	
 	
 	</tr>
@@ -116,7 +116,13 @@ out.print("Current User: " + session.getAttribute("username"));
 		}
 	%>
  
-	
+	<td> 
+			<form method="get" action="customerRepContact.jsp">	
+					
+			<input type="submit" value="Contact a Customer Representative">
+			</form>
+		
+	</td>
  	
 	
  	
