@@ -136,3 +136,12 @@ create table `setAlert`(
     foreign key(user) references endUser(user),
     foreign key (itemID) references clothing(itemID)
 );
+
+ DROP TABLE IF EXISTS `customerRequests`;
+ create table `customerRequests`(
+	`user` varchar(50),
+    `request` varchar(500),
+    `status` boolean,
+    primary key(user, request),
+    foreign key(user) references credentials(user)
+ );

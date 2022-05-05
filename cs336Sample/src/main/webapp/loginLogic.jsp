@@ -25,49 +25,58 @@
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		
-
-
-		//Make an insert statement for the Sells table:
-		
-		String select = "SELECT * FROM credentials c WHERE c.user = \"" + username + "\" AND c.pass = \"" + password+ "\"";
-		//String select = "SELECT * FROM credentials";
-		
-		//Create a Prepared SQL statement allowing you to introduce the parameters of the query
-		//PreparedStatement ps = con.prepareStatement(select);
-		ResultSet result = stmt.executeQuery(select);
-		if(result.next()==false){
-			out.print("Username/password combination does not exist");
-			session.setAttribute("username", null);
-			%>
-			<form method="post" action="loginPage.jsp">
-				
-				<input type="submit" value="back">   
-			</form>
-			 
-			    
-			<%
-		}
-		
-		else{
-			out.println(result.getString("user"));
-			out.println(result.getString("pass"));
-			session.setAttribute("username", result.getString("user"));
-			
+		//if the user is admin
+		if (username.equals("admin") && password.equals("adminpass")){
 			
 			con.close();
-			response.sendRedirect("UserHomepage.jsp");
-			%>
-			
-		
-			<% 
-			
-			
-			
-			//Close the connection. Don't forget to do it, otherwise you're keeping the resources of the server allocated.
-			
+			response.sendRedirect("AdminHomepage.jsp");
+		}
 
+		
+		//customer rep && end user
+		else{
+			//Make an insert statement for the Sells table:
 			
+			String select = "SELECT * FROM credentials c WHERE c.user = \"" + username + "\" AND c.pass = \"" + password+ "\"";
+			//String select = "SELECT * FROM credentials";
 			
+			//Create a Prepared SQL statement allowing you to introduce the parameters of the query
+			//PreparedStatement ps = con.prepareStatement(select);
+			ResultSet result = stmt.executeQuery(select);
+			if(result.next()==false){
+				out.print("Username/password combination does not exist");
+				session.setAttribute("username", null);
+				%>
+				<form method="post" action="loginPage.jsp">
+					
+					<input type="submit" value="back">   
+				</form>
+				 
+				    
+				<%
+			}
+			
+			else{
+				out.println(result.getString("user"));
+				out.println(result.getString("pass"));
+				session.setAttribute("username", result.getString("user"));
+				
+				
+				con.close();
+				response.sendRedirect("UserHomepage.jsp");
+				%>
+				
+			
+				<% 
+				
+				
+				
+				//Close the connection. Don't forget to do it, otherwise you're keeping the resources of the server allocated.
+				
+	
+				
+				
+			}
 		}
 		
 	} catch (Exception ex) {
