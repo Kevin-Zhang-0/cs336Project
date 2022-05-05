@@ -1,8 +1,9 @@
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
 
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
-<%@ page import="javax.servlet.http.*,javax.servlet.*"%>
+
     
 <!DOCTYPE html>
 <html>
@@ -14,47 +15,8 @@
 <% 
 out.print("Current User: " + session.getAttribute("username"));
 %>
-<br>
-		<form method="get" action="loginPage.jsp">	
-					
-			<input type="submit" value="Logout">
-		</form>
-		
-<br>
-	
-<div class="auction-btn-group">
-
-	
-	<table>
-	<tr>
-		<td>	
-				<form method="get" action="shirt.jsp">	
-					
-					<input type="submit" value="Shirt">
-				</form> 
-		</td>
-		<td><form method="get" action="loginPage.jsp">	
-					
-			<input type="submit" value="Pants">
-			</form> 
-			</td>
-		<td> 
-			<form method="get" action="loginPage.jsp">	
-					
-			<input type="submit" value="Shoes">
-			</form>
-		
-		</td>
-	
-	
-	
-	</tr>
-	
-	</table>
-</div>
 
 <br>
-
 To view an auction, enter the auctionID number.
 	<br>
 		<form method="post" action="viewAuction.jsp">
@@ -67,31 +29,6 @@ To view an auction, enter the auctionID number.
 			<input type="submit" value="View">
 		</form>
 	<br>
-	
-	
-Search For An Type of Item
-	<br>
-		<form method="post" action="searchAuctions.jsp">
-		
-			<select name="type" size=1>
-				<option value="shirts">Shirts</option>
-				<option value="pants">Pants</option>
-				<option value="shoes">Shoes</option>
-			</select>
-			<select name="sex" size=1>
-				<option value="male">M</option>
-				<option value="female">F</option>
-			</select>
-			<select name="ongoing" size=1>
-				<option value="ongoing">Ongoing</option>
-				<option value="finished">Finished</option>
-			</select>
-			<br>
-			<input type="submit" value="Search">
-		</form>
-	<br>
-	
-	
 	
 
 	<br>
@@ -112,13 +49,37 @@ Search For An Type of Item
 			Statement stmt = con.createStatement();
 			
 			//Get the combobox from the index.jsp
-			//String entity = request.getParameter("price");
 			
-			//Make a SELECT query from the sells table with the price range specified by the 'price' parameter at the index.jsp
-			String str = "SELECT * FROM auction a, clothing c WHERE a.itemID = c.itemID";
+			String type = request.getParameter("type");
+			String sex = request.getParameter("sex");
+			String ongoing = request.getParameter("ongoing");
+			String query;
+			if(type.equals("shirts")){
+				query = "SELECT * FROM auction a, shirt s, clothing c WHERE a.itemID = c.itemID AND s.itemID = c.itemID";
+			}
+			else if(type.equals("pants")){
+				query = "SELECT * FROM auction a, pants p, clothing c WHERE a.itemID = c.itemID AND p.itemID = c.itemID";
+			}
+			else{ // shoes
+				query = "SELECT * FROM auction a, shoe s, clothing c WHERE a.itemID = c.itemID AND s.itemID = c.itemID";
+			}
+			
+			if(sex.equals("male")){
+				query += " AND c.sex = \"m\"";
+			}
+			else{ //female
+				query += " AND c.sex = \"f\"";
+			}
+			//out.print(query);
+			if(ongoing.equals("ongoing")){
+
+			}
+			else{ //finished
+				
+			}
 			
 			//Run the query against the database.
-			ResultSet result = stmt.executeQuery(str);
+			ResultSet result = stmt.executeQuery(query);
 	%>
 	
 			<table>
@@ -131,7 +92,6 @@ Search For An Type of Item
 					<td>Increment</td>
 					<td>Close Date/Time</td>
 				</tr>
-
 
 		<%  while (result.next()) { %>
 				<tr>
@@ -146,7 +106,6 @@ Search For An Type of Item
 
 		<% }%>
 			</table>
-			
 			<%
 			//close the connection.
 			con.close();
