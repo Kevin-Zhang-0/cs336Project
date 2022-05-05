@@ -5,34 +5,31 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Create Account</title>
+<title>Insert title here</title>
 </head>
 <body>
 
-	Create Account
+	Reset Password
 	
 	<br>
 	<br>
 	
-	Enter Username and Password:
+	Enter New Password:
 	
 	<br>
 	<br>
-		<form method="post" action="createAccountLogic.jsp">
+		<form method="post" action="resetPasswordLogic.jsp">
 			<table>
-				<tr>    
-					<td>Username:</td><td><input type="text" name="username"></td>
-				</tr>
 				<tr>
 					<td>Password:</td><td><input type="text" name="password"></td>
 				</tr>
 			</table>
-			<input type="submit" value="Create">
+			<input type="submit" value="Change Password">
 		</form>
 	<br>
 	
 	
-	<form method="post" action="loginPage.jsp">
+	<form method="post" action="customerRepContact.jsp">
 				
 		<input type="submit" value="Back">   
 	</form>

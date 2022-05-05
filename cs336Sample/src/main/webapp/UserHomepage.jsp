@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Homepage</title>
 </head>
 <body>
 <% 
@@ -158,6 +158,8 @@ Search For An Type of Item
 			out.print("Error");
 		}
 	%>
+ 
+ 	<br>
  
 	<td> 
 			<form method="get" action="customerRepContact.jsp">	
