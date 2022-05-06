@@ -11,6 +11,7 @@
 </head>
 <body>
 <%
+	
 	try {
 
 		//Get the database connection
@@ -29,11 +30,12 @@
 		
 
 		//Make an insert statement for the Sells table:
-		String update_currentprice = "UPDATE auction SET CurrentPrice = " + Float.toString(bid_amt) + "  WHERE AuctionID =" + Integer.toString(curr_AuctionID);
+		String update_currentprice = "UPDATE auction SET CurrentPrice = " + Float.toString(bid_amt) + ", highest_bidder = \""+ (String)session.getAttribute("username")  + "\" WHERE AuctionID =" + Integer.toString(curr_AuctionID) + ";";
 		//Create a Prepared SQL statement allowing you to introduce the parameters of the query
+		
 		PreparedStatement ps = con.prepareStatement(update_currentprice);
 
-	
+		
 		
 		ps.executeUpdate();
 		
@@ -41,7 +43,7 @@
 		String insert_bid = "INSERT INTO bid(user, AuctionID, price,time) " + "VALUES (?, ?,?,?)";
 		//Create a Prepared SQL statement allowing you to introduce the parameters of the query
 		is = con.prepareStatement(insert_bid);
-		out.print("here: " + (String)session.getAttribute("username"));
+		//out.print("here: " + (String)session.getAttribute("username"));
 		is.setString(1, (String)session.getAttribute("username"));
 		is.setInt(2, curr_AuctionID);
 		is.setFloat(3,bid_amt);
@@ -55,10 +57,14 @@
 		
 		
 		con.close();
-
-		out.print("Insert succeeded!");
+		%>
+		<jsp:forward page="viewAuction.jsp">
+	    	<jsp:param name="auctionID" value="<%=curr_AuctionID%>"/>
+		</jsp:forward>
+		<% 
 		
 	} catch (Exception ex) {
+		
 		out.print(ex);
 	}
 %>

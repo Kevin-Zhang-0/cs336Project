@@ -1,3 +1,4 @@
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'root';
 CREATE DATABASE  IF NOT EXISTS `336ProjectSQL` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `336ProjectSQL`;
 
@@ -29,6 +30,7 @@ LOCK TABLES `credentials` WRITE;
 /*!40000 ALTER TABLE `credentials` DISABLE KEYS */;
 INSERT INTO `credentials` VALUES ("admin","adminpass");
 INSERT INTO `credentials` VALUES ("u","u");
+INSERT INTO `credentials` VALUES ("y","y");
 /*!40000 ALTER TABLE `credentials` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -95,7 +97,7 @@ create table `endUser`(
     foreign key(user) references credentials(user)
 );
 INSERT INTO `endUser` VALUES ("u");
-
+INSERT INTO `endUser` VALUES ("y");
 DROP TABLE IF EXISTS `helps`;
 create table `helps`(
 	`euid` varchar(50),
@@ -119,7 +121,7 @@ create table `bid`(
 	`bidID` int auto_increment primary key,
     `user` varchar(50),
     `AuctionID` int,
-    `price` int,
+    `price` float,
     `time` datetime,
     foreign key(user) references endUser(user),
     foreign key(AuctionID) references auction(AuctionID)

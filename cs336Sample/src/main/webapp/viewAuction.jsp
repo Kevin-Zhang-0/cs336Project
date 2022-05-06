@@ -92,6 +92,12 @@ try {
 				<br><br>
 				
 				Auto-Bid
+				<form method="post" action="autobidLogic.jsp">
+			    
+					<td>Automatic Bid Amount: </td><td><input type="number" step="0.01" name="bidAMT" size = "10" min = "<%=minimum_bid%>" required ></td>
+					<input type="submit" value="Send Bid">
+					
+				</form>
 		<% 
 			}
 			else{ // too late %>
