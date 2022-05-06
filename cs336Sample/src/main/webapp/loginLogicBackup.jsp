@@ -9,15 +9,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
-<body>
+<body> 
 	<%
 	try {
+
 		//Get the database connection
 		
 		ApplicationDB db = new ApplicationDB();	
 		Connection con = db.getConnection();
+
 		//Create a SQL statement
 		Statement stmt = con.createStatement();
+
 		//Get parameters from the HTML form at the HelloWorld.jsp
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
@@ -28,14 +31,17 @@
 			con.close();
 			response.sendRedirect("AdminHomepage.jsp");
 		}
+
 		
 		//customer rep && end user
 		else{
 			//Make an insert statement for the Sells table:
 			
-			String selectCR = "SELECT * FROM customerRep cr WHERE cr.user = \"" + username +"\"";
+			String selectCR = "SELECT * FROM customerRep cr WHERE cr.user = \"" + username;
+			
+			//Create a Prepared SQL statement allowing you to introduce the parameters of the query
+			//PreparedStatement ps = con.prepareStatement(select);
 			ResultSet resultCR = stmt.executeQuery(selectCR);
-
 			if(resultCR.next()==false){
 				String select = "SELECT * FROM credentials c WHERE c.user = \"" + username + "\" AND c.pass = \"" + password+ "\"";
 				ResultSet result = stmt.executeQuery(select);
@@ -59,20 +65,11 @@
 					
 					con.close();
 					response.sendRedirect("UserHomepage.jsp");
+					%>
+					
+				
+					<% 
 				}
-			}
-			
-			else{
-				session.setAttribute("username", resultCR.getString("user"));
-				
-				
-				con.close();
-				response.sendRedirect("customerRepHomepage.jsp");
-				%>
-				
-			
-				<% 
-				
 				
 				
 				//Close the connection. Don't forget to do it, otherwise you're keeping the resources of the server allocated.
@@ -80,6 +77,15 @@
 	
 				
 				
+			}
+			else{
+				session.setAttribute("username", username);
+				con.close();
+				response.sendRedirect("customerRepHomepage.jsp");
+				%>
+				
+				    
+				<%
 			}
 		}
 		

@@ -148,7 +148,8 @@ create table `setAlert`(
  create table `customerRequests`(
 	`user` varchar(50),
     `request` varchar(500),
-    `status` boolean,
+    `reply` varchar(500),
+    `status` varchar(7),
     primary key(user, request),
     foreign key(user) references credentials(user)
  );
