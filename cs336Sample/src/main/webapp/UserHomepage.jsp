@@ -10,7 +10,7 @@
 <meta charset="ISO-8859-1">
 <title>Homepage</title>
 </head>
-<body>
+<body> 
 <% 
 out.print("Current User: " + session.getAttribute("username"));
 %>

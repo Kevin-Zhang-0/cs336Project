@@ -22,25 +22,25 @@
 		Statement stmt = con.createStatement();
 
 		//Get parameters from the HTML form at the HelloWorld.jsp
-		String newRequest = request.getParameter("custRequest");
-		String user = session.getAttribute("username").toString();
-		
+		String requestResponse = request.getParameter("requestResponse");
+		//String user = session.getAttribute("username").toString();
+		String requestNumber = session.getAttribute("currRequestNumber").toString();
 
-		String insert = "INSERT INTO customerRequests(user, request, reply, status)"
-				+ "VALUES (?, ?, ?, ?)";
-		PreparedStatement ps = con.prepareStatement(insert);
-		ps.setString(1, user);
-		ps.setString(2, newRequest);
-		ps.setString(3, "");
-		ps.setString(4, "Open");
-		ps.executeUpdate();
+		String update = "UPDATE customerRequests\n"
+				+ "SET reply = ?, status = ?\n"
+				+ "WHERE requestID = ?";
+			PreparedStatement ps = con.prepareStatement(update);
+			ps.setString(1, requestResponse);
+			ps.setString(2, "Closed");
+			ps.setString(3, requestNumber);
+			ps.executeUpdate();
 		
 		
 		con.close();
-		out.print("Request Submitted Succesfully!");
+		out.print("Response Submitted Succesfully!");
 		
 		%>
-		<form method="post" action="customerRepContact.jsp">
+		<form method="post" action="customerRepHomepage.jsp">
 			
 			<input type="submit" value="Back">   
 		</form>

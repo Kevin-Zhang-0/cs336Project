@@ -8,60 +8,15 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Customer Rep Contact</title>
+<title>Welcome, Customer Rep</title>
 </head>
-<body> 
-<% 
-out.print("Please Select an Option That Matches Your Concerns");
-%>
-<br>
-
+<body>
+	<%--may add current customer rep list--%>
 	
-<div class="auction-btn-group">
-
+	Requests:
 	
-	<table>
-	<tr>
-		<td>	
-				<form method="get" action="resetPassword.jsp">	
-					
-					<input type="submit" value="Reset Your Password">
-				</form> 
-		</td>
-	</tr>
-	
-	</table>
-</div>
-	
-<br>
-<div>
-	<table>
-		<tr>
-			<td>Ask a Question:</td>
-		</tr>
-			
-	</table>
-
-</div>
-	
-
-<table>
-	<tr>
-		
-		<td><form method="get" action="requestSubmitted.jsp">	
-<textarea name="custRequest" rows="10" cols="50" required>
-</textarea>
-			<input type="submit" value="Submit">
-			</form> 
-			</td>
-	</tr>
-	
-	</table>		
-
 	<br>
-Customer Support Tickets:
-	
-    <br>
+	<br>
 	<%
 		List<String> list = new ArrayList<String>();
 
@@ -77,10 +32,8 @@ Customer Support Tickets:
 			//Get the combobox from the index.jsp
 			//String entity = request.getParameter("price");
 			
-			String currUser = session.getAttribute("username").toString();
-			
 			//Make a SELECT query from the sells table with the price range specified by the 'price' parameter at the index.jsp
-			String str = "SELECT * FROM customerRequests c WHERE c.user = \"" + currUser + "\"";
+			String str = "SELECT * FROM customerRequests c";
 			
 			//Run the query against the database.
 			ResultSet result = stmt.executeQuery(str);
@@ -117,12 +70,31 @@ Customer Support Tickets:
 		}
 	%>
 
+	<br>	
+To respond to a request, please enter the request number.
+	<br>
+		<form method="post" action="requestResponse.jsp">
+			<table>
+				<tr>    
+				<td>Request Number:</td><td><input type="text" name="requestID"></td>
+				</tr>
 
-<form method="post" action="UserHomepage.jsp">
-
-	<input type="submit" value="Back">   
-</form>
+			</table>
+			<input type="submit" value="Respond">
+		</form>
 	
-	
+<table>
+<tr><td><form method = "get" action = "userEdit.jsp">
+	<input type="submit" value="Edit a User's Information">
+	</form></td>
+	<td><form method = "get" action = "userBidRemove.jsp">
+		<input type="submit" value="Remove a User's Bid">
+	</form></td>
+	<td><form method = "get" action = "userAuctionRemove.jsp">
+	<input type="submit" value="Remove a User's Auction">
+	</form></td>
+</tr>
+</table>
+<br>
 </body>
-</html>	
+</html>
