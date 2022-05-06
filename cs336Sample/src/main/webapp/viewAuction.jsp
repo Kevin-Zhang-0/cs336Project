@@ -116,7 +116,7 @@ try {
 			<br><br>
 			
 			<% 
-			str = "SELECT * FROM bid b WHERE b.auctionID = " + auctionID + " ORDER BY b.time DESC";
+			str = "SELECT * FROM bid b WHERE b.auctionID = " + auctionID + " ORDER BY b.price DESC";
 			//Run the query against the database.
 			result = stmt.executeQuery(str);
 			//out.print(str);
@@ -142,21 +142,6 @@ try {
 
 		<% }%>
 			</table>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 			
 			
 			<%

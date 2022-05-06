@@ -75,6 +75,14 @@
 			ps.setString(2, password);
 			ps.executeUpdate();
 			
+			String insertEndUser = "INSERT INTO endUser(user)"
+					+ "VALUES (?)";
+			PreparedStatement ps2 = con.prepareStatement(insertEndUser);
+			ps2.setString(1, username);
+			ps2.executeUpdate();
+			
+			
+			
 			session.setAttribute("username", null);
 			
 

@@ -40,14 +40,14 @@
 		ps.executeUpdate();
 		
 		PreparedStatement is = con.prepareStatement(update_currentprice);
-		String insert_bid = "INSERT INTO bid(user, AuctionID, price,time) " + "VALUES (?, ?,?,?)";
+		String insert_bid = "INSERT INTO bid(user, AuctionID, price,time) " + "VALUES (?, ?,?,now())";
 		//Create a Prepared SQL statement allowing you to introduce the parameters of the query
 		is = con.prepareStatement(insert_bid);
 		//out.print("here: " + (String)session.getAttribute("username"));
 		is.setString(1, (String)session.getAttribute("username"));
 		is.setInt(2, curr_AuctionID);
 		is.setFloat(3,bid_amt);
-		is.setDate(4, java.sql.Date.valueOf(java.time.LocalDate.now()));
+		//is.setDate(4, java.sql.Date.valueOf(java.time.LocalDate.now()));
 		is.executeUpdate();
 
 		//Close the connection. Don't forget to do it, otherwise you're keeping the resources of the server allocated.
