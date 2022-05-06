@@ -13,7 +13,7 @@ public class ApplicationDB {
 	public Connection getConnection(){
 		
 		//Create a connection string
-		String connectionUrl = "jdbc:mysql://localhost:3306/336ProjectSQL?useSSL=false";
+		String connectionUrl = "jdbc:mysql://localhost:3306/336ProjectSQL?useSSL=false&allowPublicKeyRetrieval=true";
 		Connection connection = null;
 		
 		try {
