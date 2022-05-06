@@ -58,7 +58,7 @@
 		
 		con.close();
 		%>
-		<jsp:forward page="viewAuction.jsp">
+		<jsp:forward page="bidDecisionLogic.jsp">
 	    	<jsp:param name="auctionID" value="<%=curr_AuctionID%>"/>
 		</jsp:forward>
 		<% 

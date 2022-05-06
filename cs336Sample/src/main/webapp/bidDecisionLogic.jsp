@@ -90,6 +90,62 @@
 			
 			
 		}
+		if(count == 2){
+			HashMap<String, String> u1 = new HashMap<String, String>();
+			u1.put("creator", result.getString("creator"));
+			u1.put("upperLimit", result.getString("upperLimit"));
+			u1.put("AuctionID", result.getString("AuctionID"));
+			result.next();
+			
+			HashMap<String, String> u2 = new HashMap<String, String>();
+			u2.put("creator", result.getString("creator"));
+			u2.put("upperLimit", result.getString("upperLimit"));
+			u2.put("AuctionID", result.getString("AuctionID"));
+			
+			String winner_creator = "";
+			String winner_upperLimit = "";
+			
+			String loser_creator = "";
+			String loser_upperLimit = "";
+			if(Float.parseFloat(u1.get("upperLimit")) > Float.parseFloat(u2.get("upperLimit"))){
+				winner_creator = u1.get("creator");
+				winner_upperLimit = u1.get("upperLimit");
+				
+				loser_creator = u2.get("creator");
+				loser_upperLimit = u2.get("upperLimit");
+				
+			}
+			else{
+				winner_creator = u2.get("creator");
+				winner_upperLimit = u2.get("upperLimit");
+				
+				loser_creator = u1.get("creator");
+				loser_upperLimit = u1.get("upperLimit");
+			}
+			String update_currentprice = "UPDATE auction SET CurrentPrice = " + Double.toString(Float.parseFloat(loser_upperLimit) +.01) + ", highest_bidder = \""+ winner_creator  + "\" WHERE AuctionID =" + Integer.toString(curr_AuctionID) + ";";
+			
+			String insert_bid = "INSERT INTO bid(user, AuctionID, price,time) " + "VALUES (?, ?,?,?)";
+			//losing bid
+			PreparedStatement is = con.prepareStatement(insert_bid);
+			
+			is.setString(1, loser_creator);
+			is.setInt(2, curr_AuctionID);
+			is.setFloat(3,Float.parseFloat(loser_upperLimit));
+			is.setDate(4, java.sql.Date.valueOf(java.time.LocalDate.now()));
+			is.executeUpdate();
+			
+			//winning bid
+			is = con.prepareStatement(insert_bid);
+			
+			is.setString(1, winner_creator);
+			is.setInt(2, curr_AuctionID);
+			is.setFloat(3,(float)(Float.parseFloat(loser_upperLimit) + .01));
+			is.setDate(4, java.sql.Date.valueOf(java.time.LocalDate.now()));
+			is.executeUpdate();
+			
+			
+			
+		}
 		//Close the connection. Don't forget to do it, otherwise you're keeping the resources of the server allocated.
 		
 		//CHECK FOR AUTO BIDS HERE
