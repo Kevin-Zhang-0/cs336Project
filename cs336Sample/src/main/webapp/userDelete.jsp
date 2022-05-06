@@ -8,12 +8,12 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Welcome, Customer Rep</title>
+<title>Edit a User's Info</title>
 </head>
 <body>
 	<%--may add current customer rep list--%>
 	
-	Requests:
+	Users:
 	
 	<br>
 	<br>
@@ -33,7 +33,7 @@
 			//String entity = request.getParameter("price");
 			
 			//Make a SELECT query from the sells table with the price range specified by the 'price' parameter at the index.jsp
-			String str = "SELECT * FROM customerRequests c";
+			String str = "SELECT * FROM endUser e";
 			
 			//Run the query against the database.
 			ResultSet result = stmt.executeQuery(str);
@@ -41,21 +41,13 @@
 	
 			<table>
 				<tr>
-					<td>requestID</td>
-					<td>Username</td>
-					<td>Request</td>
-					<td>Response</td>
-					<td>Status</td>
+					<td>user</td>
 				</tr>
 
 
 		<%  while (result.next()) { %>
 				<tr>
-					<td> <%= result.getInt("requestID")%></td>
 					<td> <%= result.getString("user")%></td>
-					<td> <%= result.getString("request")%></td>
-					<td> <%= result.getString("reply")%></td>
-					<td> <%= result.getString("status")%></td>
 				</tr>
 
 		<% }%>
@@ -71,32 +63,19 @@
 	%>
 
 	<br>	
-To respond to a request, please enter the request number.
+To delete an account, please enter their username.
 	<br>
-		<form method="post" action="requestResponse.jsp">
+		<form method="post" action="userDeleteLogic.jsp">
 			<table>
 				<tr>    
-				<td>Request Number:</td><td><input type="text" name="requestID"></td>
+				<td>Username:</td><td><input type="text" name="deleteUser"></td>
 				</tr>
 
 			</table>
-			<input type="submit" value="Respond">
+			<input type="submit" value="Confirm">
 		</form>
-	
-<table>
-<tr><td><form method = "get" action = "userDelete.jsp">
-	<input type="submit" value="Delete a User">
-	</form></td>
-	<td><form method = "get" action = "userBidRemove.jsp">
-		<input type="submit" value="Remove a User's Bid">
-	</form></td>
-	<td><form method = "get" action = "userAuctionRemove.jsp">
-	<input type="submit" value="Remove a User's Auction">
-	</form></td>
-</tr>
-</table>
-<br>
-<form method="post" action="loginPage.jsp">
+	<br>
+	<form method="post" action="customerRepHomepage.jsp">
 				
 		<input type="submit" value="Back">   
 	</form>

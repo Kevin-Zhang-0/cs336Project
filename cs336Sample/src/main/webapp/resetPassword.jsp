@@ -5,13 +5,9 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Reset Your Password</title>
 </head>
 <body>
-
-	Reset Password
-	
-	<br>
 	<br>
 	
 	Enter New Password:
