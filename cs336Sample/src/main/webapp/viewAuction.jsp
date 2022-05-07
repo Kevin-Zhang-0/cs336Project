@@ -22,7 +22,10 @@ try {
 			
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
-			
+			Statement shirtStmt = con.createStatement();
+			Statement pantsStmt = con.createStatement();
+			Statement shoeStmt = con.createStatement();
+
 			//Get the combobox from the index.jsp
 			String auctionID = request.getParameter("auctionID");
 			session.setAttribute("currAuctionID", auctionID);
@@ -31,12 +34,49 @@ try {
 			
 			//Run the query against the database.
 			ResultSet result = stmt.executeQuery(str);
-			//out.print(str);
+			
+			String isShirtQuery = "SELECT * FROM auction a, shirt s WHERE a.itemID = s.itemID AND a.AuctionID = " + auctionID;
+			ResultSet shirtResult = shirtStmt.executeQuery(isShirtQuery);
+			String type = "";
+			if(shirtResult.next()){
+				type = "shirt";
+			}
+			else{
+				String isPantsQuery = "SELECT * FROM auction a, pants p WHERE a.itemID = p.itemID AND a.AuctionID = " + auctionID;
+				ResultSet pantsResult = pantsStmt.executeQuery(isPantsQuery);
+				
+				if(pantsResult.next()){
+					type = "shirt";
+				}
+				else{
+					String isShoeQuery = "SELECT * FROM auction a, shoe s WHERE a.itemID = s.itemID AND a.AuctionID = " + auctionID;
+					ResultSet shoeResult = shoeStmt.executeQuery(isShoeQuery);
+					if(shoeResult.next()){
+						type = "shoe";
+					}
+					else{
+						type = "error";
+					}
+					
+				}
+			}
+			
+			
+			
+			
+			
+			//out.println(shirtResult.next());
+			
+			
+			
 	%>
 			<form method="get" action="UserHomepage.jsp">	
 					
 				<input type="submit" value="Back to Homepage">
 			</form>
+
+
+			<br>
 
 		<%  if (result.next()) { %>
 
@@ -55,11 +95,7 @@ try {
 					
 				</tr>
 				
-				<tr>
-					<td>ItemName</td>
-					<td> <%= result.getString("name")%></td>
-					
-				</tr>
+
 				
 				<tr>
 					<td>Starting Price</td>
@@ -70,6 +106,116 @@ try {
 				
 			</table>
 			<br>
+			
+		    <%
+		    if(type.equals("shirt")){%>
+			<table>
+				
+				
+				<tr>
+					<td>Clothing Type</td>
+					<td>Shirt</td>
+					
+				</tr>
+				
+				<tr>
+					<td>Item Name</td>
+					<td> <%= result.getString("name")%></td>
+					
+				</tr>
+				<tr>
+					<td>Shirt Size</td>
+					<td> <%= shirtResult.getString("size")%></td>
+					
+				</tr>
+				
+				
+			</table>
+		    	
+		    	
+			<%}
+		    else if(type.equals("pants")){%>
+			<table>
+			
+			
+			<tr>
+				<td>Clothing Type</td>
+				<td>Pants</td>
+				
+			</tr>
+			
+			<tr>
+				<td>Item Name</td>
+				<td> <%= result.getString("name")%></td>
+				
+			</tr>
+			<tr>
+				<td>Waist Width</td>
+				<td> <%= shirtResult.getString("WaistWidth")%></td>
+				
+			</tr>
+			<tr>
+				<td>Pants Length</td>
+				<td> <%= shirtResult.getString("LegLength")%></td>
+				
+			</tr>
+			
+			<tr>
+				<td>Pants Size</td>
+				<td> <%= shirtResult.getString("WaistWidth")%> / <%= shirtResult.getString("LegLength")%></td>
+				
+			</tr>
+			
+			
+		</table>
+	    	
+	    	
+		<%
+
+		    	
+		    	
+		    	
+		    	
+		    	
+		    }
+		    else if(type.equals("shoe")){%>
+			<table>
+			
+			
+			<tr>
+				<td>Clothing Type</td>
+				<td>Shoe</td>
+				
+			</tr>
+			
+			<tr>
+				<td>Item Name</td>
+				<td> <%= result.getString("name")%></td>
+				
+			</tr>
+			<tr>
+				<td>Shirt Size</td>
+				<td> <%= shirtResult.getString("size")%></td>
+				
+			</tr>
+			
+			
+		</table>
+	    	
+
+			<br>
+			
+			
+			<%}
+		    else{
+		    	
+		    	%>Clothing Type Error!<% 
+		    }
+		    //out.println(5);
+			%>
+			
+			<br>
+			
 			<table>
 				<tr>
 					<td>Close Date and Time: </td>
