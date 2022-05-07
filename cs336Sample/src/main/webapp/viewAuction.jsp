@@ -33,33 +33,56 @@ try {
 			ResultSet result = stmt.executeQuery(str);
 			//out.print(str);
 	%>
-			
+		<%  if (result.next()) { %>
+
 			<table>
+				
+				
 				<tr>
 					<td>Auction Number</td>
-					<td>ItemName</td>
-					<td>ItemID</td>
-					<td>Current Price</td>
-					<td>Initial Price</td>
-					<td>Increment</td>
-					<td>Close Date/Time</td>
-				</tr>
-
-
-		<%  if (result.next()) { %>
-				<tr>
 					<td> <%= result.getString("AuctionID")%></td>
-					<td> <%= result.getString("name")%></td>
-					<td> <%= result.getString("itemID")%></td>
-					<td> <%= result.getString("currentPrice")%></td>
-					<td> <%= result.getString("InitialPrice")%></td>
-					<td> <%= result.getString("increment")%></td>
-					<td> <%= result.getString("CloseDate")%></td>
+					
 				</tr>
-
-		<% }%>
+				
+				<tr>
+					<td>ItemName</td>
+					<td> <%= result.getString("name")%></td>
+					
+				</tr>
+				
+				<tr>
+					<td>Starting Price</td>
+					<td> <%= result.getString("InitialPrice")%></td>
+					
+				</tr>
+				
+				
+			</table>
+			<br>
+			<br>
+			<table>
+				<tr>
+					<td>Close Date/Time: </td>
+					<td> <%= result.getString("CloseDate")%></td>	
+				</tr>
+				<tr>
+					<td>Current Price</td>
+					<td><%= result.getString("currentPrice")%></td>
+					
+				</tr>
+				<tr>
+					<td>Minimum Increment</td>
+					<td> <%= result.getString("increment")%></td>
+					
+				</tr>
 			</table>
 			
+		<% }
+			else{
+				%>No bids yet, Be the first!<% 
+			}
+			
+		%>	
 			<br><br>
 			
 		<% 
