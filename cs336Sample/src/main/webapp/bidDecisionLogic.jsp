@@ -41,7 +41,7 @@
 
 		
 		
-		String select_auto_bids_count = "SELECT count(*) from autobid where upperLimit >= " + Float.toString(curr_price + curr_increment);
+		String select_auto_bids_count = "SELECT count(*) from autobid where upperLimit >= " + Float.toString(curr_price + curr_increment) + " and AuctionID = " + Integer.toString(curr_AuctionID);
 		
 		PreparedStatement ps = con.prepareStatement(select_auto_bids_count);
 		result = stmt.executeQuery(select_auto_bids_count);
@@ -51,7 +51,7 @@
 		
 		
 		
-		String select_auto_bids = "SELECT * from autobid where upperLimit >=" + Float.toString(curr_price + curr_increment);
+		String select_auto_bids = "SELECT * from autobid where upperLimit >=" + Float.toString(curr_price + curr_increment)+ " and AuctionID = " + Integer.toString(curr_AuctionID);
 		
 		ps = con.prepareStatement(select_auto_bids);
 		result = stmt.executeQuery(select_auto_bids);
