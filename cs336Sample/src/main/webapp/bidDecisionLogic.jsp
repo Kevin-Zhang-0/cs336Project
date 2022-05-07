@@ -31,14 +31,14 @@
 		ResultSet result = stmt.executeQuery(get_curr_price);
 		result.next();
 		float curr_price = result.getFloat(1);
-		out.print(get_curr_price);
+
 		
 		
 		String get_curr_increment = "SELECT increment from auction where AuctionID = " + Integer.toString(curr_AuctionID);
 		result = stmt.executeQuery(get_curr_increment);
 		result.next();
 		float curr_increment = result.getFloat(1);
-		out.print(get_curr_increment);
+
 		
 		
 		String select_auto_bids_count = "SELECT count(*) from autobid where upperLimit >= " + Float.toString(curr_price + curr_increment);
@@ -47,7 +47,6 @@
 		result = stmt.executeQuery(select_auto_bids_count);
 		result.next();
 		int count = result.getInt(1);
-		out.print(select_auto_bids_count);
 		
 		
 		
@@ -61,20 +60,17 @@
 		
 		
 		
-		
-
-		
-		if(count ==1){
-			String insert_bid = "INSERT INTO bid(user, AuctionID, price,time) " + "VALUES (?, ?,?,?)";
+		if(count == 1){ // When theres one auto bid
+			String insert_bid = "INSERT INTO bid(user, AuctionID, price,time) " + "VALUES (?, ?,?,now())";
 			PreparedStatement is = con.prepareStatement(insert_bid);
 			//Create a Prepared SQL statement allowing you to introduce the parameters of the query
 			
-			out.print(is.toString());
+			//out.print(is.toString());
 			//out.print("here: " + (String)session.getAttribute("username"));
 			is.setString(1, (String)result.getString("creator"));                              
 			is.setInt(2, curr_AuctionID);
 			is.setFloat(3,curr_price + curr_increment);
-			is.setDate(4, java.sql.Date.valueOf(java.time.LocalDate.now()));
+			//is.setDate(4, java.sql.Date.valueOf(java.time.LocalDate.now()));
 			is.executeUpdate();
 			
 			String update_currentprice = "UPDATE auction SET CurrentPrice = " + Float.toString(curr_price + curr_increment) + ", highest_bidder = \""+ (String)result.getString("creator")  + "\" WHERE AuctionID =" + Integer.toString(curr_AuctionID) + ";";
@@ -122,16 +118,18 @@
 				loser_creator = u1.get("creator");
 				loser_upperLimit = u1.get("upperLimit");
 			}
-			String update_currentprice = "UPDATE auction SET CurrentPrice = " + Double.toString(Float.parseFloat(loser_upperLimit) +.01) + ", highest_bidder = \""+ winner_creator  + "\" WHERE AuctionID =" + Integer.toString(curr_AuctionID) + ";";
+			String update_currentprice = "UPDATE auction SET CurrentPrice = " + Double.toString(Float.parseFloat(loser_upperLimit) + curr_increment) + ", highest_bidder = \""+ winner_creator  + "\" WHERE AuctionID =" + Integer.toString(curr_AuctionID) + ";";
+			ps = con.prepareStatement(update_currentprice);
+			ps.executeUpdate();
 			
-			String insert_bid = "INSERT INTO bid(user, AuctionID, price,time) " + "VALUES (?, ?,?,?)";
+			String insert_bid = "INSERT INTO bid(user, AuctionID, price,time) " + "VALUES (?, ?,?,now())";
 			//losing bid
 			PreparedStatement is = con.prepareStatement(insert_bid);
 			
 			is.setString(1, loser_creator);
 			is.setInt(2, curr_AuctionID);
 			is.setFloat(3,Float.parseFloat(loser_upperLimit));
-			is.setDate(4, java.sql.Date.valueOf(java.time.LocalDate.now()));
+			//is.setDate(4, java.sql.Date.valueOf(java.time.LocalDate.now()));
 			is.executeUpdate();
 			
 			//winning bid
@@ -139,8 +137,8 @@
 			
 			is.setString(1, winner_creator);
 			is.setInt(2, curr_AuctionID);
-			is.setFloat(3,(float)(Float.parseFloat(loser_upperLimit) + .01));
-			is.setDate(4, java.sql.Date.valueOf(java.time.LocalDate.now()));
+			is.setFloat(3,(float)(Float.parseFloat(loser_upperLimit) + curr_increment));
+			//is.setDate(4, java.sql.Date.valueOf(java.time.LocalDate.now()));
 			is.executeUpdate();
 			
 			
@@ -149,6 +147,25 @@
 		//Close the connection. Don't forget to do it, otherwise you're keeping the resources of the server allocated.
 		
 		//CHECK FOR AUTO BIDS HERE
+		
+		
+		// DELETE AUTO BIDS THAT ARE LOWER THAN CURRENT PRICE + INCREMENT
+		
+		
+		String newCurrentPrice = "SELECT CurrentPrice from auction where AuctionID = " + Integer.toString(curr_AuctionID);
+		
+		result = stmt.executeQuery(newCurrentPrice);
+		result.next();
+		float new_price = result.getFloat(1);
+		//out.print(newCurrentPrice);
+		
+		String delete_auto_bids = "DELETE FROM autobid a WHERE a.AuctionID = " + curr_AuctionID + " AND upperLimit <" + Float.toString(new_price + curr_increment);
+			
+			//Create a Prepared SQL statement allowing you to introduce the parameters of the query
+			
+		ps = con.prepareStatement(delete_auto_bids);
+		ps.executeUpdate();
+		
 		
 		
 		

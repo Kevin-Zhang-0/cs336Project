@@ -54,6 +54,13 @@
 		
 		//CHECK FOR AUTO BIDS HERE
 		
+		//
+		
+		//p1 inserts an autobid of $70 
+		
+		//p2 regular bids $100
+		
+		//p1 autobid should be deleted
 		
 		
 		con.close();

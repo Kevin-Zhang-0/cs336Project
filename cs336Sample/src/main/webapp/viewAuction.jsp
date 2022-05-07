@@ -33,15 +33,13 @@ try {
 			ResultSet result = stmt.executeQuery(str);
 			//out.print(str);
 	%>
-<<<<<<< HEAD
 			<form method="get" action="UserHomepage.jsp">	
 					
 				<input type="submit" value="Back to Homepage">
 			</form>
-=======
+
 		<%  if (result.next()) { %>
 
->>>>>>> 913be03be7eb3939d51e3764f7b5828374e51920
 			<table>
 				
 				

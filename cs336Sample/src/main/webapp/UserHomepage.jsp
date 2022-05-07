@@ -63,7 +63,7 @@ To view an auction, enter the auctionID number.
 		<form method="post" action="viewAuction.jsp">
 			<table>
 				<tr>    
-					<td>Auction Number:</td><td><input type="text" name="auctionID"></td>
+					<td>Auction Number:</td><td><input type="text" name="auctionID" required></td>
 				</tr>
 
 			</table>
