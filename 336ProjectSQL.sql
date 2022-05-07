@@ -148,10 +148,10 @@ create table `setAlert`(
 
  DROP TABLE IF EXISTS `customerRequests`;
  create table `customerRequests`(
-	`user` varchar(50),
+	`requestID` int auto_increment primary key,
+    `user` varchar(50),
     `request` varchar(500),
     `reply` varchar(500),
     `status` varchar(7),
-    primary key(user, request),
     foreign key(user) references credentials(user)
  );
