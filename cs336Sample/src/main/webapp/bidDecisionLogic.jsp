@@ -159,7 +159,7 @@
 		float new_price = result.getFloat(1);
 		//out.print(newCurrentPrice);
 		
-		String delete_auto_bids = "DELETE FROM autobid a WHERE a.AuctionID = " + curr_AuctionID + " AND upperLimit <" + Float.toString(new_price + curr_increment);
+		String delete_auto_bids = "DELETE FROM autobid a WHERE a.AuctionID = " + curr_AuctionID + " AND a.upperLimit <" + Float.toString(new_price + curr_increment);
 			
 			//Create a Prepared SQL statement allowing you to introduce the parameters of the query
 			

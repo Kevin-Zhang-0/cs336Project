@@ -126,8 +126,26 @@ try {
 				<% 
 			}
 			else if(session.getAttribute("username").equals(result.getString("highest_bidder"))){
+				String strauto = "SELECT * FROM autobid a WHERE a.AuctionID = " + auctionID +" and a.creator = \""+ session.getAttribute("username") + "\"";
+				float currentautobid = 0;
+				//Run the query against the database.
+				result = stmt.executeQuery(strauto);
+				if(result.next()){
+					currentautobid = result.getFloat("upperLimit");
+				}
+				
+				
 				%>
 				You are currently winning this auction.
+				
+				<form method="post" action="winnerAutoBid.jsp">
+			    
+					<td>Create or Update Automatic Bid: </td><td><input type="number" step="0.01" name="bidAMT" size = "10" min = "<%=minimum_bid%>" value = "<%=currentautobid%>" required ></td>
+					<input type="submit" value="Send">
+			
+				</form>
+				
+						
 				
 				<% 
 			}
@@ -227,6 +245,7 @@ try {
 			con.close();
 
 		} catch (Exception e) {
+			out.print(e);
 			out.print("Error");
 		} %>
 
