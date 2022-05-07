@@ -45,6 +45,12 @@ try {
 				</tr>
 				
 				<tr>
+					<td>Auction Creator</td>
+					<td> <%= result.getString("user")%></td>
+					
+				</tr>
+				
+				<tr>
 					<td>ItemName</td>
 					<td> <%= result.getString("name")%></td>
 					
@@ -59,10 +65,9 @@ try {
 				
 			</table>
 			<br>
-			<br>
 			<table>
 				<tr>
-					<td>Close Date/Time: </td>
+					<td>Close Date and Time: </td>
 					<td> <%= result.getString("CloseDate")%></td>	
 				</tr>
 				<tr>
@@ -70,6 +75,19 @@ try {
 					<td><%= result.getString("currentPrice")%></td>
 					
 				</tr>
+				<tr>
+					<td>Current Highest Bidder</td>
+				<%
+				if(result.getString("highest_bidder") == null){	%>
+					<td>None</td>
+				<% 
+				}
+				else{%>
+					<td><%= result.getString("highest_bidder")%></td>
+				<% }%>
+				 
+				 
+				 </tr>
 				<tr>
 					<td>Minimum Increment</td>
 					<td> <%= result.getString("increment")%></td>
