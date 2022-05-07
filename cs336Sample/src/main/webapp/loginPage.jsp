@@ -11,7 +11,7 @@
 	</head>
 	
 	<body>
-		
+	<%session.setAttribute("username",null); %>	
 		  
 	
 	Please enter login credentials:

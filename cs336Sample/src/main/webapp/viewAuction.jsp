@@ -33,7 +33,10 @@ try {
 			ResultSet result = stmt.executeQuery(str);
 			//out.print(str);
 	%>
-			
+			<form method="get" action="UserHomepage.jsp">	
+					
+				<input type="submit" value="Back to Homepage">
+			</form>
 			<table>
 				<tr>
 					<td>Auction Number</td>
@@ -74,9 +77,40 @@ try {
 			LocalDateTime closeDateTime = LocalDateTime.parse(closeTime, formatter);
 			
 			//out.print("2");
+			if(result.getString("user").equals(session.getAttribute("username"))){
+				%>
+				This is your auction.
+				<% 
+			}
+			else if(session.getAttribute("username").equals(result.getString("highest_bidder"))){
+				%>
+				You are currently winning this auction.
+				
+				<% 
+			}
+				
+			
+			else if(currentTime.isBefore(closeDateTime)){ 
+				stmt = con.createStatement();
+				
+				//Get the combobox from the index.jsp
+				
+				session.setAttribute("currAuctionID", auctionID);
+				//Make a SELECT query from the sells table with the price range specified by the 'price' parameter at the index.jsp
+				String sstr = "SELECT * FROM autobid a WHERE a.creator = \""+ session.getAttribute("username") + "\" AND a.AuctionID = " + auctionID;
+				
+				//Run the query against the database.
+				ResultSet results = stmt.executeQuery(sstr);
+				
 			
 			
-			if(currentTime.isBefore(closeDateTime)){ %>
+			
+			
+			
+			
+			
+			
+			%>
 				Insert a Bid
 				<form method="post" action="bidLogic.jsp">
 			    
