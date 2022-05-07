@@ -33,36 +33,81 @@ try {
 			ResultSet result = stmt.executeQuery(str);
 			//out.print(str);
 	%>
+<<<<<<< HEAD
 			<form method="get" action="UserHomepage.jsp">	
 					
 				<input type="submit" value="Back to Homepage">
 			</form>
+=======
+		<%  if (result.next()) { %>
+
+>>>>>>> 913be03be7eb3939d51e3764f7b5828374e51920
 			<table>
+				
+				
 				<tr>
 					<td>Auction Number</td>
-					<td>ItemName</td>
-					<td>ItemID</td>
-					<td>Current Price</td>
-					<td>Initial Price</td>
-					<td>Increment</td>
-					<td>Close Date/Time</td>
-				</tr>
-
-
-		<%  if (result.next()) { %>
-				<tr>
 					<td> <%= result.getString("AuctionID")%></td>
-					<td> <%= result.getString("name")%></td>
-					<td> <%= result.getString("itemID")%></td>
-					<td> <%= result.getString("currentPrice")%></td>
-					<td> <%= result.getString("InitialPrice")%></td>
-					<td> <%= result.getString("increment")%></td>
-					<td> <%= result.getString("CloseDate")%></td>
+					
 				</tr>
-
-		<% }%>
+				
+				<tr>
+					<td>Auction Creator</td>
+					<td> <%= result.getString("user")%></td>
+					
+				</tr>
+				
+				<tr>
+					<td>ItemName</td>
+					<td> <%= result.getString("name")%></td>
+					
+				</tr>
+				
+				<tr>
+					<td>Starting Price</td>
+					<td> <%= result.getString("InitialPrice")%></td>
+					
+				</tr>
+				
+				
+			</table>
+			<br>
+			<table>
+				<tr>
+					<td>Close Date and Time: </td>
+					<td> <%= result.getString("CloseDate")%></td>	
+				</tr>
+				<tr>
+					<td>Current Price</td>
+					<td><%= result.getString("currentPrice")%></td>
+					
+				</tr>
+				<tr>
+					<td>Current Highest Bidder</td>
+				<%
+				if(result.getString("highest_bidder") == null){	%>
+					<td>None</td>
+				<% 
+				}
+				else{%>
+					<td><%= result.getString("highest_bidder")%></td>
+				<% }%>
+				 
+				 
+				 </tr>
+				<tr>
+					<td>Minimum Increment</td>
+					<td> <%= result.getString("increment")%></td>
+					
+				</tr>
 			</table>
 			
+		<% }
+			else{
+				%>No bids yet, Be the first!<% 
+			}
+			
+		%>	
 			<br><br>
 			
 		<% 
