@@ -19,6 +19,13 @@
 out.print("Current User: " + session.getAttribute("username"));
 %>
 
+<form method="get" action="UserHomepage.jsp">	
+		
+	<input type="submit" value="Back to Homepage">
+</form>
+
+
+
 <br>
 To view an auction, enter the auctionID number.
 	<br>

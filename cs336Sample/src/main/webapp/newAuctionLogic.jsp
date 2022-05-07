@@ -18,8 +18,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%
 
+	<% 
 	
 	try {
 		Map<String, String> errors = new HashMap<String, String>();

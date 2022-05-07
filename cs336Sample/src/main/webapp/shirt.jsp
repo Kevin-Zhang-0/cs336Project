@@ -10,6 +10,18 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+	<%
+
+	out.print("Current User: " + session.getAttribute("username"));
+	%>
+
+	<form method="get" action="UserHomepage.jsp">	
+			
+		<input type="submit" value="Back to Homepage">
+	</form>
+	<br>
+
 	<%
 	String i1= "";
 	String i2= "";
