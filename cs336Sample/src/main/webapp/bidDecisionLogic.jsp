@@ -41,7 +41,7 @@
 
 		
 		
-		String select_auto_bids_count = "SELECT count(*) from autobid where upperLimit >= " + Float.toString(curr_price + curr_increment);
+		String select_auto_bids_count = "SELECT count(*) from autobid where upperLimit >= " + Float.toString(curr_price + curr_increment) + " and AuctionID = " + Integer.toString(curr_AuctionID);
 		
 		PreparedStatement ps = con.prepareStatement(select_auto_bids_count);
 		result = stmt.executeQuery(select_auto_bids_count);
@@ -51,7 +51,7 @@
 		
 		
 		
-		String select_auto_bids = "SELECT * from autobid where upperLimit >=" + Float.toString(curr_price + curr_increment);
+		String select_auto_bids = "SELECT * from autobid where upperLimit >=" + Float.toString(curr_price + curr_increment)+ " and AuctionID = " + Integer.toString(curr_AuctionID);
 		
 		ps = con.prepareStatement(select_auto_bids);
 		result = stmt.executeQuery(select_auto_bids);
@@ -159,7 +159,7 @@
 		float new_price = result.getFloat(1);
 		//out.print(newCurrentPrice);
 		
-		String delete_auto_bids = "DELETE FROM autobid a WHERE a.AuctionID = " + curr_AuctionID + " AND upperLimit <" + Float.toString(new_price + curr_increment);
+		String delete_auto_bids = "DELETE FROM autobid a WHERE a.AuctionID = " + curr_AuctionID + " AND a.upperLimit <" + Float.toString(new_price + curr_increment);
 			
 			//Create a Prepared SQL statement allowing you to introduce the parameters of the query
 			
