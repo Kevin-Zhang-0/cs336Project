@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
 <!--Import some libraries that have classes that we need -->
-<%@ page import="java.io.*,java.util.*,java.sql.*"%>
+<%@ page import="java.io.*,java.util.*,java.sql.*, java.time.LocalDateTime, java.time.format.DateTimeFormatter"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -41,6 +41,9 @@
 		i7 = (String) session.getAttribute("shirt_closing_date");
 	}
 	
+	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm");
+	String time = LocalDateTime.now().format(formatter);
+	out.print(time);
 	%>
 	<br>
 		<form method="post" action="newAuctionLogic.jsp">
@@ -81,7 +84,7 @@
 					<td>Bid Increments:</td><td><input type="number" step="0.01" name="shirt_bid_increments" required></td>
 				</tr>
 				<tr>
-					<td>Closing Date(YYYY.MM.DD):</td><td><input type="text" name="shirt_closing_date" required></td>
+					<td>Closing Date:</td><td><input type="datetime-local" name="shirt_closing_date" min="<%=time%>" required></td>
 				</tr>
 				
 				
