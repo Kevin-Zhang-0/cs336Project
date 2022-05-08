@@ -16,8 +16,8 @@
 		Shirt Name : <input type = "text" name = 'name' required>
 		
 		Sex : <select name="sex" size=1>
-			<option value="male">M</option>
-			<option value="female">F</option>
+			<option value="M">M</option>
+			<option value="F">F</option>
 		</select>
 		Size : <select name="size" size=1>
 			<option value="small">Small</option>

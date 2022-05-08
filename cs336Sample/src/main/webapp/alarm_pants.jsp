@@ -17,7 +17,16 @@
 			<option value="male">M</option>
 			<option value="female">F</option>
 		</select>
-		Size : <select name="size" size=1>
+		Waist Width (inch) : <select name="size" size=1>
+			<%
+			for(int i = 20; i < 50; i++){
+				%>
+				<option value ="<%=i%>"><%=i%></option>
+				<%
+			}
+			%>
+		</select>
+		Leg Length (inch) : <select name="size" size=1>
 			<%
 			for(int i = 20; i < 50; i++){
 				%>

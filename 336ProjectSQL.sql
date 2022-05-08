@@ -143,7 +143,7 @@ create table `setAlert`(
 	`user` varchar(50),
     `itemName` varchar(50),
     `sex` varchar(1),
-    `called` varchar(1),
+    `called` boolean default false,
     foreign key(user) references endUser(user)
 );
 
