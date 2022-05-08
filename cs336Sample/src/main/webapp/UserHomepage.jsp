@@ -160,6 +160,33 @@ Search For An Type of Item
 	%>
  
  	<br>
+ 	<br>
+ 	
+	Want to create alarm for us to notify you? Choose the type of cloth you want to make alarm for
+	<br>
+	
+	<table>
+	<tr>
+		<td>	
+			<form method="get" action="alarm_shirt.jsp">		
+				<input type="submit" value="Shirt">
+			</form> 
+		</td>
+		<td>
+			<form method="get" action="alarm_pants.jsp">		
+				<input type="submit" value="Pants">
+			</form> 
+		</td>
+		<td> 
+			<form method="get" action="alarm_shoes.jsp">	
+				<input type="submit" value="Shoes">
+			</form>
+		</td>
+	</tr>
+	
+	</table>
+	<br>
+	
  
 	<td> 
 			<form method="get" action="customerRepContact.jsp">	
