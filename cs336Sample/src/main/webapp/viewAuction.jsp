@@ -54,6 +54,7 @@ try {
 			ResultSet result = stmt.executeQuery(str);
 			
 			
+			
 			if (result.next()) { 
 			
 			
@@ -83,7 +84,7 @@ try {
 				}
 			}
 			
-			
+			String sex = result.getString("sex");
 	%>
 
 			<table>
@@ -127,6 +128,11 @@ try {
 				<tr>
 					<td>Item Name</td>
 					<td> <%= result.getString("name")%></td>
+					
+				</tr>
+				<tr>
+					<td>Sex</td>
+					<td> <%= result.getString("sex")%></td>
 					
 				</tr>
 				<tr>
@@ -379,7 +385,28 @@ try {
 			</table>
 			
 			
-		<% }
+		<br><br><br><br>	
+			View similar items? (Items of same type and sex)
+			
+			
+			<br><br>
+			Clothing Type: <%= type%>
+			<br>
+			Sex: <%= sex%>
+			<br><br>
+			
+			<form method="post" action="searchSimilarAuctions.jsp">
+			
+				<input type="hidden" name="type" value="<%=type%>">
+				<input type="hidden" name="sex" value="<%=sex%>">
+				<input type="submit" value="View">
+			</form>
+			
+			
+			
+			
+	<% }
+			
 			
 			
 			
