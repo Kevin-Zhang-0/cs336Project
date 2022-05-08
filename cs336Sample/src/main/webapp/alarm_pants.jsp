@@ -14,10 +14,10 @@
 		Pants Name : <input type = "text" name = 'name' required>
 		
 		Sex : <select name="sex" size=1>
-			<option value="male">M</option>
-			<option value="female">F</option>
+			<option value="M">M</option>
+			<option value="F">F</option>
 		</select>
-		Waist Width (inch) : <select name="size" size=1>
+		Waist Width (inch) : <select name="waistWidth" size=1>
 			<%
 			for(int i = 20; i < 50; i++){
 				%>
@@ -26,7 +26,7 @@
 			}
 			%>
 		</select>
-		Leg Length (inch) : <select name="size" size=1>
+		Leg Length (inch) : <select name="legLength" size=1>
 			<%
 			for(int i = 20; i < 50; i++){
 				%>

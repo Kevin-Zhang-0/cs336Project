@@ -18,11 +18,186 @@ out.print("Current User: " + session.getAttribute("username"));
 					
 			<input type="submit" value="Logout">
 		</form>
+
+
+<br>
+<br>
+New clothes alerts :	
+<%
+	try {
+	
+		//Get the database connection
+		ApplicationDB db = new ApplicationDB();	
+		Connection con = db.getConnection();	
+		
+		//Create a SQL statement
+		Statement stmt = con.createStatement();
+		
+		//Get the combobox from the index.jsp
+		
+		//Make a SELECT query from the sells table with the price range specified by the 'price' parameter at the index.jsp
+		String curr_user = (String)session.getAttribute("username");
+		String selectAlerts = "select s.AuctionID, s.itemName, s.sex, ss.size from setalert s join setalert_shirt ss using(alertID) where s.user = \"" +curr_user + "\" and s.called = true"  ;
+		ResultSet result = stmt.executeQuery(selectAlerts);
+		
+		if(result.next()){
+			%>
+			<table border = "1">
+				<tr>
+					<th>AuctionID </th>
+					<th>Item Name </th>
+					<th>Item Type </th>
+					<th>Sex </th>
+					<th>Size </th>
+				</tr>
+				<tr>
+					<td> <%= result.getString("AuctionID") %></td>
+					<td> <%= result.getString("itemName")%></td>
+					<td> <%= "Shirt"%></td>
+					<td> <%= result.getString("sex")%></td>
+					<td> <%= result.getString("size")%></td>
+				</tr>
+			<%
+			while(result.next()){ %>
+				<tr>
+					<td> <%= result.getString("AuctionID") %></td>
+					<td> <%= result.getString("itemName")%></td>
+					<td> <%= "Shirt"%></td>
+					<td> <%= result.getString("sex")%></td>
+					<td> <%= result.getString("size")%></td>
+				</tr> <%
+			}
+			%>
+			</table>
+			<%
+			
+		}
 		
 		
+	}catch(Exception e){
+		out.print(e);
+	}
+
+	try {
+	
+		//Get the database connection
+		ApplicationDB db = new ApplicationDB();	
+		Connection con = db.getConnection();	
+		
+		//Create a SQL statement
+		Statement stmt = con.createStatement();
+		
+		//Get the combobox from the index.jsp
+		
+		//Make a SELECT query from the sells table with the price range specified by the 'price' parameter at the index.jsp
+		String curr_user = (String)session.getAttribute("username");
+		String selectAlerts = "select s.AuctionID, s.itemName, s.sex, sp.WaistWidth, sp.LegLength from setalert s join setalert_pants sp using(alertID) where s.user = \"" +curr_user + "\" and s.called = true"  ;
+		ResultSet result = stmt.executeQuery(selectAlerts);
+		
+		if(result.next()){
+			%>
+			<br>
+			<table border = "1">
+				<tr>
+					<th>AuctionID </th>
+					<th>Item Name </th>
+					<th>Item Type </th>
+					<th>Waist Width </th>
+					<th>Leg Length </th>
+				</tr>
+				<tr>
+					<td> <%= result.getString("AuctionID") %></td>
+					<td> <%= result.getString("itemName")%></td>
+					<td> <%= "Pants"%></td>
+					<td> <%= result.getString("sex")%></td>
+					<td> <%= result.getString("WaistWidth")%></td>
+					<td> <%= result.getString("LegLength")%></td>
+				</tr>
+			<%
+			while(result.next()){ %>
+				<tr>
+					<td> <%= result.getString("AuctionID") %></td>
+					<td> <%= result.getString("itemName")%></td>
+					<td> <%= "Pants"%></td>
+					<td> <%= result.getString("WaistWidth")%></td>
+					<td> <%= result.getString("LegLength")%></td>
+				</tr> <%
+			}
+			%>
+			</table>
+			<%
+			
+		}
+	
+	
+	}catch(Exception e){
+		out.print(e);
+	}
+	
+	try {
+		
+		//Get the database connection
+		ApplicationDB db = new ApplicationDB();	
+		Connection con = db.getConnection();	
+		
+		//Create a SQL statement
+		Statement stmt = con.createStatement();
+		
+		//Get the combobox from the index.jsp
+		
+		//Make a SELECT query from the sells table with the price range specified by the 'price' parameter at the index.jsp
+		String curr_user = (String)session.getAttribute("username");
+		String selectAlerts = "select s.AuctionID, s.itemName, s.sex, ss.size from setalert s join setalert_shoes ss using(alertID) where s.user = \"" +curr_user + "\" and s.called = true"  ;
+		ResultSet result = stmt.executeQuery(selectAlerts);
+		
+		if(result.next()){
+			%>
+			<br>
+			<table border = "1">
+				<tr>
+					<th>AuctionID </th>
+					<th>Item Name </th>
+					<th>Item Type </th>
+					<th>Sex </th>
+					<th>Size </th>
+				</tr>
+				<tr>
+					<td> <%= result.getString("AuctionID") %></td>
+					<td> <%= result.getString("itemName")%></td>
+					<td> <%= "Shoes"%></td>
+					<td> <%= result.getString("sex")%></td>
+					<td> <%= result.getString("size")%></td>
+				</tr>
+			<%
+			while(result.next()){ %>
+				<tr>
+					<td> <%= result.getString("AuctionID") %></td>
+					<td> <%= result.getString("itemName")%></td>
+					<td> <%= "Shoes"%></td>
+					<td> <%= result.getString("sex")%></td>
+					<td> <%= result.getString("size")%></td>
+				</tr> <%
+			}
+			%>
+			</table>
+			<%
+			
+			
+		}
 		
 		
+	}catch(Exception e){
+		out.print(e);
+	}
+
+
+%>
+	<br>
+		<form method="post" action="dropAlerts.jsp">	
+			<input type="submit" value="Drop all new clothes alerts">
+	</form>		
 		
+<br>		
 <br>
 Alerts:
 <%		//display alerts
@@ -79,9 +254,6 @@ Alerts:
 			out.print("Error");
 		}
 	%>	
-	
-	
-	
 	
 <div class="auction-btn-group">
 <br>

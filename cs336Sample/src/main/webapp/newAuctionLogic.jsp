@@ -90,6 +90,26 @@
 				bs.setString(8,null);
 				bs.executeUpdate();
 				
+				String getIDq2 = "SELECT last_insert_id()";
+				ResultSet result2 = stmt.executeQuery(getIDq2);
+				result2.next();
+				int y = result2.getInt(1);
+				
+				//flagging any alerts
+				Statement stmt2 = con.createStatement();
+				String getAlert = "select s.alertID as id, s.user from setalert s, setalert_shirt ss where s.alertID = ss.alertID and s.itemName = \"" + new_shirt_name + "\" and s.sex = \"" + new_shirt_sex + "\" and ss.size = \"" + new_shirt_size + "\"";
+				ResultSet alertResult = stmt2.executeQuery(getAlert);
+				if(alertResult.next()){
+					String alertID = alertResult.getString("id");
+					String user = alertResult.getString("user");
+
+					String update = "update setalert set called = true, AuctionID = ? where alertID = ?";
+					PreparedStatement ps2 = con.prepareStatement(update);
+					ps2.setInt(1, y);
+					ps2.setInt(2,Integer.parseInt(alertID));
+					ps2.executeUpdate();
+				}
+				
 				//Close the connection. Don't forget to do it, otherwise you're keeping the resources of the server allocated.
 				con.close();
 			

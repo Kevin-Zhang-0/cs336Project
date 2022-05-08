@@ -25,7 +25,8 @@
 		String user = (String)session.getAttribute("username");
 		String name = request.getParameter("name");
 		String sex = request.getParameter("sex");
-		String size = request.getParameter("size");
+		String waistWidth = request.getParameter("waistWidth");
+		String legLength = request.getParameter("legLength");
 		
 		
 		String insert = "insert into setAlert(user, itemName, sex) values (?, ?, ?)";
@@ -41,10 +42,11 @@
 		if(result.next()){
 			String alertID = result.getString("id");
 			
-			String insert2 = "insert into setAlert_shirt values (?, ?)";
+			String insert2 = "insert into setAlert_pants values (?, ?, ?)";
 			PreparedStatement ps2 = con.prepareStatement(insert2);
 			ps2.setInt(1, Integer.parseInt(alertID));
-			ps2.setString(2, size);
+			ps2.setInt(2, Integer.parseInt(waistWidth));
+			ps2.setInt(3, Integer.parseInt(legLength));
 			ps2.execute();
 		}
 			

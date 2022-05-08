@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%
+<%
 	
 	try{
 
@@ -41,10 +41,10 @@
 		if(result.next()){
 			String alertID = result.getString("id");
 			
-			String insert2 = "insert into setAlert_shirt values (?, ?)";
+			String insert2 = "insert into setAlert_shoes values (?, ?)";
 			PreparedStatement ps2 = con.prepareStatement(insert2);
 			ps2.setInt(1, Integer.parseInt(alertID));
-			ps2.setString(2, size);
+			ps2.setInt(2, Integer.parseInt(size));
 			ps2.execute();
 		}
 			
@@ -60,6 +60,6 @@
 	}
 	
 	
-	%>
+%>
 </body>
 </html>

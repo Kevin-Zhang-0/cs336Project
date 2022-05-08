@@ -181,7 +181,7 @@
 				<th>Earning </th>
 			</tr>
 		<%
-		if(result.next()){ %>
+		while(result.next()){ %>
 			<tr>
 				<td> <%= result.getString("itemID") %></td>
 				<td> <%= result.getString("CurrentPrice")%></td>
@@ -208,7 +208,7 @@
 				<th>Total Earning </th>	
 			</tr>
 		<%
-		if(result.next()){ %>
+		while(result.next()){ %>
 			<tr>
 				<td> <%= result.getString("user") %></td>
 				<td> <%= result.getString("cp")%></td>
@@ -236,7 +236,7 @@
 				<th>Number of sells </th>	
 			</tr>
 		<%
-		if(result.next()){ %>
+		while(result.next()){ %>
 			<tr>
 				<td> <%= result.getString("name") %></td>
 				<td> <%= result.getString("c")%></td>
@@ -264,7 +264,7 @@
 				<th>Number of Purchase </th>	
 			</tr>
 		<%
-		if(result.next()){ %>
+		while(result.next()){ %>
 			<tr>
 				<td> <%= result.getString("highest_bidder") %></td>
 				<td> <%= result.getString("c")%></td>

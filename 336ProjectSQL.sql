@@ -167,7 +167,9 @@ create table `setAlert`(
     `itemName` varchar(50),
     `sex` varchar(1),
     `called` boolean default false,
-    foreign key(user) references endUser(user)
+    `AuctionID` int,
+    foreign key(user) references endUser(user),
+    foreign key(AuctionID) references auction(AuctionID)
 );
 
 DROP TABLE IF EXISTS `setAlert_shirt`;
@@ -189,7 +191,7 @@ create table `setAlert_pants`(
 DROP TABLE IF EXISTS `setAlert_shoes`;
 create table `setAlert_shoes`(
 	`alertID`int primary key,
-    `size` varchar(5),
+    `size` int,
     
     foreign key(alertID) references setAlert(alertID)
 );
