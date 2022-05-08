@@ -41,7 +41,8 @@ DROP TABLE IF EXISTS `clothing`;
 create table `clothing`(
 	`itemID` int auto_increment primary key,
     `name` varchar(50),
-    `sex` varchar(1)
+    `sex` varchar(1),
+    `type` ENUM('shirt','pants','shoe')
 );
 DROP TABLE IF EXISTS `shirt`;
 create table `shirt`(
@@ -58,7 +59,7 @@ create table `pants`(
 );
 DROP TABLE IF EXISTS `shoe`;
 create table `shoe`(
-	`itemID` int primary key,
+	`itemID` int	 primary key,
     foreign key (`itemID`) references clothing(`itemID`),
     `size` int
 );

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
-
-<%@ page import="java.io.*,java.util.*,java.sql.*"%>
+<%@ page import="java.io.*,java.util.*,java.sql.*, java.time.LocalDateTime, java.time.format.DateTimeFormatter"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
     
 <!DOCTYPE html>
@@ -134,20 +133,23 @@ To view an auction, enter the auctionID number.
 	<br>
 	
 	
-Search For An Type of Item
+Search For An Auction: 
 	<br>
 		<form method="post" action="searchAuctions.jsp">
-		
+			
 			<select name="type" size=1>
+				<option value="none">Type</option>
 				<option value="shirts">Shirts</option>
 				<option value="pants">Pants</option>
 				<option value="shoes">Shoes</option>
 			</select>
 			<select name="sex" size=1>
+				<option value="none">Sex</option>
 				<option value="male">M</option>
 				<option value="female">F</option>
 			</select>
 			<select name="ongoing" size=1>
+				<option value="none">Status</option>
 				<option value="ongoing">Ongoing</option>
 				<option value="finished">Finished</option>
 			</select>
@@ -161,11 +163,33 @@ Search For An Type of Item
 
 	<br>
 	
-	Current Auctions:
+	Sort Auctions by Criteria:
+	
+	<br>
+		<form method="post" action="UserHomepage.jsp">
+			
+			<select name="sortCriteria" size=1>
+				<option value="none">None</option>
+				<option value="type">Type</option>
+				<option value="sex">Sex</option>
+				<option value="price">Current Price</option>
+				<option value="closeDate">Close Date</option>
+			</select>
+			<select name="sortDirection" size=1>
+				<option value="ascending">Low To High</option>
+				<option value="descending">High To Low</option>
+			</select>
+
+			<br>
+			<input type="submit" value="Search">
+		</form>
+	<br>
 	
     <br>
+
+    
 	<%
-		
+
 
 		try {
 
@@ -182,6 +206,38 @@ Search For An Type of Item
 			//Make a SELECT query from the sells table with the price range specified by the 'price' parameter at the index.jsp
 			String str = "SELECT * FROM auction a, clothing c WHERE a.itemID = c.itemID";
 			
+			String sortCriteria = request.getParameter("sortCriteria");
+			//out.println("HERE1");
+			if(sortCriteria != null && !sortCriteria.equals("none")){
+				//out.println("HERE2");
+				if(sortCriteria.equals("type")){
+					
+					str += " ORDER BY type";
+				}
+				else if(sortCriteria.equals("sex")){
+					str += " ORDER BY sex";
+				}
+				else if(sortCriteria.equals("price")){
+					str += " ORDER BY CurrentPrice";
+				}
+				else if(sortCriteria.equals("closeDate")){
+					str += " ORDER BY CloseDate";
+				}
+				//out.println("HERE3");
+				String sortDirection = request.getParameter("sortDirection");
+				
+				if(sortDirection.equals("ascending")){
+					str += " ASC";
+				}
+				else{
+					str += " DESC";
+				}
+			}
+			//out.println(str);
+			
+			
+			
+			
 			//Run the query against the database.
 			ResultSet result = stmt.executeQuery(str);
 	%>
@@ -190,7 +246,8 @@ Search For An Type of Item
 				<tr>
 					<td>Auction Number</td>
 					<td>ItemName</td>
-					<td>ItemID</td>
+					<td>Item Type</td>
+					<td>Sex</td>
 					<td>Current Price</td>
 					<td>Initial Price</td>
 					<td>Increment</td>
@@ -202,7 +259,8 @@ Search For An Type of Item
 				<tr>
 					<td> <%= result.getString("AuctionID")%></td>
 					<td> <%= result.getString("name")%></td>
-					<td> <%= result.getString("itemID")%></td>
+					<td> <%= result.getString("type")%></td>
+					<td> <%= result.getString("sex")%></td>
 					<td> <%= result.getString("currentPrice")%></td>
 					<td> <%= result.getString("InitialPrice")%></td>
 					<td> <%= result.getString("increment")%></td>
