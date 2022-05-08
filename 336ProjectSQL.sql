@@ -77,6 +77,8 @@ create table `auction`(
     foreign key(`itemID`) references clothing(`itemID`)
 
 );
+
+
 -- adding tables from here on 
 
 DROP TABLE IF EXISTS `admin`;

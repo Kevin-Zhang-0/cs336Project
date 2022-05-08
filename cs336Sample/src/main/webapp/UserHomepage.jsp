@@ -57,70 +57,74 @@ Want to auction an item? Choose which type of clothing you have
 
 <br>
 
-To view an auction, enter the auctionID number.
-	<br>
-		<form method="post" action="viewAuction.jsp">
-			<table>
-				<tr>    
-					<td>Auction Number:</td><td><input type="text" name="auctionID" required></td>
-				</tr>
+<table>
+	<tr>
+		<td>
+		To view an auction, enter the auctionID number.
+				<form method="post" action="viewAuction.jsp">
+					<table>
+						<tr>    
+							<td>Auction Number:</td><td><input type="text" name="auctionID" required></td>
+						</tr>
+		
+					</table>
+					<input type="submit" value="View">
+				</form>
 
-			</table>
-			<input type="submit" value="View">
-		</form>
-	<br>
-	
-	
-Search For An Auction: 
-	<br>
-		<form method="post" action="searchAuctions.jsp">
+		</td>
+		<td>
 			
-			<select name="type" size=1>
-				<option value="none">Type</option>
-				<option value="shirts">Shirts</option>
-				<option value="pants">Pants</option>
-				<option value="shoes">Shoes</option>
-			</select>
-			<select name="sex" size=1>
-				<option value="none">Sex</option>
-				<option value="male">M</option>
-				<option value="female">F</option>
-			</select>
-			<select name="ongoing" size=1>
-				<option value="none">Status</option>
-				<option value="ongoing">Ongoing</option>
-				<option value="finished">Finished</option>
-			</select>
-			<br>
-			<input type="submit" value="Search">
-		</form>
-	<br>
-	
-	
-	
+		Search For An Auction: 
 
-	<br>
-	
-	Sort Auctions by Criteria:
-	
-	<br>
-		<form method="post" action="UserHomepage.jsp">
+				<form method="post" action="searchAuctions.jsp">
+					
+					<select name="type" size=1>
+						<option value="none">Type</option>
+						<option value="shirts">Shirts</option>
+						<option value="pants">Pants</option>
+						<option value="shoes">Shoes</option>
+					</select>
+					<select name="sex" size=1>
+						<option value="none">Sex</option>
+						<option value="male">M</option>
+						<option value="female">F</option>
+					</select>
+					<select name="ongoing" size=1>
+						<option value="none">Status</option>
+						<option value="ongoing">Ongoing</option>
+						<option value="finished">Finished</option>
+					</select>
+					<br>
+					<input type="submit" value="Search">
+				</form>
 			
-			<select name="sortCriteria" size=1>
-				<option value="none">None</option>
-				<option value="type">Type</option>
-				<option value="sex">Sex</option>
-				<option value="price">Current Price</option>
-				<option value="closeDate">Close Date</option>
-			</select>
-			<select name="sortDirection" size=1>
-				<option value="ascending">Low To High</option>
-				<option value="descending">High To Low</option>
-			</select>
-
-			<br>
-			<input type="submit" value="Search">
-		</form>
+		</td>
+		<td>
+			
+		
+			
+			Sort Auctions by Criteria:
+			
+		
+				<form method="post" action="UserHomepage.jsp">
+					
+					<select name="sortCriteria" size=1>
+						<option value="none">None</option>
+						<option value="type">Type</option>
+						<option value="sex">Sex</option>
+						<option value="price">Current Price</option>
+						<option value="closeDate">Close Date</option>
+					</select>
+					<select name="sortDirection" size=1>
+						<option value="ascending">Low To High</option>
+						<option value="descending">High To Low</option>
+					</select>
+		
+					<input type="submit" value="Sort">
+				</form>
+		</td>
+	</tr>
+</table>
 	<br>
 	
     <br>
@@ -219,6 +223,25 @@ Search For An Auction:
  
  	<br>
  	<br>
+ 	
+ 	
+ 	Search auctions a particular buyer has participated in
+ 	
+
+		<form method="post" action="searchUserAuctions.jsp">
+			<table>
+				<tr>    
+					<td>Enter Username: </td><td><input type="text" name="username" required></td>
+				</tr>
+
+			</table>
+			<input type="submit" value="View">
+		</form>
+ 	
+ 	
+ 	
+ 	<br><br>
+ 	
  	
 	Want to create alarm for us to notify you? Choose the type of cloth you want to make alarm for
 	<br>
