@@ -75,7 +75,7 @@ To view an auction, enter the auctionID number.
 			//out.print("here1");
 			
 			
-			query = "SELECT DISTINCT(a.AuctionID), a.InitialPrice, a.InitialPrice, a.CloseDate, a.increment, a.CurrentPrice, a.user, c.name, c.sex, c.type FROM auction a, bid b, clothing c WHERE b.auctionID = a.auctionID AND c.itemID = a.itemID AND b.user = \"" + username +"\"";
+			query = "SELECT DISTINCT(a.AuctionID), a.InitialPrice, a.InitialPrice, a.CloseDate, a.increment, a.CurrentPrice, a.user, c.name, c.sex, c.type FROM auction a, bid b, clothing c WHERE c.itemID = a.itemID AND (a.user = \"" + username +"\" OR (b.auctionID = a.auctionID AND b.user = \"" + username +"\"))";
 			//query = "SELECT * FROM auction a, bid b, clothing c WHERE b.user = \"" + username +"\"";
 
 			
