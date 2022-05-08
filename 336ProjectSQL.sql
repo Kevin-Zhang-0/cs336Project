@@ -140,11 +140,36 @@ create table `autobid`(
 
 DROP TABLE IF EXISTS `setAlert`;
 create table `setAlert`(
+	`alertID`int auto_increment primary key,
 	`user` varchar(50),
-    `itemID` int,
-    primary key (user, itemID),
-    foreign key(user) references endUser(user),
-    foreign key (itemID) references clothing(itemID)
+    `itemName` varchar(50),
+    `sex` varchar(1),
+    `called` varchar(1),
+    foreign key(user) references endUser(user)
+);
+
+DROP TABLE IF EXISTS `setAlert_shirt`;
+create table `setAlert_shirt`(
+	`alertID`int primary key,
+    `size` varchar(5),
+    
+    foreign key(alertID) references setAlert(alertID)
+);
+
+DROP TABLE IF EXISTS `setAlert_pants`;
+create table `setAlert_pants`(
+	`alertID`int primary key,
+    `WaistWidth` int,
+    `LegLength` int,
+    foreign key(alertID) references setAlert(alertID)
+);
+
+DROP TABLE IF EXISTS `setAlert_shoes`;
+create table `setAlert_shoes`(
+	`alertID`int primary key,
+    `size` varchar(5),
+    
+    foreign key(alertID) references setAlert(alertID)
 );
 
  DROP TABLE IF EXISTS `customerRequests`;
