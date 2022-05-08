@@ -18,10 +18,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%
 
+	<% 
 	
 	try {
+		
 		Map<String, String> errors = new HashMap<String, String>();
 		
 		
@@ -57,11 +58,12 @@
 				Statement stmt = con.createStatement();
 				
 		        //Make an insert statement for the Sells table:
-				String insert = "INSERT INTO clothing(name, sex) " + "VALUES (?, ?)";
+				String insert = "INSERT INTO clothing(name, sex, type) " + "VALUES (?, ?,?)";
 				//Create a Prepared SQL statement allowing you to introduce the parameters of the query
 				PreparedStatement ps = con.prepareStatement(insert);
 				ps.setString(1, new_shirt_name);
 				ps.setString(2, new_shirt_sex);
+				ps.setString(3, "shirt");
 				ps.executeUpdate();
 				
 				String getIDq = "SELECT last_insert_id()";
@@ -82,7 +84,7 @@
 				bs.setString(2, new_shirt_closing_date);
 				bs.setFloat(3, Float.parseFloat(new_shirt_lowest_selling_price));
 				bs.setFloat(4, Float.parseFloat(new_shirt_bid_increments));
-				bs.setString(5, new_shirt_initial_price);
+				bs.setFloat(5, Float.parseFloat(new_shirt_initial_price));
 				bs.setInt(6, x);
 				bs.setString(7, creator);
 				bs.setString(8,null);

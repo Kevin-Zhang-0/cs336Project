@@ -36,6 +36,9 @@
 			<input type="submit" value="Generate Report">
 		</form>
 	<br>
-
+	<form method="post" action="loginPage.jsp">
+				
+		<input type="submit" value="Back">   
+	</form>
 </body>
 </html>

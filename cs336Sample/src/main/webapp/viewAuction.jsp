@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
     
-<%@ page import="java.io.*,java.util.*,java.sql.*,java.time.LocalDateTime, java.time.format.DateTimeFormatter"%>
+<%@ page import="java.io.*,java.util.*,java.sql.*,java.time.LocalDateTime, java.time.format.DateTimeFormatter,com.cs336.pkg.SendAlert"%>
     
 <!DOCTYPE html>
 <html>
@@ -14,26 +14,49 @@
 
 <% 
 
-try {
+out.print("Current User: " + session.getAttribute("username"));
+%>
+<form method="get" action="UserHomepage.jsp">	
+		
+	<input type="submit" value="Back to Homepage">
+</form>
 
+
+<br>
+<% 
+
+try {
+	
 			//Get the database connection
 			ApplicationDB db = new ApplicationDB();	
 			Connection con = db.getConnection();	
 			
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
+			
+			
+			
 			Statement shirtStmt = con.createStatement();
 			Statement pantsStmt = con.createStatement();
 			Statement shoeStmt = con.createStatement();
 
 			//Get the combobox from the index.jsp
 			String auctionID = request.getParameter("auctionID");
+			
+			
+			
+			
 			session.setAttribute("currAuctionID", auctionID);
 			//Make a SELECT query from the sells table with the price range specified by the 'price' parameter at the index.jsp
 			String str = "SELECT * FROM auction a, clothing c WHERE a.itemID = c.itemID AND a.AuctionID = " + auctionID;
 			
 			//Run the query against the database.
 			ResultSet result = stmt.executeQuery(str);
+			
+			
+			
+			if (result.next()) { 
+			
 			
 			String isShirtQuery = "SELECT * FROM auction a, shirt s WHERE a.itemID = s.itemID AND a.AuctionID = " + auctionID;
 			ResultSet shirtResult = shirtStmt.executeQuery(isShirtQuery);
@@ -61,24 +84,8 @@ try {
 				}
 			}
 			
-			
-			
-			
-			
-			//out.println(shirtResult.next());
-			
-			
-			
+			String sex = result.getString("sex");
 	%>
-			<form method="get" action="UserHomepage.jsp">	
-					
-				<input type="submit" value="Back to Homepage">
-			</form>
-
-
-			<br>
-
-		<%  if (result.next()) { %>
 
 			<table>
 				
@@ -121,6 +128,11 @@ try {
 				<tr>
 					<td>Item Name</td>
 					<td> <%= result.getString("name")%></td>
+					
+				</tr>
+				<tr>
+					<td>Sex</td>
+					<td> <%= result.getString("sex")%></td>
 					
 				</tr>
 				<tr>
@@ -172,11 +184,6 @@ try {
 	    	
 		<%
 
-		    	
-		    	
-		    	
-		    	
-		    	
 		    }
 		    else if(type.equals("shoe")){%>
 			<table>
@@ -227,7 +234,7 @@ try {
 					
 				</tr>
 				<tr>
-					<td>Current Highest Bidder</td>
+					<td>Highest Bidder</td>
 				<%
 				if(result.getString("highest_bidder") == null){	%>
 					<td>None</td>
@@ -246,16 +253,9 @@ try {
 				</tr>
 			</table>
 			
-		<% }
-			else{
-				%>No bids yet, Be the first!<% 
-			}
+			<br>
 			
-		%>	
-			<br><br>
-			
-		<% 
-			float curr_p = result.getFloat("currentPrice");
+			<% float curr_p = result.getFloat("currentPrice");
 			float minimum_bid = curr_p + Float.valueOf(result.getString("increment"));
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-LL-dd HH:mm:ss.S");
 		
@@ -283,6 +283,8 @@ try {
 				
 				%>
 				You are currently winning this auction.
+				<br><br>
+				
 				
 				<form method="post" action="winnerAutoBid.jsp">
 			    
@@ -353,8 +355,8 @@ try {
 			 
 			
 			
-			<br><br>
-			<br><br>
+			<br><br><br>
+
 			
 			<% 
 			str = "SELECT * FROM bid b WHERE b.auctionID = " + auctionID + " ORDER BY b.price DESC";
@@ -363,9 +365,8 @@ try {
 			//out.print(str);
 			%>
 			
-			<table>
+			<table style="text-align:center">
 				<tr>
-					<td>Bid Number</td>
 					<td>User</td>
 					<td>Price</td>
 					<td>Date/Time of Bid</td>
@@ -375,7 +376,6 @@ try {
 
 		<%  while (result.next()) { %>
 				<tr>
-					<td> <%= result.getString("bidID")%></td>
 					<td> <%= result.getString("user")%></td>
 					<td> <%= result.getString("price")%></td>
 					<td> <%= result.getString("time")%></td>
@@ -385,7 +385,43 @@ try {
 			</table>
 			
 			
-			<%
+		<br><br><br><br>	
+			View similar items? (Items of same type and sex)
+			
+			
+			<br><br>
+			Clothing Type: <%= type%>
+			<br>
+			Sex: <%= sex%>
+			<br><br>
+			
+			<form method="post" action="searchSimilarAuctions.jsp">
+			
+				<input type="hidden" name="type" value="<%=type%>">
+				<input type="hidden" name="sex" value="<%=sex%>">
+				<input type="submit" value="View">
+			</form>
+			
+			
+			
+			
+	<% }
+			
+			
+			
+			
+		else{ // AUCTION DOES NOT EXIST
+			%>Auction does not exist<% 
+		}
+		
+		%>	
+			<br><br>
+			
+		<% 
+			
+			
+			
+			
 			//close the connection.
 			
 			con.close();

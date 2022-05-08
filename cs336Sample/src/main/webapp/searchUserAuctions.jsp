@@ -12,7 +12,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Search Auctions</title>
+<title>Search User's Auctions</title>
 </head>
 <body>
 <% 
@@ -48,6 +48,9 @@ To view an auction, enter the auctionID number.
 
 		try {
 
+			//out.print("here");
+			
+			
 			//Get the database connection
 			ApplicationDB db = new ApplicationDB();	
 			Connection con = db.getConnection();	
@@ -57,46 +60,29 @@ To view an auction, enter the auctionID number.
 			
 			//Get the combobox from the index.jsp
 			
-			String type = request.getParameter("type");
-			String sex = request.getParameter("sex");
-			String ongoing = request.getParameter("ongoing");
+			String username = request.getParameter("username");
+			
+			
+			if(username == null){
+				out.print("User does not exist");
+			}
+			
+			else{
+				
+			
 			String query;
 			
 			//out.print("here1");
 			
-			if(type.equals("shirts")){
-				query = "SELECT * FROM auction a, shirt s, clothing c WHERE a.itemID = c.itemID AND s.itemID = c.itemID";
-			}
-			else if(type.equals("pants")){
-				query = "SELECT * FROM auction a, pants p, clothing c WHERE a.itemID = c.itemID AND p.itemID = c.itemID";
-			}
-			else if(type.equals("shoe")){
-				query = "SELECT * FROM auction a, shoe s, clothing c WHERE a.itemID = c.itemID AND s.itemID = c.itemID";
-			}
-			else{ // none
-				query = "SELECT * FROM auction a, clothing c WHERE a.itemID = c.itemID";
-
-			}
 			
-			if(sex.equals("male")){
-				query += " AND c.sex = \"m\"";
-			}
+			query = "SELECT DISTINCT(a.AuctionID), a.InitialPrice, a.InitialPrice, a.CloseDate, a.increment, a.CurrentPrice, a.user, c.name, c.sex, c.type FROM auction a, bid b, clothing c WHERE c.itemID = a.itemID AND (a.user = \"" + username +"\" OR (b.auctionID = a.auctionID AND b.user = \"" + username +"\"))";
+			//query = "SELECT * FROM auction a, bid b, clothing c WHERE b.user = \"" + username +"\"";
 
-			else if(sex.equals("female")){ //female
-				query += " AND c.sex = \"f\"";
-			}
 			
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
 			String time = LocalDateTime.now().format(formatter);
 			
-			//out.print(query);
-			if(ongoing.equals("ongoing")){
-				query += " AND a.CloseDate >= \"" + time + "\"";
-			}
-			else if(ongoing.equals("finished")){ //finished
-				query += " AND a.CloseDate < \"" + time + "\"";
-			}
-			
+
 			
 			//out.print("here2");
 			
@@ -104,7 +90,7 @@ To view an auction, enter the auctionID number.
 			Sort Auctions by Criteria:
 				
 				<br>
-					<form method="post" action="searchAuctions.jsp">
+					<form method="post" action="searchUserAuctions.jsp">
 						
 						<select name="sortCriteria" size=1>
 							<option value="none">None</option>
@@ -117,9 +103,9 @@ To view an auction, enter the auctionID number.
 							<option value="ascending">Low To High</option>
 							<option value="descending">High To Low</option>
 						</select>
-						<input type="hidden" name="type" value=type>
-						<input type="hidden" name="sex" value=sex>
-						<input type="hidden" name="ongoing" value=ongoing>
+						<input type="hidden" name="username" value="<%=username%>">
+						
+
 						<br>
 						<input type="submit" value="Search">
 					</form>
@@ -157,7 +143,7 @@ To view an auction, enter the auctionID number.
 					}
 				}
 				
-				//out.print(query);
+			//out.print(query);
 			
 			//Run the query against the database.
 			ResultSet result = stmt.executeQuery(query);
@@ -198,7 +184,11 @@ To view an auction, enter the auctionID number.
 				</tr>
 
 
-		<% }%>
+		<% }
+		}
+		%>
+		
+		
 			</table>
 			<%
 			//close the connection.

@@ -31,6 +31,9 @@ LOCK TABLES `credentials` WRITE;
 INSERT INTO `credentials` VALUES ("admin","adminpass");
 INSERT INTO `credentials` VALUES ("u","u");
 INSERT INTO `credentials` VALUES ("y","y");
+INSERT INTO `credentials` VALUES ("q","q");
+INSERT INTO `credentials` VALUES ("w","w");
+INSERT INTO `credentials` VALUES ("e","e");
 /*!40000 ALTER TABLE `credentials` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -38,7 +41,8 @@ DROP TABLE IF EXISTS `clothing`;
 create table `clothing`(
 	`itemID` int auto_increment primary key,
     `name` varchar(50),
-    `sex` varchar(1)
+    `sex` varchar(1),
+    `type` ENUM('shirt','pants','shoe')
 );
 DROP TABLE IF EXISTS `shirt`;
 create table `shirt`(
@@ -55,7 +59,7 @@ create table `pants`(
 );
 DROP TABLE IF EXISTS `shoe`;
 create table `shoe`(
-	`itemID` int primary key,
+	`itemID` int	 primary key,
     foreign key (`itemID`) references clothing(`itemID`),
     `size` int
 );
@@ -76,6 +80,8 @@ create table `auction`(
     foreign key(`itemID`) references clothing(`itemID`)
 
 );
+
+
 -- adding tables from here on 
 
 DROP TABLE IF EXISTS `admin`;
@@ -94,10 +100,13 @@ DROP TABLE IF EXISTS `endUser`;
 
 create table `endUser`(
 	`user` varchar(50) primary key,
-    foreign key(user) references credentials(user)
+    foreign key(user) references credentials(user)  ON UPDATE CASCADE
 );
 INSERT INTO `endUser` VALUES ("u");
 INSERT INTO `endUser` VALUES ("y");
+INSERT INTO `endUser` VALUES ("q");
+INSERT INTO `endUser` VALUES ("w");
+INSERT INTO `endUser` VALUES ("e");
 DROP TABLE IF EXISTS `helps`;
 create table `helps`(
 	`euid` varchar(50),
@@ -136,6 +145,20 @@ create table `autobid`(
     foreign key(creator) references endUser(user),
     foreign key(AuctionID) references auction(AuctionID)
 );
+
+DROP TABLE IF EXISTS `bidAlert`;
+create table `bidAlert`(
+	`alertID`int auto_increment primary key,
+	`AuctionID` int,
+    `user` varchar(50),
+    `message` varchar(200),
+    `timestamp` datetime,
+    foreign key(AuctionID) references auction(AuctionID),
+    foreign key(user) references endUser(user)
+);
+
+
+
 
 DROP TABLE IF EXISTS `setAlert`;
 create table `setAlert`(
@@ -178,5 +201,5 @@ create table `setAlert_shoes`(
     `request` varchar(500),
     `reply` varchar(500),
     `status` varchar(7),
-    foreign key(user) references credentials(user)
+    foreign key(user) references credentials(user) ON UPDATE CASCADE
  );

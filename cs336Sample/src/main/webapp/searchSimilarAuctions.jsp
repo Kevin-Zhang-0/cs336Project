@@ -44,7 +44,6 @@ To view an auction, enter the auctionID number.
 
 
 	<%
-		List<String> list = new ArrayList<String>();
 
 		try {
 
@@ -59,7 +58,7 @@ To view an auction, enter the auctionID number.
 			
 			String type = request.getParameter("type");
 			String sex = request.getParameter("sex");
-			String ongoing = request.getParameter("ongoing");
+			//String ongoing = request.getParameter("ongoing");
 			String query;
 			
 			//out.print("here1");
@@ -78,25 +77,22 @@ To view an auction, enter the auctionID number.
 
 			}
 			
-			if(sex.equals("male")){
+			if(sex.toLowerCase().equals("m")){
 				query += " AND c.sex = \"m\"";
 			}
 
-			else if(sex.equals("female")){ //female
+			else if(sex.toLowerCase().equals("f")){ //female
 				query += " AND c.sex = \"f\"";
+			}
+			else{
+				query += " AND c.sex = \" + sex + \"";
 			}
 			
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
 			String time = LocalDateTime.now().format(formatter);
 			
 			//out.print(query);
-			if(ongoing.equals("ongoing")){
-				query += " AND a.CloseDate >= \"" + time + "\"";
-			}
-			else if(ongoing.equals("finished")){ //finished
-				query += " AND a.CloseDate < \"" + time + "\"";
-			}
-			
+
 			
 			//out.print("here2");
 			
@@ -104,7 +100,7 @@ To view an auction, enter the auctionID number.
 			Sort Auctions by Criteria:
 				
 				<br>
-					<form method="post" action="searchAuctions.jsp">
+					<form method="post" action="searchSimilarAuctions.jsp">
 						
 						<select name="sortCriteria" size=1>
 							<option value="none">None</option>

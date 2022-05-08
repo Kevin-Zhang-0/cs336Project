@@ -11,6 +11,18 @@
 <title>Customer Rep Contact</title>
 </head>
 <body> 
+
+<% 
+out.print("Current User: " + session.getAttribute("username"));
+%>
+
+<form method="get" action="UserHomepage.jsp">	
+		
+	<input type="submit" value="Back to Homepage">
+</form>
+
+<br><br>
+
 <% 
 out.print("Please Select an Option That Matches Your Concerns");
 %>
