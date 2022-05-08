@@ -27,10 +27,6 @@ out.print("Current User: " + session.getAttribute("username"));
 
 try {
 	
-	
-	
-	
-
 			//Get the database connection
 			ApplicationDB db = new ApplicationDB();	
 			Connection con = db.getConnection();	
@@ -84,17 +80,7 @@ try {
 			}
 			
 			
-			
-			
-			
-			//out.println(shirtResult.next());
-			
-			
-			
 	%>
-
-
-		
 
 			<table>
 				
@@ -188,11 +174,6 @@ try {
 	    	
 		<%
 
-		    	
-		    	
-		    	
-		    	
-		    	
 		    }
 		    else if(type.equals("shoe")){%>
 			<table>
@@ -243,7 +224,7 @@ try {
 					
 				</tr>
 				<tr>
-					<td>Current Highest Bidder</td>
+					<td>Highest Bidder</td>
 				<%
 				if(result.getString("highest_bidder") == null){	%>
 					<td>None</td>
@@ -261,6 +242,8 @@ try {
 					
 				</tr>
 			</table>
+			
+			<br>
 			
 			<% float curr_p = result.getFloat("currentPrice");
 			float minimum_bid = curr_p + Float.valueOf(result.getString("increment"));
@@ -290,6 +273,8 @@ try {
 				
 				%>
 				You are currently winning this auction.
+				<br><br>
+				
 				
 				<form method="post" action="winnerAutoBid.jsp">
 			    
@@ -360,8 +345,8 @@ try {
 			 
 			
 			
-			<br><br>
-			<br><br>
+			<br><br><br>
+
 			
 			<% 
 			str = "SELECT * FROM bid b WHERE b.auctionID = " + auctionID + " ORDER BY b.price DESC";
