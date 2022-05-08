@@ -20,7 +20,10 @@
 
 		//Create a SQL statement
 		Statement stmt = con.createStatement();
-
+	
+		ApplicationDB db2 = new ApplicationDB();	
+		Connection con2 = db2.getConnection();
+		Statement stmt2 = con2.createStatement();
 		//Get parameters from the HTML form at the HelloWorld.jsp
 		
 		
@@ -61,6 +64,23 @@
 		
 		
 		if(count == 1){ // When theres one auto bid
+			String get_prev_winner = "SELECT CurrentPrice,highest_bidder from auction where AuctionID = " + Integer.toString(curr_AuctionID) + " and highest_bidder not in (select creator from autobid where AuctionID = " + Integer.toString(curr_AuctionID) + ")" ;
+			
+		
+			ResultSet result2 = stmt2.executeQuery(get_prev_winner);
+			
+			if(result2.next() && result2.getString("highest_bidder")!=null){
+				String prev_winner = result2.getString("highest_bidder");
+				Float c_price = result2.getFloat("CurrentPrice");
+				SendAlert.send((String)session.getAttribute("currAuctionID"), " your bid of $" + Float.toString(c_price) + " has been beat by a bid of $" + Float.toString(curr_price + curr_increment),prev_winner);
+			}
+				
+			
+			
+			
+			
+			
+			
 			String insert_bid = "INSERT INTO bid(user, AuctionID, price,time) " + "VALUES (?, ?,?,now())";
 			PreparedStatement is = con.prepareStatement(insert_bid);
 			//Create a Prepared SQL statement allowing you to introduce the parameters of the query
@@ -158,6 +178,15 @@
 		result.next();
 		float new_price = result.getFloat(1);
 		//out.print(newCurrentPrice);
+		
+		String select_auto_bids_to_delete = "select a.upperLimit,a.creator from autobid a WHERE a.AuctionID = " + curr_AuctionID + " AND a.upperLimit <" + Float.toString(new_price + curr_increment);
+		
+		result = stmt.executeQuery(select_auto_bids_to_delete);
+		while(result.next()){
+			String prev_winner = result.getString("creator");
+			Float upperlim= result.getFloat("upperLimit");
+			SendAlert.send((String)session.getAttribute("currAuctionID"), "your bid automatic bid with an upper limit of $" + Float.toString(upperlim) + " has been beat by a bid of $" + Float.toString(new_price),prev_winner);
+		}
 		
 		String delete_auto_bids = "DELETE FROM autobid a WHERE a.AuctionID = " + curr_AuctionID + " AND a.upperLimit <" + Float.toString(new_price + curr_increment);
 			

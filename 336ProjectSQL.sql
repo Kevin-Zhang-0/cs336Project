@@ -31,6 +31,9 @@ LOCK TABLES `credentials` WRITE;
 INSERT INTO `credentials` VALUES ("admin","adminpass");
 INSERT INTO `credentials` VALUES ("u","u");
 INSERT INTO `credentials` VALUES ("y","y");
+INSERT INTO `credentials` VALUES ("q","q");
+INSERT INTO `credentials` VALUES ("w","w");
+INSERT INTO `credentials` VALUES ("e","e");
 /*!40000 ALTER TABLE `credentials` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -98,6 +101,9 @@ create table `endUser`(
 );
 INSERT INTO `endUser` VALUES ("u");
 INSERT INTO `endUser` VALUES ("y");
+INSERT INTO `endUser` VALUES ("q");
+INSERT INTO `endUser` VALUES ("w");
+INSERT INTO `endUser` VALUES ("e");
 DROP TABLE IF EXISTS `helps`;
 create table `helps`(
 	`euid` varchar(50),
@@ -136,6 +142,20 @@ create table `autobid`(
     foreign key(creator) references endUser(user),
     foreign key(AuctionID) references auction(AuctionID)
 );
+
+DROP TABLE IF EXISTS `bidAlert`;
+create table `bidAlert`(
+	`alertID`int auto_increment primary key,
+	`AuctionID` int,
+    `user` varchar(50),
+    `message` varchar(200),
+    `timestamp` datetime,
+    foreign key(AuctionID) references auction(AuctionID),
+    foreign key(user) references endUser(user)
+);
+
+
+
 
 DROP TABLE IF EXISTS `setAlert`;
 create table `setAlert`(

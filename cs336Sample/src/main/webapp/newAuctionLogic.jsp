@@ -22,6 +22,7 @@
 
 	
 	try {
+		
 		Map<String, String> errors = new HashMap<String, String>();
 		
 		
@@ -82,7 +83,7 @@
 				bs.setString(2, new_shirt_closing_date);
 				bs.setFloat(3, Float.parseFloat(new_shirt_lowest_selling_price));
 				bs.setFloat(4, Float.parseFloat(new_shirt_bid_increments));
-				bs.setString(5, new_shirt_initial_price);
+				bs.setFloat(5, Float.parseFloat(new_shirt_initial_price));
 				bs.setInt(6, x);
 				bs.setString(7, creator);
 				bs.setString(8,null);
