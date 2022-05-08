@@ -100,7 +100,7 @@ DROP TABLE IF EXISTS `endUser`;
 
 create table `endUser`(
 	`user` varchar(50) primary key,
-    foreign key(user) references credentials(user)  ON UPDATE CASCADE
+    foreign key(user) references credentials(user) ON UPDATE CASCADE
 );
 INSERT INTO `endUser` VALUES ("u");
 INSERT INTO `endUser` VALUES ("y");
@@ -122,7 +122,7 @@ create table `holds`(
     `AuctionID` int,
     primary key(user, AuctionID),
     foreign key(user) references endUser(user),
-    foreign key(AuctionID) references auction(AuctionID)
+    foreign key(AuctionID) references auction(AuctionID) ON DELETE CASCADE
 );
 
 DROP TABLE IF EXISTS `bid`;
@@ -133,7 +133,7 @@ create table `bid`(
     `price` float,
     `time` datetime,
     foreign key(user) references endUser(user),
-    foreign key(AuctionID) references auction(AuctionID)
+    foreign key(AuctionID) references auction(AuctionID) ON DELETE CASCADE
 );
 
 DROP TABLE IF EXISTS `autobid`;
@@ -143,7 +143,7 @@ create table `autobid`(
     `AuctionID` int,
     primary key (creator, AuctionID),
     foreign key(creator) references endUser(user),
-    foreign key(AuctionID) references auction(AuctionID)
+    foreign key(AuctionID) references auction(AuctionID) ON DELETE CASCADE
 );
 
 DROP TABLE IF EXISTS `bidAlert`;
@@ -153,7 +153,7 @@ create table `bidAlert`(
     `user` varchar(50),
     `message` varchar(200),
     `timestamp` datetime,
-    foreign key(AuctionID) references auction(AuctionID),
+    foreign key(AuctionID) references auction(AuctionID) ON DELETE CASCADE,
     foreign key(user) references endUser(user)
 );
 
