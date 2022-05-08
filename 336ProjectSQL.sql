@@ -94,7 +94,7 @@ DROP TABLE IF EXISTS `endUser`;
 
 create table `endUser`(
 	`user` varchar(50) primary key,
-    foreign key(user) references credentials(user)
+    foreign key(user) references credentials(user)  ON UPDATE CASCADE
 );
 INSERT INTO `endUser` VALUES ("u");
 INSERT INTO `endUser` VALUES ("y");
@@ -153,5 +153,5 @@ create table `setAlert`(
     `request` varchar(500),
     `reply` varchar(500),
     `status` varchar(7),
-    foreign key(user) references credentials(user)
+    foreign key(user) references credentials(user) ON UPDATE CASCADE
  );

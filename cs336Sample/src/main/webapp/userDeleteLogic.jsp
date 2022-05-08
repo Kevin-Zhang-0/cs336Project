@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>User Deletion</title>
+<title>User Deactivtion</title>
 </head>
 <body>
 	<%
@@ -29,20 +29,26 @@
 		
 		/*String update = "INSERT INTO credentials(user, pass)"
 				+ "VALUES (?, ?)";*/
-		String delete = "DELETE FROM endUser\n"
+		
+		
+		String delete1 = "UPDATE credentials\n"
+				+ "SET user = ?"
+				+ "WHERE user = ?";
+		PreparedStatement ps1 = con.prepareStatement(delete1);
+		ps1.setString(1, userToDelete + " (INACTIVE)");
+		ps1.setString(2, userToDelete);
+		ps1.executeUpdate();
+		
+		/*String delete = "UPDATE endUser\n"
+			+ "SET user = ?"
 			+ "WHERE user = ?";
 		PreparedStatement ps = con.prepareStatement(delete);
-		ps.setString(1, userToDelete);
-		ps.executeUpdate();
-		
-		String delete1 = "DELETE FROM credentials\n"
-			+ "WHERE user = ?";
-		PreparedStatement ps1 = con.prepareStatement(delete1);
-		ps1.setString(1, userToDelete);
-		ps1.executeUpdate();
+		ps.setString(1, userToDelete + " (INACTIVE)");
+		ps.setString(2, userToDelete);
+		ps.executeUpdate();*/
 			
 		con.close();
-		out.print("User Deletion Successful!");
+		out.print("User Deactivation Successful!");
 		
 		//response.sendRedirect("UserHomepage.jsp");
 		%>
@@ -67,7 +73,7 @@
 		
 	} catch (Exception ex) {
 		out.print(ex);
-		out.print("something went wrong in password change");
+		out.print("user deactivate error");
 	}
 	%>
 
