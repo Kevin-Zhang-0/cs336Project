@@ -175,6 +175,7 @@ To view an auction, enter the auctionID number.
 				<tr>
 					<td>Auction Number</td>
 					<td>ItemName</td>
+					<td>Auctioner</td>
 					<td>Item Type</td>
 					<td>Sex</td>
 					<td>Current Price</td>
@@ -187,6 +188,7 @@ To view an auction, enter the auctionID number.
 				<tr>
 					<td> <%= result.getString("AuctionID")%></td>
 					<td> <%= result.getString("name")%></td>
+					<td> <%= result.getString("user")%></td>
 					<td> <%= result.getString("type")%></td>
 					<td> <%= result.getString("sex")%></td>
 					<td> <%= result.getString("currentPrice")%></td>

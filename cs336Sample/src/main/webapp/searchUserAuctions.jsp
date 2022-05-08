@@ -61,7 +61,15 @@ To view an auction, enter the auctionID number.
 			//Get the combobox from the index.jsp
 			
 			String username = request.getParameter("username");
-
+			
+			
+			if(username == null){
+				out.print("User does not exist");
+			}
+			
+			else{
+				
+			
 			String query;
 			
 			//out.print("here1");
@@ -153,6 +161,7 @@ To view an auction, enter the auctionID number.
 				<tr>
 					<td>Auction Number</td>
 					<td>ItemName</td>
+					<td>Auctioner</td>
 					<td>Item Type</td>
 					<td>Sex</td>
 					<td>Current Price</td>
@@ -165,6 +174,7 @@ To view an auction, enter the auctionID number.
 				<tr>
 					<td> <%= result.getString("AuctionID")%></td>
 					<td> <%= result.getString("name")%></td>
+					<td> <%= result.getString("user")%></td>
 					<td> <%= result.getString("type")%></td>
 					<td> <%= result.getString("sex")%></td>
 					<td> <%= result.getString("currentPrice")%></td>
@@ -174,7 +184,11 @@ To view an auction, enter the auctionID number.
 				</tr>
 
 
-		<% }%>
+		<% }
+		}
+		%>
+		
+		
 			</table>
 			<%
 			//close the connection.
