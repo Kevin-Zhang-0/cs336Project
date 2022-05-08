@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>User Deletion</title>
+<title>Bid Deletion</title>
 </head>
 <body>
 	<%
@@ -54,16 +54,16 @@
 		highUserResult.next();
 		String currWinnerUser = highUserResult.getString("highest_bidder");
 		
-		out.println("currUser: " + currUser);
-		out.println("auctionID1: " + auctionID1);
-		out.println("currWinnerUser: " + currWinnerUser);
+		//out.println("currUser: " + currUser);
+		//out.println("auctionID1: " + auctionID1);
+		//out.println("currWinnerUser: " + currWinnerUser);
 		
 		if(currWinnerUser.equals(currUser)){
-			out.println("we deleted the highest bid");
+			//out.println("we deleted the highest bid");
 			String auctionBids = "SELECT * FROM bid b, auction a WHERE a.AuctionID = b.AuctionID AND a.AuctionID = " + auctionID1 + " ORDER BY b.price DESC";
 			ResultSet bids = bidStmt.executeQuery(auctionBids);
 			if(bids.next()){//if auction has more bids 
-				out.println("auction has more bids");
+				//out.println("auction has more bids");
 				String newHighestPrice = bids.getString("price");
 				String newHighestBidder = bids.getString("user"); 
 				
