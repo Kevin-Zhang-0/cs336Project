@@ -63,7 +63,7 @@
 	%>
 
 	<br>	
-To delete an account, please enter their username.
+To deactivate an account, please enter their username.
 	<br>
 		<form method="post" action="userDeleteLogic.jsp">
 			<table>

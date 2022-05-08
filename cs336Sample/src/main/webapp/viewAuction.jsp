@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
     
-<%@ page import="java.io.*,java.util.*,java.sql.*,java.time.LocalDateTime, java.time.format.DateTimeFormatter"%>
+<%@ page import="java.io.*,java.util.*,java.sql.*,java.time.LocalDateTime, java.time.format.DateTimeFormatter,com.cs336.pkg.SendAlert"%>
     
 <!DOCTYPE html>
 <html>
@@ -42,6 +42,10 @@ try {
 
 			//Get the combobox from the index.jsp
 			String auctionID = request.getParameter("auctionID");
+			
+			
+			
+			
 			session.setAttribute("currAuctionID", auctionID);
 			//Make a SELECT query from the sells table with the price range specified by the 'price' parameter at the index.jsp
 			String str = "SELECT * FROM auction a, clothing c WHERE a.itemID = c.itemID AND a.AuctionID = " + auctionID;

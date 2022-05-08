@@ -19,7 +19,69 @@ out.print("Current User: " + session.getAttribute("username"));
 			<input type="submit" value="Logout">
 		</form>
 		
+		
+		
+		
+		
 <br>
+Alerts:
+<%		//display alerts
+	
+
+		try {
+
+			//Get the database connection
+			ApplicationDB db = new ApplicationDB();	
+			Connection con = db.getConnection();	
+			
+			//Create a SQL statement
+			Statement stmt = con.createStatement();
+			
+			//Get the combobox from the index.jsp
+			//String entity = request.getParameter("price");
+			
+			//Make a SELECT query from the sells table with the price range specified by the 'price' parameter at the index.jsp
+			String curr_user = (String)session.getAttribute("username");
+			String selectAlerts = "SELECT * from bidAlert where user = \"" +curr_user + "\" order by timestamp"  ;
+			
+			
+			
+			
+			//Run the query against the database.
+			ResultSet result = stmt.executeQuery(selectAlerts);
+	%>
+	
+			<table>
+				<tr>
+					<td>Auction Number</td>
+					<td>Message</td>
+					<td>Timestamp</td>
+					
+				</tr>
+
+
+		<%  while (result.next()) { %>
+				<tr>
+					<td> <%= result.getString("AuctionID")%></td>
+					<td> <%= result.getString("Message")%></td>
+					<td> <%= result.getString("Timestamp")%></td>
+					
+				</tr>
+
+		<% }%>
+			</table>
+			
+			<%
+			//close the connection.
+			con.close();
+
+		} catch (Exception e) {
+			out.print("Error");
+		}
+	%>	
+	
+	
+	
 	
 <div class="auction-btn-group">
 <br>
@@ -131,7 +193,7 @@ Want to auction an item? Choose which type of clothing you have
 
     
 	<%
-		//List<String> list = new ArrayList<String>();
+
 
 		try {
 
