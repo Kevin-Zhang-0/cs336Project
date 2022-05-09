@@ -86,7 +86,7 @@ To view an auction, enter the auctionID number.
 				query += " AND c.sex = \"f\"";
 			}
 			
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 			String time = LocalDateTime.now().format(formatter);
 			
 			//out.print(query);
@@ -96,6 +96,7 @@ To view an auction, enter the auctionID number.
 			else if(ongoing.equals("finished")){ //finished
 				query += " AND a.CloseDate < \"" + time + "\"";
 			}
+			out.print(time);
 			
 			
 			//out.print("here2");
@@ -175,6 +176,10 @@ To view an auction, enter the auctionID number.
 				<tr>
 					<td>Auction Number</td>
 					<td>ItemName</td>
+					<% if(ongoing.equals("finished")){
+						%><td>Winner</td><%
+					}
+					%>
 					<td>Auctioner</td>
 					<td>Item Type</td>
 					<td>Sex</td>
@@ -188,6 +193,20 @@ To view an auction, enter the auctionID number.
 				<tr>
 					<td> <%= result.getString("AuctionID")%></td>
 					<td> <%= result.getString("name")%></td>
+					
+					<% if(ongoing.equals("finished")){
+						
+						if(result.getString("highest_bidder") != null && Float.parseFloat(result.getString("currentPrice")) >= Float.parseFloat(result.getString("LowestSelliingPrice"))){
+							%><td> <%= result.getString("highest_bidder")%></td><%
+						}
+						else{
+							%><td>No winner</td><%
+						}
+						
+						
+					}
+					%>
+
 					<td> <%= result.getString("user")%></td>
 					<td> <%= result.getString("type")%></td>
 					<td> <%= result.getString("sex")%></td>
