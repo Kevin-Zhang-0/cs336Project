@@ -20,8 +20,14 @@ out.print("Current User: " + session.getAttribute("username"));
 		</form>
 
 
+
+
 <br>
 <br>
+
+
+
+
 New clothes alerts :	
 <%
 	try {
