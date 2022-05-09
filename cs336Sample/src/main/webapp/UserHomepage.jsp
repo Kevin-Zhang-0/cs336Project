@@ -12,6 +12,8 @@
 <body> 
 <% 
 out.print("Current User: " + session.getAttribute("username"));
+
+
 %>
 <br>
 		<form method="get" action="loginPage.jsp">	
