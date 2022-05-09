@@ -108,6 +108,7 @@ New clothes alerts :
 					<th>AuctionID </th>
 					<th>Item Name </th>
 					<th>Item Type </th>
+					<th>Sex </th>
 					<th>Waist Width </th>
 					<th>Leg Length </th>
 				</tr>

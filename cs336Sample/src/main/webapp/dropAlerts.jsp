@@ -29,13 +29,13 @@
 			String alertID = result.getString("alertID");
 			
 			Statement st1 = con.createStatement();
-			int i = st1.executeUpdate("delete from setalert_shirt where alertID = " + alertID + " and called = true");
+			int i = st1.executeUpdate("delete from setalert_shirt where alertID = " + alertID);
 			
 			Statement st2 = con.createStatement();
-			int j = st2.executeUpdate("delete from setalert_pants where alertID = " + alertID + " and called = true");
+			int j = st2.executeUpdate("delete from setalert_pants where alertID = " + alertID);
 			
 			Statement st3 = con.createStatement();
-			int g = st3.executeUpdate("delete from setalert_shoes where alertID = " + alertID + " and called = true");
+			int g = st3.executeUpdate("delete from setalert_shoes where alertID = " + alertID);
 		}
 		
 		Statement stmt2 = con.createStatement();

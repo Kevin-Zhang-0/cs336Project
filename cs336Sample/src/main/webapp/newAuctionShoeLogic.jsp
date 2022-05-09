@@ -86,7 +86,7 @@
 				
 				//flagging any alerts
 				Statement stmt2 = con.createStatement();
-				String getAlert = "select s.alertID as id, s.user from setalert s, setalert_shirt ss where s.alertID = ss.alertID and s.itemName = \"" + new_shirt_name + "\" and s.sex = \"" + new_shirt_sex + "\" and ss.size = \"" + new_shirt_size + "\"";
+				String getAlert = "select s.alertID as id, s.user from setalert s, setalert_shoes sh where s.alertID = sh.alertID and s.itemName = \"" + new_shirt_name + "\" and s.sex = \"" + new_shirt_sex + "\" and sh.size = \"" + new_shirt_size + "\"";
 				ResultSet alertResult = stmt2.executeQuery(getAlert);
 				if(alertResult.next()){
 					String alertID = alertResult.getString("id");
