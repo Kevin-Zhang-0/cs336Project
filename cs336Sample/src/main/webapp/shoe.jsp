@@ -35,26 +35,13 @@
 					<td>Shirt Name:</td><td><input type="text" name="shirt_name" required></td>
 					
 				</tr>
-			
-				<tr>    
-					<td>Sex(F|M):</td>
-					<td>
-						<select name="shirt_sex" size=1>
-							<option value="F">F</option>	
-							<option value="M">M</option>
-						</select>
-					</td>
-				</tr>
+				
+				
 				<tr>
-					<td>Size(L|M|S):</td>
-					<td>
-						<select name="shirt_size" size=1>
-							<option value="L">L</option>
-							<option value="M">M</option>
-							<option value="S">S</option>
-						</select>
-					</td>
+					<td>Initial Price:</td><td><input type="number" step="0.01" name="shirt_initial_price" required></td>
 				</tr>
+			
+				
 				<tr>
 					<td>Initial Price:</td><td><input type="number" step="0.01" name="shirt_initial_price" required></td>
 				</tr>
