@@ -25,12 +25,14 @@
 		//Create a SQL statement
 		Statement stmt = con.createStatement();
 		
-		String select = "SELECT sum(CurrentPrice) as totalEarning from auction where CloseDate <= cast(now() as date)";
+		String select = "SELECT sum(CurrentPrice) as totalEarning from auction where CloseDate <= now() AND CurrentPrice >= lowestSelliingPrice AND highest_bidder IS NOT NULL" ;
 		ResultSet result = stmt.executeQuery(select);
 		
 		//total earning
 		if(result.next()){ 
 			String temp = result.getString("totalEarning");
+			
+			out.print("temp: " + temp);
 			if (temp != null){
 				%>
 				<table>
@@ -62,7 +64,7 @@
 		}
 		
 		//pants total earning
-		select = "select sum(CurrentPrice) as cp from auction a, pants p where a.itemID = p.itemID and a.CloseDate <= cast(now() as date)";
+		select = "select sum(CurrentPrice) as cp from auction a, pants p where a.itemID = p.itemID and a.CloseDate <= now() AND a.CurrentPrice >= a.lowestSelliingPrice AND a.highest_bidder IS NOT NULL";
 		result = stmt.executeQuery(select);
 		if(result.next() == true){ 
 			String temp = result.getString("cp");
@@ -97,7 +99,7 @@
 		
 
 		//shirt total earning
-		select = "select sum(CurrentPrice) as cp from auction a, shirt s where a.itemID = s.itemID and a.CloseDate <= cast(now() as date)";
+		select = "select sum(CurrentPrice) as cp from auction a, shirt s where a.itemID = s.itemID and a.CloseDate <= now() AND a.CurrentPrice >= a.lowestSelliingPrice AND a.highest_bidder IS NOT NULL";
 		result = stmt.executeQuery(select);
 		if(result.next() == true){ 
 			String temp = result.getString("cp");
@@ -133,7 +135,7 @@
 		
 		
 		//shoes total earning
-		select = "select sum(CurrentPrice) as cp from auction a, shoe so where a.itemID = so.itemID and a.CloseDate <= cast(now() as date)";
+		select = "select sum(CurrentPrice) as cp from auction a, shoe so where a.itemID = so.itemID and a.CloseDate <= now() AND a.CurrentPrice >= a.lowestSelliingPrice AND a.highest_bidder IS NOT NULL";
 		result = stmt.executeQuery(select);
 		if(result.next()){ 
 			String temp = result.getString("cp");
@@ -172,7 +174,7 @@
 		Earning Per Item: 
 		<% 
 		//earnings per item
-		select = "select itemID, CurrentPrice from auction where CloseDate <= cast(now() as date)";
+		select = "select itemID, CurrentPrice from auction where CloseDate <= now() AND CurrentPrice >= lowestSelliingPrice AND highest_bidder IS NOT NULL";
 		result = stmt.executeQuery(select);
 		%>
 		<table border = "1">
@@ -199,7 +201,7 @@
 		Earning Per End User: 
 		<% 
 		//earnings per item
-		select = "select a.user, sum(CurrentPrice) as cp from auction a where a.CloseDate <= cast(now() as date) group by a.user";
+		select = "select a.user, sum(CurrentPrice) as cp from auction a where a.CloseDate <= now() group by a.user AND a.CurrentPrice >= a.lowestSelliingPrice AND a.highest_bidder IS NOT NULL";
 		result = stmt.executeQuery(select);
 		%>
 		<table border = "1">
@@ -227,7 +229,7 @@
 		Best-selling item 
 		<% 
 		//earnings per item
-		select = "select c.name, count(*) as c from auction a, clothing c where a.itemID = c.itemID and a.CloseDate <= cast(now() as date) group by c.name order by count(*) desc limit 5";
+		select = "select c.name, count(*) as c from auction a, clothing c where a.itemID = c.itemID and a.CloseDate <= now() AND a.CurrentPrice >= a.lowestSelliingPrice AND a.highest_bidder IS NOT NULL group by c.name order by count(*) desc limit 5";
 		result = stmt.executeQuery(select);
 		%>
 		<table border = "1">
@@ -255,7 +257,7 @@
 		Best-selling item 
 		<% 
 		//earnings per item
-		select = "select a.highest_bidder, count(*) as c from auction a where a.CloseDate <= cast(now() as date) group by a.highest_bidder order by count(*) desc limit 5";
+		select = "select a.highest_bidder, count(*) as c from auction a where a.CloseDate <= now() AND a.CurrentPrice >= a.lowestSelliingPrice AND a.highest_bidder IS NOT NULL group by a.highest_bidder order by count(*) desc limit 5";
 		result = stmt.executeQuery(select);
 		%>
 		<table border = "1">
