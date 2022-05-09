@@ -53,8 +53,6 @@
 					<%
 				}
 				else{
-					//out.println(result.getString("user"));
-					//out.println(result.getString("pass"));
 					session.setAttribute("username", result.getString("user"));
 					
 					
@@ -98,7 +96,7 @@
 		}
 		
 	} catch (Exception ex) {
-		//out.print(ex);
+		out.print(ex);
 		//out.print("select failed :()");
 	}
 	%>

@@ -32,7 +32,6 @@
 		con.close();
 		out.print("Auction Deletion Successful!");
 		
-		//response.sendRedirect("UserHomepage.jsp");
 		%>
 		<form method="post" action="userAuctionRemove.jsp">
 			

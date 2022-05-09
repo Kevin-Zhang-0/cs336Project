@@ -40,8 +40,6 @@
 		auctionResult.next();
 		String auctionID1 = auctionResult.getString("AuctionID");
 		
-		/*String update = "INSERT INTO credentials(user, pass)"
-				+ "VALUES (?, ?)";*/
 		String delete = "DELETE FROM bid\n"
 			+ "WHERE bidID = ?";
 		PreparedStatement ps = con.prepareStatement(delete);
@@ -54,16 +52,10 @@
 		highUserResult.next();
 		String currWinnerUser = highUserResult.getString("highest_bidder");
 		
-		//out.println("currUser: " + currUser);
-		//out.println("auctionID1: " + auctionID1);
-		//out.println("currWinnerUser: " + currWinnerUser);
-		
 		if(currWinnerUser.equals(currUser)){
-			//out.println("we deleted the highest bid");
 			String auctionBids = "SELECT * FROM bid b, auction a WHERE a.AuctionID = b.AuctionID AND a.AuctionID = " + auctionID1 + " ORDER BY b.price DESC";
 			ResultSet bids = bidStmt.executeQuery(auctionBids);
 			if(bids.next()){//if auction has more bids 
-				//out.println("auction has more bids");
 				String newHighestPrice = bids.getString("price");
 				String newHighestBidder = bids.getString("user"); 
 				
@@ -77,12 +69,10 @@
 				ps2.executeUpdate();
 			}
 		}
-		//else do nothing
 
 		con.close();
 		out.print("Bid Deletion Successful!");
 		
-		//response.sendRedirect("UserHomepage.jsp");
 		%>
 		<form method="post" action="userBidRemove.jsp">
 			

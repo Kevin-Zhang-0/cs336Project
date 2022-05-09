@@ -25,6 +25,7 @@ public class SendAlert {
 			is.setString(2, to_user);
 			is.setString(3,message);
 			is.executeUpdate();
+			con.close();
 		}
 		catch (Exception e) {
 			System.out.println(e);
@@ -69,6 +70,7 @@ public class SendAlert {
 					is.setString(3,"You have won the auction with auction ID: "+ result.getInt("AuctionID"));
 					is.executeUpdate();
 				}
+				con.close();
 				
 				
 			
