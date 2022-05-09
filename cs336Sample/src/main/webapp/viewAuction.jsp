@@ -306,7 +306,7 @@ try {
 			}
 				
 			
-			else if(currentTime.isBefore(closeDateTime)){ 
+			if(currentTime.isBefore(closeDateTime)){ 
 				stmt = con.createStatement();
 				
 				//Get the combobox from the index.jsp
@@ -342,22 +342,22 @@ try {
 			}
 			else{ // too late %>
 				
-				
+				<br><br>
 				Auction has closed. 
-				
-				<% if(result.getString("highest_bidder") != null){
+				<br>
+				<% if(result.getString("highest_bidder") == null){
 					%>No winner<%
 				}
 				else if (Float.parseFloat(result.getString("currentPrice")) >= Float.parseFloat(result.getString("LowestSelliingPrice"))){
 				
 							%>The winner is: <%= result.getString("highest_bidder")%><%
 						}
-					else{
-						%>No winner
-						<br>
-						The highest bidding price is lower than the reserve.<%
-					}
-				
+				else{
+					%>No winner
+					<br>
+					The highest bidding price is lower than the reserve.<%
+				}
+			
 		}
 			
 		%>
