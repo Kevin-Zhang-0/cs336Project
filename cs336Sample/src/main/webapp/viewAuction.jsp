@@ -273,44 +273,40 @@ try {
 			LocalDateTime closeDateTime = LocalDateTime.parse(closeTime, formatter);
 			
 			//out.print("2");
+			if(result.getString("user").equals(session.getAttribute("username"))){
+				%>
+				This is your auction.
+				<% 
+			}
+			else if(session.getAttribute("username").equals(result.getString("highest_bidder"))){
+				String strauto = "SELECT * FROM autobid a WHERE a.AuctionID = " + auctionID +" and a.creator = \""+ session.getAttribute("username") + "\"";
+				float currentautobid = 0;
+				//Run the query against the database.
+				result = stmt.executeQuery(strauto);
+				if(result.next()){
+					currentautobid = result.getFloat("upperLimit");
+				}
+				
+				
+				%>
+				You are currently winning this auction.
+				<br><br>
+				
+				
+				<form method="post" action="winnerAutoBid.jsp">
+			    
+					<td>Create or Update Automatic Bid: </td><td><input type="number" step="0.01" name="bidAMT" size = "10" min = "<%=minimum_bid%>" value = "<%=currentautobid%>" required ></td>
+					<input type="submit" value="Send">
 			
-
-			if(currentTime.isBefore(closeDateTime)){ 
+				</form>
 				
-				if(result.getString("user").equals(session.getAttribute("username"))){
-					%>
-					This is your auction.
-					<% 
-				}
-				else{
-					if(session.getAttribute("username").equals(result.getString("highest_bidder"))){
-						String strauto = "SELECT * FROM autobid a WHERE a.AuctionID = " + auctionID +" and a.creator = \""+ session.getAttribute("username") + "\"";
-						float currentautobid = 0;
-						//Run the query against the database.
-						result = stmt.executeQuery(strauto);
-						if(result.next()){
-							currentautobid = result.getFloat("upperLimit");
-						}
 						
-						
-						%>
-						You are currently winning this auction.
-						<br><br>
-						
-						
-						<form method="post" action="winnerAutoBid.jsp">
-					    
-							<td>Create or Update Automatic Bid: </td><td><input type="number" step="0.01" name="bidAMT" size = "10" min = "<%=minimum_bid%>" value = "<%=currentautobid%>" required ></td>
-							<input type="submit" value="Send">
-					
-						</form>
-						
-								
-						
-						<% 
-					}
-				}
 				
+				<% 
+			}
+				
+			
+			else if(currentTime.isBefore(closeDateTime)){ 
 				stmt = con.createStatement();
 				
 				//Get the combobox from the index.jsp
@@ -348,8 +344,8 @@ try {
 				
 				
 				Auction has closed. 
-				<br>
-				<% if(result.getString("highest_bidder") == null){
+				
+				<% if(result.getString("highest_bidder") != null){
 					%>No winner<%
 				}
 				else if (Float.parseFloat(result.getString("currentPrice")) >= Float.parseFloat(result.getString("LowestSelliingPrice"))){
@@ -362,7 +358,7 @@ try {
 						The highest bidding price is lower than the reserve.<%
 					}
 				
-			}
+		}
 			
 		%>
 			
