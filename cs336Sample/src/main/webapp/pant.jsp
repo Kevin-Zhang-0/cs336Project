@@ -28,10 +28,10 @@
 	String time = LocalDateTime.now().format(formatter);
 	%>
 	<br>
-		<form method="post" action="newAuctionShoeLogic.jsp">
+		<form method="post" action="newAuctionPantLogic.jsp">
 			<table>
 				<tr>
-					<td>Shoe Name:</td><td><input type="text" name="shirt_name" required></td>
+					<td>Pants Name:</td><td><input type="text" name="shirt_name" required></td>
 					
 				</tr>
 			
@@ -45,7 +45,10 @@
 					</td>
 				</tr>
 				<tr>
-					<td>Size:</td><td><input type="number" min="2" name="shirt_size" required></td>
+					<td>WastWidth Size:</td><td><input type="number" min = "2" name="shirt_WaistWidth" required></td>
+				</tr>
+				<tr>
+					<td>LegLength Size:</td><td><input type="number" min = "2" name="shirt_LegLength" required></td>
 				</tr>
 				<tr>
 					<td>Initial Price:</td><td><input type="number" step="0.01" name="shirt_initial_price" required></td>

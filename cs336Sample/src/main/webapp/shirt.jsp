@@ -13,7 +13,7 @@
 
 	<%
 
-	out.print("Current User: " + session.getAttribute("username"));
+
 	%>
 
 	<form method="get" action="UserHomepage.jsp">	
@@ -26,7 +26,6 @@
 	
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm");
 	String time = LocalDateTime.now().format(formatter);
-	out.print(time);
 	%>
 	<br>
 		<form method="post" action="newAuctionLogic.jsp">
