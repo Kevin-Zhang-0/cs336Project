@@ -29,11 +29,6 @@ CREATE TABLE `credentials` (
 LOCK TABLES `credentials` WRITE;
 /*!40000 ALTER TABLE `credentials` DISABLE KEYS */;
 INSERT INTO `credentials` VALUES ("admin","adminpass");
-INSERT INTO `credentials` VALUES ("u","u");
-INSERT INTO `credentials` VALUES ("y","y");
-INSERT INTO `credentials` VALUES ("q","q");
-INSERT INTO `credentials` VALUES ("w","w");
-INSERT INTO `credentials` VALUES ("e","e");
 /*!40000 ALTER TABLE `credentials` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -70,7 +65,7 @@ create table `auction`(
     `CloseDate`datetime,
     `LowestSelliingPrice` float,
     `increment`float, 
-    `CurrentPrice`float, 
+    `CurrentPrice` float, 
 	`itemID` int,
     `user` varchar(50),
     `highest_bidder` varchar(50),
@@ -102,11 +97,6 @@ create table `endUser`(
 	`user` varchar(50) primary key,
     foreign key(user) references credentials(user) ON UPDATE CASCADE
 );
-INSERT INTO `endUser` VALUES ("u");
-INSERT INTO `endUser` VALUES ("y");
-INSERT INTO `endUser` VALUES ("q");
-INSERT INTO `endUser` VALUES ("w");
-INSERT INTO `endUser` VALUES ("e");
 DROP TABLE IF EXISTS `helps`;
 create table `helps`(
 	`euid` varchar(50),
