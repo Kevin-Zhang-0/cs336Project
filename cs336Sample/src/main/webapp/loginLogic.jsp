@@ -96,8 +96,10 @@
 		}
 		
 	} catch (Exception ex) {
+
 		out.print(ex);
 		//out.print("select failed :()");
+
 	}
 	%>
 
