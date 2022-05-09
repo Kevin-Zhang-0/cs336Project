@@ -70,13 +70,14 @@ try {
 			String type = "";
 			if(shirtResult.next()){
 				type = "shirt";
+				out.print("shirt");
 			}
 			else{
 				
 				
 				
 				if(pantsResult.next()){
-					type = "shirt";
+					type = "pants";
 				}
 				else{
 					
@@ -124,8 +125,7 @@ try {
 		    <%
 		    if(type.equals("shirt")){%>
 			<table>
-				
-				
+
 				<tr>
 					<td>Clothing Type</td>
 					<td>Shirt</td>
@@ -306,7 +306,7 @@ try {
 			}
 				
 			
-			if(currentTime.isBefore(closeDateTime)){ 
+			if(!result.getString("user").equals(session.getAttribute("username")) && currentTime.isBefore(closeDateTime)){ 
 				stmt = con.createStatement();
 				
 				//Get the combobox from the index.jsp
@@ -340,7 +340,7 @@ try {
 				</form>
 		<% 
 			}
-			else{ // too late %>
+			else if (currentTime.isAfter(closeDateTime)){ // too late %>
 				
 				<br><br>
 				Auction has closed. 
@@ -356,7 +356,7 @@ try {
 					%>No winner
 					<br>
 					The highest bidding price is lower than the reserve.<%
-				}
+			}
 			
 		}
 			
