@@ -41,7 +41,7 @@ public class SendAlert {
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
 			
-			String str = "select * from auction a where a.CloseDate <= cast(now() as date) and a.AuctionID not in (select b.AuctionID from auctionWinners b)";
+			String str = "select * from auction a where a.CloseDate <= now() and a.AuctionID not in (select b.AuctionID from auctionWinners b)";
 			                        
 			ResultSet result = stmt.executeQuery(str);
 			while(result.next()) {
