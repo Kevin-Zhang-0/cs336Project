@@ -32,7 +32,6 @@
 		if(result.next()){ 
 			String temp = result.getString("totalEarning");
 			
-			out.print("temp: " + temp);
 			if (temp != null){
 				%>
 				<table>
@@ -201,7 +200,7 @@
 		Earning Per End User: 
 		<% 
 		//earnings per item
-		select = "select a.user, sum(CurrentPrice) as cp from auction a where a.CloseDate <= now() group by a.user AND a.CurrentPrice >= a.lowestSelliingPrice AND a.highest_bidder IS NOT NULL";
+		select = "select a.user, CurrentPrice as cp from auction a where a.CloseDate <= now() AND a.CurrentPrice >= a.lowestSelliingPrice AND a.highest_bidder IS NOT NULL group by a.user";
 		result = stmt.executeQuery(select);
 		%>
 		<table border = "1">
@@ -254,7 +253,7 @@
 		//Best buyer (top 5 people who bought most item)
 		%>
 		<br>
-		Best-selling item 
+		Best Buyer
 		<% 
 		//earnings per item
 		select = "select a.highest_bidder, count(*) as c from auction a where a.CloseDate <= now() AND a.CurrentPrice >= a.lowestSelliingPrice AND a.highest_bidder IS NOT NULL group by a.highest_bidder order by count(*) desc limit 5";

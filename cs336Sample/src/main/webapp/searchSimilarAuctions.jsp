@@ -62,8 +62,9 @@ To view an auction, enter the auctionID number.
 			String query;
 			
 			//out.print("here1");
-			
-			if(type.equals("shirts")){
+			out.print(type);
+			out.print(sex);
+			if(type.equals("shirt")){
 				query = "SELECT * FROM auction a, shirt s, clothing c WHERE a.itemID = c.itemID AND s.itemID = c.itemID";
 			}
 			else if(type.equals("pants")){

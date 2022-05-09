@@ -70,8 +70,8 @@ create table `auction`(
     `user` varchar(50),
     `highest_bidder` varchar(50),
    -- `ObserverID` varchar(50),
-	foreign key(`user`) references enduser(`user`),
-    foreign key(`highest_bidder`) references enduser(`user`),
+	foreign key(`user`) references enduser(`user`) ON UPDATE CASCADE,
+    foreign key(`highest_bidder`) references endUser(`user`) ON UPDATE CASCADE,
     foreign key(`itemID`) references clothing(`itemID`)
 
 );
