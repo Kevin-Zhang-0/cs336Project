@@ -60,20 +60,27 @@ try {
 			
 			String isShirtQuery = "SELECT * FROM auction a, shirt s WHERE a.itemID = s.itemID AND a.AuctionID = " + auctionID;
 			ResultSet shirtResult = shirtStmt.executeQuery(isShirtQuery);
+			
+			String isPantsQuery = "SELECT * FROM auction a, pants p WHERE a.itemID = p.itemID AND a.AuctionID = " + auctionID;
+			ResultSet pantsResult = pantsStmt.executeQuery(isPantsQuery);
+			
+			String isShoeQuery = "SELECT * FROM auction a, shoe s WHERE a.itemID = s.itemID AND a.AuctionID = " + auctionID;
+			ResultSet shoeResult = shoeStmt.executeQuery(isShoeQuery);
+
 			String type = "";
 			if(shirtResult.next()){
 				type = "shirt";
 			}
 			else{
-				String isPantsQuery = "SELECT * FROM auction a, pants p WHERE a.itemID = p.itemID AND a.AuctionID = " + auctionID;
-				ResultSet pantsResult = pantsStmt.executeQuery(isPantsQuery);
+				
+				
 				
 				if(pantsResult.next()){
 					type = "shirt";
 				}
 				else{
-					String isShoeQuery = "SELECT * FROM auction a, shoe s WHERE a.itemID = s.itemID AND a.AuctionID = " + auctionID;
-					ResultSet shoeResult = shoeStmt.executeQuery(isShoeQuery);
+					
+					
 					if(shoeResult.next()){
 						type = "shoe";
 					}
@@ -163,18 +170,18 @@ try {
 			</tr>
 			<tr>
 				<td>Waist Width</td>
-				<td> <%= shirtResult.getString("WaistWidth")%></td>
+				<td> <%= pantsResult.getString("WaistWidth")%></td>
 				
 			</tr>
 			<tr>
 				<td>Pants Length</td>
-				<td> <%= shirtResult.getString("LegLength")%></td>
+				<td> <%= pantsResult.getString("LegLength")%></td>
 				
 			</tr>
 			
 			<tr>
 				<td>Pants Size</td>
-				<td> <%= shirtResult.getString("WaistWidth")%> / <%= shirtResult.getString("LegLength")%></td>
+				<td> <%= pantsResult.getString("WaistWidth")%> / <%= pantsResult.getString("LegLength")%></td>
 				
 			</tr>
 			
@@ -201,8 +208,8 @@ try {
 				
 			</tr>
 			<tr>
-				<td>Shirt Size</td>
-				<td> <%= shirtResult.getString("size")%></td>
+				<td>Shoe Size</td>
+				<td> <%= shoeResult.getString("size")%></td>
 				
 			</tr>
 			
@@ -266,40 +273,44 @@ try {
 			LocalDateTime closeDateTime = LocalDateTime.parse(closeTime, formatter);
 			
 			//out.print("2");
-			if(result.getString("user").equals(session.getAttribute("username"))){
-				%>
-				This is your auction.
-				<% 
-			}
-			else if(session.getAttribute("username").equals(result.getString("highest_bidder"))){
-				String strauto = "SELECT * FROM autobid a WHERE a.AuctionID = " + auctionID +" and a.creator = \""+ session.getAttribute("username") + "\"";
-				float currentautobid = 0;
-				//Run the query against the database.
-				result = stmt.executeQuery(strauto);
-				if(result.next()){
-					currentautobid = result.getFloat("upperLimit");
+			
+
+			if(currentTime.isBefore(closeDateTime)){ 
+				
+				if(result.getString("user").equals(session.getAttribute("username"))){
+					%>
+					This is your auction.
+					<% 
+				}
+				else{
+					if(session.getAttribute("username").equals(result.getString("highest_bidder"))){
+						String strauto = "SELECT * FROM autobid a WHERE a.AuctionID = " + auctionID +" and a.creator = \""+ session.getAttribute("username") + "\"";
+						float currentautobid = 0;
+						//Run the query against the database.
+						result = stmt.executeQuery(strauto);
+						if(result.next()){
+							currentautobid = result.getFloat("upperLimit");
+						}
+						
+						
+						%>
+						You are currently winning this auction.
+						<br><br>
+						
+						
+						<form method="post" action="winnerAutoBid.jsp">
+					    
+							<td>Create or Update Automatic Bid: </td><td><input type="number" step="0.01" name="bidAMT" size = "10" min = "<%=minimum_bid%>" value = "<%=currentautobid%>" required ></td>
+							<input type="submit" value="Send">
+					
+						</form>
+						
+								
+						
+						<% 
+					}
 				}
 				
-				
-				%>
-				You are currently winning this auction.
-				<br><br>
-				
-				
-				<form method="post" action="winnerAutoBid.jsp">
-			    
-					<td>Create or Update Automatic Bid: </td><td><input type="number" step="0.01" name="bidAMT" size = "10" min = "<%=minimum_bid%>" value = "<%=currentautobid%>" required ></td>
-					<input type="submit" value="Send">
-			
-				</form>
-				
-						
-				
-				<% 
-			}
-				
-			
-			else if(currentTime.isBefore(closeDateTime)){ 
 				stmt = con.createStatement();
 				
 				//Get the combobox from the index.jsp
@@ -312,13 +323,6 @@ try {
 				ResultSet results = stmt.executeQuery(sstr);
 				
 			
-			
-			
-			
-			
-			
-			
-			
 			%>
 				Insert a Bid
 				<form method="post" action="bidLogic.jsp">
@@ -328,10 +332,7 @@ try {
 			
 				</form>
 				
-				
-				
-				
-				
+
 				<br><br>
 				
 				Auto-Bid
@@ -347,8 +348,21 @@ try {
 				
 				
 				Auction has closed. 
+				<br>
+				<% if(result.getString("highest_bidder") == null){
+					%>No winner<%
+				}
+				else if (Float.parseFloat(result.getString("currentPrice")) >= Float.parseFloat(result.getString("LowestSelliingPrice"))){
 				
-		<% }
+							%>The winner is: <%= result.getString("highest_bidder")%><%
+						}
+					else{
+						%>No winner
+						<br>
+						The highest bidding price is lower than the reserve.<%
+					}
+				
+			}
 			
 		%>
 			

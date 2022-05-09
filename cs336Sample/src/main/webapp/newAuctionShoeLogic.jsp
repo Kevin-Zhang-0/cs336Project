@@ -29,7 +29,7 @@
 		//Get parameters from the HTML form at the HelloWorld.jsp
 		String new_shirt_name = request.getParameter("shirt_name");
 		String new_shirt_sex = request.getParameter("shirt_sex");
-		String new_shirt_size = request.getParameter("shirt_size");
+		int new_shirt_size = Integer.parseInt(request.getParameter("shirt_size"));
 		String new_shirt_initial_price = request.getParameter("shirt_initial_price");
 		String new_shirt_lowest_selling_price = request.getParameter("shirt_lowest_selling_price");
 		String new_shirt_bid_increments = request.getParameter("shirt_bid_increments");
@@ -52,7 +52,7 @@
 				PreparedStatement ps = con.prepareStatement(insert);
 				ps.setString(1, new_shirt_name);
 				ps.setString(2, new_shirt_sex);
-				ps.setString(3, "shirt");
+				ps.setString(3, "shoe");
 				ps.executeUpdate();
 				
 				String getIDq = "SELECT last_insert_id()";
@@ -60,10 +60,10 @@
 				result.next();
 				int x = result.getInt(1);
 				
-				String insertShirt = "INSERT INTO shirt(itemID,size) " + "VALUES (?, ?)";
+				String insertShirt = "INSERT INTO shoe(itemID,size) " + "VALUES (?, ?)";
 				PreparedStatement is = con.prepareStatement(insertShirt);
 				is.setInt(1, x);
-				is.setString(2, new_shirt_size);
+				is.setInt(2, new_shirt_size);
 				is.executeUpdate();
 				
 				String creator = (String) session.getAttribute("username");

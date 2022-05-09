@@ -275,13 +275,13 @@ Want to auction an item? Choose which type of clothing you have
 					<input type="submit" value="Shirt">
 				</form> 
 		</td>
-		<td><form method="get" action="loginPage.jsp">	
+		<td><form method="get" action="pant.jsp">	
 					
 			<input type="submit" value="Pants">
 			</form> 
 			</td>
 		<td> 
-			<form method="get" action="loginPage.jsp">	
+			<form method="get" action="shoe.jsp">	
 					
 			<input type="submit" value="Shoes">
 			</form>
