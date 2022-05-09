@@ -18,6 +18,7 @@
 		Connection con = db.getConnection();
 		//Create a SQL statement
 		Statement stmt = con.createStatement();
+		Statement cusRepStmt = con.createStatement();
 		//Get parameters from the HTML form at the HelloWorld.jsp
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
@@ -52,8 +53,8 @@
 					<%
 				}
 				else{
-					out.println(result.getString("user"));
-					out.println(result.getString("pass"));
+					//out.println(result.getString("user"));
+					//out.println(result.getString("pass"));
 					session.setAttribute("username", result.getString("user"));
 					
 					
@@ -63,16 +64,29 @@
 			}
 			
 			else{
-				session.setAttribute("username", resultCR.getString("user"));
-				
-				
-				con.close();
-				response.sendRedirect("customerRepHomepage.jsp");
-				%>
-				
+				String select1 = "SELECT * FROM credentials c WHERE c.user = \"" + username + "\" AND c.pass = \"" + password+ "\"";
+				ResultSet result = cusRepStmt.executeQuery(select1);
+				if(result.next()==false){
+					out.print("Username/password combination does not exist");
+					session.setAttribute("username", null);
+					%>
+					<form method="post" action="loginPage.jsp">
+						
+						<input type="submit" value="back">   
+					</form>
+					 
+					    
+					<%
+				}
+				else{
+					session.setAttribute("username", resultCR.getString("user"));
+					
+					
+					con.close();
+					response.sendRedirect("customerRepHomepage.jsp");
+				}
 			
-				<% 
-				
+			
 				
 				
 				//Close the connection. Don't forget to do it, otherwise you're keeping the resources of the server allocated.

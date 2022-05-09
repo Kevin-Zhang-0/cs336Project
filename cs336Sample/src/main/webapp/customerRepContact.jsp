@@ -21,10 +21,10 @@ out.print("Current User: " + session.getAttribute("username"));
 	<input type="submit" value="Back to Homepage">
 </form>
 
-<br><br>
+<br>
 
 <% 
-out.print("Please Select an Option That Matches Your Concerns");
+out.print("Reset Your Password Here");
 %>
 <br>
 
@@ -46,15 +46,11 @@ out.print("Please Select an Option That Matches Your Concerns");
 </div>
 	
 <br>
-<div>
-	<table>
-		<tr>
-			<td>Ask a Question:</td>
-		</tr>
-			
-	</table>
+For Other Needs, Please ask a Question Below, and a Customer Representative Will Reply
+<br>
+<br>
+Ask a Question:
 
-</div>
 	
 
 <table>
@@ -71,7 +67,18 @@ out.print("Please Select an Option That Matches Your Concerns");
 	</table>		
 
 	<br>
-Customer Support Tickets:
+	
+		<form method="post" action="searchByKeyword.jsp">
+			<table>
+				<tr>
+					<td>Search Questions By Keyword:</td><td><input type="text" name="keyword"></td>
+				</tr>
+			</table>
+			<input type="submit" value="Search">
+		</form>
+	<br>
+	
+Customer Questions:
 	
     <br>
 	<%
@@ -92,7 +99,8 @@ Customer Support Tickets:
 			String currUser = session.getAttribute("username").toString();
 			
 			//Make a SELECT query from the sells table with the price range specified by the 'price' parameter at the index.jsp
-			String str = "SELECT * FROM customerRequests c WHERE c.user = \"" + currUser + "\"";
+			String str = "SELECT * FROM customerRequests c ";
+			//WHERE c.user = \"" + currUser + "\"
 			
 			//Run the query against the database.
 			ResultSet result = stmt.executeQuery(str);
@@ -130,10 +138,6 @@ Customer Support Tickets:
 	%>
 
 
-<form method="post" action="UserHomepage.jsp">
-
-	<input type="submit" value="Back">   
-</form>
 	
 	
 </body>
