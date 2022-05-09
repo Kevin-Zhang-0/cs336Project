@@ -42,6 +42,8 @@
 		int f = stmt.executeUpdate("delete from setalert s where s.user = \"" +curr_user + "\" and s.called = true");
 		
 		
+		response.sendRedirect("UserHomepage.jsp");
+		
 	}catch(Exception e){
 		out.print(e);
 	}
