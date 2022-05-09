@@ -79,7 +79,7 @@ To view an auction, enter the auctionID number.
 			//query = "SELECT * FROM auction a, bid b, clothing c WHERE b.user = \"" + username +"\"";
 
 			
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 			String time = LocalDateTime.now().format(formatter);
 			
 
