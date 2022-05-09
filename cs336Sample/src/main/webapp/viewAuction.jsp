@@ -273,72 +273,77 @@ try {
 			LocalDateTime closeDateTime = LocalDateTime.parse(closeTime, formatter);
 			
 			//out.print("2");
-			if(result.getString("user").equals(session.getAttribute("username"))){
+			
+			
+			if(currentTime.isBefore(closeDateTime)){ 
+				
+				if(result.getString("user").equals(session.getAttribute("username"))){
+					%>
+					This is your auction.
+					<% 
+				}
+				else if(session.getAttribute("username").equals(result.getString("highest_bidder"))){
+					String strauto = "SELECT * FROM autobid a WHERE a.AuctionID = " + auctionID +" and a.creator = \""+ session.getAttribute("username") + "\"";
+					float currentautobid = 0;
+					//Run the query against the database.
+					result = stmt.executeQuery(strauto);
+					if(result.next()){
+						currentautobid = result.getFloat("upperLimit");
+					}
+					
+					
+					%>
+					You are currently winning this auction.
+					<br><br>
+					
+					
+					<form method="post" action="winnerAutoBid.jsp">
+				    
+						<td>Create or Update Automatic Bid: </td><td><input type="number" step="0.01" name="bidAMT" size = "10" min = "<%=minimum_bid%>" value = "<%=currentautobid%>" required ></td>
+						<input type="submit" value="Send">
+				
+					</form>
+					
+							
+					
+					<% 
+				}
+				else{
+					stmt = con.createStatement();
+					
+					//Get the combobox from the index.jsp
+					
+					session.setAttribute("currAuctionID", auctionID);
+					//Make a SELECT query from the sells table with the price range specified by the 'price' parameter at the index.jsp
+					String sstr = "SELECT * FROM autobid a WHERE a.creator = \""+ session.getAttribute("username") + "\" AND a.AuctionID = " + auctionID;
+					
+					//Run the query against the database.
+					ResultSet results = stmt.executeQuery(sstr);
+					
+				
 				%>
-				This is your auction.
-				<% 
-			}
-			else if(session.getAttribute("username").equals(result.getString("highest_bidder"))){
-				String strauto = "SELECT * FROM autobid a WHERE a.AuctionID = " + auctionID +" and a.creator = \""+ session.getAttribute("username") + "\"";
-				float currentautobid = 0;
-				//Run the query against the database.
-				result = stmt.executeQuery(strauto);
-				if(result.next()){
-					currentautobid = result.getFloat("upperLimit");
+					Insert a Bid
+					<form method="post" action="bidLogic.jsp">
+				    
+						<td>Bid Amount: </td><td><input type="number" step="0.01" name="bidAMT" size = "10" min = "<%=minimum_bid%>" required ></td>
+						<input type="submit" value="Send Bid">
+				
+					</form>
+					
+
+					<br><br>
+					
+					Auto-Bid
+					<form method="post" action="autobidLogic.jsp">
+				    
+						<td>Automatic Bid Amount: </td><td><input type="number" step="0.01" name="bidAMT" size = "10" min = "<%=minimum_bid%>" required ></td>
+						<input type="submit" value="Send Bid">
+						
+					</form>
+			<% 
 				}
 				
-				
-				%>
-				You are currently winning this auction.
-				<br><br>
-				
-				
-				<form method="post" action="winnerAutoBid.jsp">
-			    
-					<td>Create or Update Automatic Bid: </td><td><input type="number" step="0.01" name="bidAMT" size = "10" min = "<%=minimum_bid%>" value = "<%=currentautobid%>" required ></td>
-					<input type="submit" value="Send">
-			
-				</form>
-				
-						
-				
-				<% 
-			}
-				
-			
-			else if(currentTime.isBefore(closeDateTime)){ 
-				stmt = con.createStatement();
-				
-				//Get the combobox from the index.jsp
-				
-				session.setAttribute("currAuctionID", auctionID);
-				//Make a SELECT query from the sells table with the price range specified by the 'price' parameter at the index.jsp
-				String sstr = "SELECT * FROM autobid a WHERE a.creator = \""+ session.getAttribute("username") + "\" AND a.AuctionID = " + auctionID;
-				
-				//Run the query against the database.
-				ResultSet results = stmt.executeQuery(sstr);
-				
-			
-			%>
-				Insert a Bid
-				<form method="post" action="bidLogic.jsp">
-			    
-					<td>Bid Amount: </td><td><input type="number" step="0.01" name="bidAMT" size = "10" min = "<%=minimum_bid%>" required ></td>
-					<input type="submit" value="Send Bid">
-			
-				</form>
-				
-
-				<br><br>
-				
-				Auto-Bid
-				<form method="post" action="autobidLogic.jsp">
-			    
-					<td>Automatic Bid Amount: </td><td><input type="number" step="0.01" name="bidAMT" size = "10" min = "<%=minimum_bid%>" required ></td>
-					<input type="submit" value="Send Bid">
-					
-				</form>
-		<% 
+		
 			}
 			else{ // too late %>
 				
