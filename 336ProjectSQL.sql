@@ -42,7 +42,7 @@ create table `clothing`(
 	`itemID` int auto_increment primary key,
     `name` varchar(50),
     `sex` varchar(1),
-    `type` ENUM('shirt','pants','shoe')
+    `type` ENUM('shirt','shoe','pants')
 );
 DROP TABLE IF EXISTS `shirt`;
 create table `shirt`(

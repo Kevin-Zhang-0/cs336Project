@@ -325,7 +325,7 @@ Want to auction an item? Choose which type of clothing you have
 						<option value="none">Type</option>
 						<option value="shirts">Shirts</option>
 						<option value="pants">Pants</option>
-						<option value="shoes">Shoes</option>
+						<option value="shoe">Shoes</option>
 					</select>
 					<select name="sex" size=1>
 						<option value="none">Sex</option>
