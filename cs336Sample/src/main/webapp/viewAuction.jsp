@@ -306,7 +306,7 @@ try {
 			}
 				
 			
-			if(!result.getString("user").equals(session.getAttribute("username")) && currentTime.isBefore(closeDateTime)){ 
+			else if(currentTime.isBefore(closeDateTime)){ 
 				stmt = con.createStatement();
 				
 				//Get the combobox from the index.jsp
@@ -340,7 +340,7 @@ try {
 				</form>
 		<% 
 			}
-			else if (currentTime.isAfter(closeDateTime)){ // too late %>
+			else{ // too late %>
 				
 				<br><br>
 				Auction has closed. 
