@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" import="com.cs336.pkg.*"%>
-<%@ page import="java.io.*,java.util.*,java.sql.*, java.time.LocalDateTime, java.time.format.DateTimeFormatter"%>
+<%@ page import="java.io.*,java.util.*,java.sql.*, java.time.LocalDateTime, java.time.format.DateTimeFormatter, java.time.format.DateTimeFormatter,com.cs336.pkg.SendAlert"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*"%>
     
 <!DOCTYPE html>
@@ -12,7 +12,7 @@
 <body> 
 <% 
 out.print("Current User: " + session.getAttribute("username"));
-
+SendAlert.sendAlertToWinners();
 
 %>
 <br>
@@ -307,7 +307,7 @@ Want to auction an item? Choose which type of clothing you have
 				<form method="post" action="viewAuction.jsp">
 					<table>
 						<tr>    
-							<td>Auction Number:</td><td><input type="text" name="auctionID" required></td>
+							<td>Auction Number:</td><td><input type="number" name="auctionID" required></td>
 						</tr>
 		
 					</table>
