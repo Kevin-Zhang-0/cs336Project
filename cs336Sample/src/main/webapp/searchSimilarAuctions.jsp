@@ -88,7 +88,7 @@ To view an auction, enter the auctionID number.
 				query += " AND c.sex = \" + sex + \"";
 			}
 			
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 			String time = LocalDateTime.now().format(formatter);
 			
 			//out.print(query);
