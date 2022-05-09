@@ -22,8 +22,14 @@ out.print("Current User: " + session.getAttribute("username"));
 		</form>
 
 
+
+
 <br>
 <br>
+
+
+
+
 New clothes alerts :	
 <%
 	try {
@@ -104,6 +110,7 @@ New clothes alerts :
 					<th>AuctionID </th>
 					<th>Item Name </th>
 					<th>Item Type </th>
+					<th>Sex </th>
 					<th>Waist Width </th>
 					<th>Leg Length </th>
 				</tr>

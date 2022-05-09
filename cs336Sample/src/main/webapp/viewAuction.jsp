@@ -60,20 +60,28 @@ try {
 			
 			String isShirtQuery = "SELECT * FROM auction a, shirt s WHERE a.itemID = s.itemID AND a.AuctionID = " + auctionID;
 			ResultSet shirtResult = shirtStmt.executeQuery(isShirtQuery);
+			
+			String isPantsQuery = "SELECT * FROM auction a, pants p WHERE a.itemID = p.itemID AND a.AuctionID = " + auctionID;
+			ResultSet pantsResult = pantsStmt.executeQuery(isPantsQuery);
+			
+			String isShoeQuery = "SELECT * FROM auction a, shoe s WHERE a.itemID = s.itemID AND a.AuctionID = " + auctionID;
+			ResultSet shoeResult = shoeStmt.executeQuery(isShoeQuery);
+
 			String type = "";
 			if(shirtResult.next()){
 				type = "shirt";
+				out.print("shirt");
 			}
 			else{
-				String isPantsQuery = "SELECT * FROM auction a, pants p WHERE a.itemID = p.itemID AND a.AuctionID = " + auctionID;
-				ResultSet pantsResult = pantsStmt.executeQuery(isPantsQuery);
+				
+				
 				
 				if(pantsResult.next()){
-					type = "shirt";
+					type = "pants";
 				}
 				else{
-					String isShoeQuery = "SELECT * FROM auction a, shoe s WHERE a.itemID = s.itemID AND a.AuctionID = " + auctionID;
-					ResultSet shoeResult = shoeStmt.executeQuery(isShoeQuery);
+					
+					
 					if(shoeResult.next()){
 						type = "shoe";
 					}
@@ -117,8 +125,7 @@ try {
 		    <%
 		    if(type.equals("shirt")){%>
 			<table>
-				
-				
+
 				<tr>
 					<td>Clothing Type</td>
 					<td>Shirt</td>
@@ -163,18 +170,18 @@ try {
 			</tr>
 			<tr>
 				<td>Waist Width</td>
-				<td> <%= shirtResult.getString("WaistWidth")%></td>
+				<td> <%= pantsResult.getString("WaistWidth")%></td>
 				
 			</tr>
 			<tr>
 				<td>Pants Length</td>
-				<td> <%= shirtResult.getString("LegLength")%></td>
+				<td> <%= pantsResult.getString("LegLength")%></td>
 				
 			</tr>
 			
 			<tr>
 				<td>Pants Size</td>
-				<td> <%= shirtResult.getString("WaistWidth")%> / <%= shirtResult.getString("LegLength")%></td>
+				<td> <%= pantsResult.getString("WaistWidth")%> / <%= pantsResult.getString("LegLength")%></td>
 				
 			</tr>
 			
@@ -201,8 +208,8 @@ try {
 				
 			</tr>
 			<tr>
-				<td>Shirt Size</td>
-				<td> <%= shirtResult.getString("size")%></td>
+				<td>Shoe Size</td>
+				<td> <%= shoeResult.getString("size")%></td>
 				
 			</tr>
 			
@@ -299,7 +306,7 @@ try {
 			}
 				
 			
-			else if(currentTime.isBefore(closeDateTime)){ 
+			if(!result.getString("user").equals(session.getAttribute("username")) && currentTime.isBefore(closeDateTime)){ 
 				stmt = con.createStatement();
 				
 				//Get the combobox from the index.jsp
@@ -312,13 +319,6 @@ try {
 				ResultSet results = stmt.executeQuery(sstr);
 				
 			
-			
-			
-			
-			
-			
-			
-			
 			%>
 				Insert a Bid
 				<form method="post" action="bidLogic.jsp">
@@ -328,10 +328,7 @@ try {
 			
 				</form>
 				
-				
-				
-				
-				
+
 				<br><br>
 				
 				Auto-Bid
@@ -343,12 +340,25 @@ try {
 				</form>
 		<% 
 			}
-			else{ // too late %>
+			else if (currentTime.isAfter(closeDateTime)){ // too late %>
 				
-				
+				<br><br>
 				Auction has closed. 
+				<br>
+				<% if(result.getString("highest_bidder") == null){
+					%>No winner<%
+				}
+				else if (Float.parseFloat(result.getString("currentPrice")) >= Float.parseFloat(result.getString("LowestSelliingPrice"))){
 				
-		<% }
+							%>The winner is: <%= result.getString("highest_bidder")%><%
+						}
+				else{
+					%>No winner
+					<br>
+					The highest bidding price is lower than the reserve.<%
+			}
+			
+		}
 			
 		%>
 			
