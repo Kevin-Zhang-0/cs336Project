@@ -99,7 +99,7 @@
 		
 	} catch (Exception ex) {
 		//out.print(ex);
-		//out.print("select failed :()");
+		out.print("select failed :()");
 	}
 	%>
 
