@@ -29,8 +29,6 @@
 			//Create a SQL statement
 			Statement stmt = con.createStatement();
 			
-			//Get the combobox from the index.jsp
-			//String entity = request.getParameter("price");
 			
 			//Make a SELECT query from the sells table with the price range specified by the 'price' parameter at the index.jsp
 			String str = "SELECT * FROM auction a";

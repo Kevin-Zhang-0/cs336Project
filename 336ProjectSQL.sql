@@ -205,3 +205,15 @@ create table `setAlert_shoes`(
     `status` varchar(7),
     foreign key(user) references credentials(user) ON UPDATE CASCADE
  );
+ 
+ 
+ DROP TABLE IF EXISTS `auctionWinners`;
+ create table `auctionWinners`(
+	`AuctionID` int,
+    `user` varchar(50),
+    foreign key(AuctionID) references auction(AuctionID) ON DELETE CASCADE,
+    foreign key(user) references credentials(user) ON UPDATE CASCADE
+ );
+ 
+ 
+ 

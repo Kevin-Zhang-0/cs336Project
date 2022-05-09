@@ -39,7 +39,7 @@
 		    // Repeat for all parameters.
 
 		    if (errors.isEmpty()) {
-		        // No errors, redirect to Amtrak.
+
 		        //Get the database connection
 				ApplicationDB db = new ApplicationDB();	
 				Connection con = db.getConnection();
@@ -86,7 +86,6 @@
 				result2.next();
 				int y = result2.getInt(1);
 				
-				//flagging any alerts
 				Statement stmt2 = con.createStatement();
 				String getAlert = "select s.alertID as id, s.user from setalert s, setalert_pants sp where s.alertID = sp.alertID and s.itemName = \"" + new_shirt_name + "\" and s.sex = \"" + new_shirt_sex + "\" and sp.WaistWidth = \"" + new_shirt_WaistWidth + "\" and sp.LegLength = \"" + new_LegLength + "\"";
 				ResultSet alertResult = stmt2.executeQuery(getAlert);
@@ -119,7 +118,6 @@
 		
 	} catch (Exception ex) {
 		out.print(ex);
-		out.print("Insert failed :()");
 	}
 %>
 </body>

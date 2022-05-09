@@ -30,7 +30,6 @@ String insert_bid = "INSERT INTO autobid(upperLimit,creator,AuctionID) " + "VALU
 //Create a Prepared SQL statement allowing you to introduce the parameters of the query
 PreparedStatement is = con.prepareStatement(insert_bid);
 is = con.prepareStatement(insert_bid);
-//out.print("here: " + (String)session.getAttribute("username"));
 is.setFloat(1,bid_amt);
 is.setString(2, (String)session.getAttribute("username"));
 is.setInt(3, curr_AuctionID);

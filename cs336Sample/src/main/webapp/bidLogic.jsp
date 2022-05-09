@@ -25,8 +25,6 @@
 		
 		float bid_amt = Float.valueOf(request.getParameter("bidAMT"));
 		int curr_AuctionID = Integer.parseInt((String)session.getAttribute("currAuctionID")); 
-		//send alert if bid is beaten but not if in autobid
-		//String get_curr_price = "SELECT highest_bidder from auction where AuctionID = " + Integer.toString(curr_AuctionID) + "and not in (select creator from autobid where AuctionID = " + Integer.toString(curr_AuctionID) + " and upperLimit <= " + Float.toString(bid_amt) + "  +") ";
 		
 		String get_curr_upperlimit = "SELECT * from autobid where AuctionID = " + Integer.toString(curr_AuctionID);
 		ResultSet result = stmt.executeQuery(get_curr_upperlimit);
@@ -40,17 +38,15 @@
 				//Create a Prepared SQL statement allowing you to introduce the parameters of the query
 				PreparedStatement tb;
 				tb = con.prepareStatement(insert_tied_bid);
-				//out.print("here: " + (String)session.getAttribute("username"));
 				tb.setString(1, result.getString("creator"));
 				tb.setInt(2, curr_AuctionID);
 				tb.setFloat(3,c_price);
-				//is.setDate(4, java.sql.Date.valueOf(java.time.LocalDate.now()));
 				tb.executeUpdate();
 				
 				
 				String delete_auto_bids = "DELETE FROM autobid a WHERE a.AuctionID = " + curr_AuctionID + " AND a.creator =" + "\"" + result.getString("creator")+ "\"";
 				
-				//Create a Prepared SQL statement allowing you to introduce the parameters of the query
+				
 				
 				tb = con.prepareStatement(delete_auto_bids);
 				tb.executeUpdate();
@@ -98,25 +94,14 @@
 		String insert_bid = "INSERT INTO bid(user, AuctionID, price,time) " + "VALUES (?, ?,?,now())";
 		//Create a Prepared SQL statement allowing you to introduce the parameters of the query
 		is = con.prepareStatement(insert_bid);
-		//out.print("here: " + (String)session.getAttribute("username"));
+		
 		is.setString(1, (String)session.getAttribute("username"));
 		is.setInt(2, curr_AuctionID);
 		is.setFloat(3,bid_amt);
-		//is.setDate(4, java.sql.Date.valueOf(java.time.LocalDate.now()));
+	
 		is.executeUpdate();
 
-		//Close the connection. Don't forget to do it, otherwise you're keeping the resources of the server allocated.
-		
-		//CHECK FOR AUTO BIDS HERE
-		
-		//
-		
-		//p1 inserts an autobid of $70 
-		
-		//p2 regular bids $100
-		
-		//p1 autobid should be deleted
-		
+
 		
 		con.close();
 		%>

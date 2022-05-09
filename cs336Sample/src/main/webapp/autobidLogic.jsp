@@ -27,7 +27,6 @@
 		float bid_amt = Float.valueOf(request.getParameter("bidAMT"));
 		int curr_AuctionID = Integer.parseInt((String)session.getAttribute("currAuctionID")); 
 		
-		//if same
 		String get_curr_upperlimit = "SELECT * from autobid where AuctionID = " + Integer.toString(curr_AuctionID);
 		ResultSet result = stmt.executeQuery(get_curr_upperlimit);
 		if(result.next()){
@@ -40,17 +39,14 @@
 				//Create a Prepared SQL statement allowing you to introduce the parameters of the query
 				PreparedStatement tb;
 				tb = con.prepareStatement(insert_tied_bid);
-				//out.print("here: " + (String)session.getAttribute("username"));
 				tb.setString(1, result.getString("creator"));
 				tb.setInt(2, curr_AuctionID);
 				tb.setFloat(3,c_price);
-				//is.setDate(4, java.sql.Date.valueOf(java.time.LocalDate.now()));
 				tb.executeUpdate();
 				
 				
 				String delete_auto_bids = "DELETE FROM autobid a WHERE a.AuctionID = " + curr_AuctionID + " AND a.creator =" + "\"" + result.getString("creator")+ "\"";
 				
-				//Create a Prepared SQL statement allowing you to introduce the parameters of the query
 				
 				tb = con.prepareStatement(delete_auto_bids);
 				tb.executeUpdate();
@@ -71,7 +67,6 @@
 		//Create a Prepared SQL statement allowing you to introduce the parameters of the query
 		PreparedStatement is = con.prepareStatement(insert_bid);
 		is = con.prepareStatement(insert_bid);
-		//out.print("here: " + (String)session.getAttribute("username"));
 		is.setFloat(1,bid_amt);
 		is.setString(2, (String)session.getAttribute("username"));
 		is.setInt(3, curr_AuctionID);

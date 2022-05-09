@@ -35,20 +35,19 @@
 		String new_shirt_bid_increments = request.getParameter("shirt_bid_increments");
 		String new_shirt_closing_date = request.getParameter("shirt_closing_date");
 	
-		    // Repeat for all parameters.
+	
 
 		    if (errors.isEmpty()) {
-		        // No errors, redirect to Amtrak.
-		        //Get the database connection
+		      
 				ApplicationDB db = new ApplicationDB();	
 				Connection con = db.getConnection();
 		
-				//Create a SQL statement
+			
 				Statement stmt = con.createStatement();
 				
-		        //Make an insert statement for the Sells table:
+		   
 				String insert = "INSERT INTO clothing(name, sex, type) " + "VALUES (?, ?,?)";
-				//Create a Prepared SQL statement allowing you to introduce the parameters of the query
+				
 				PreparedStatement ps = con.prepareStatement(insert);
 				ps.setString(1, new_shirt_name);
 				ps.setString(2, new_shirt_sex);
@@ -84,7 +83,6 @@
 				result2.next();
 				int y = result2.getInt(1);
 				
-				//flagging any alerts
 				Statement stmt2 = con.createStatement();
 				String getAlert = "select s.alertID as id, s.user from setalert s, setalert_shirt ss where s.alertID = ss.alertID and s.itemName = \"" + new_shirt_name + "\" and s.sex = \"" + new_shirt_sex + "\" and ss.size = \"" + new_shirt_size + "\"";
 				ResultSet alertResult = stmt2.executeQuery(getAlert);
@@ -99,7 +97,7 @@
 					ps2.executeUpdate();
 				}
 				
-				//Close the connection. Don't forget to do it, otherwise you're keeping the resources of the server allocated.
+				
 				con.close();
 			
 	
@@ -117,7 +115,6 @@
 		
 	} catch (Exception ex) {
 		out.print(ex);
-		out.print("Insert failed :()");
 	}
 %>
 </body>

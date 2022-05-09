@@ -24,7 +24,6 @@
 		ApplicationDB db2 = new ApplicationDB();	
 		Connection con2 = db2.getConnection();
 		Statement stmt2 = con2.createStatement();
-		//Get parameters from the HTML form at the HelloWorld.jsp
 		
 		
 		int curr_AuctionID = Integer.parseInt((String)session.getAttribute("currAuctionID")); 
@@ -83,14 +82,13 @@
 			
 			String insert_bid = "INSERT INTO bid(user, AuctionID, price,time) " + "VALUES (?, ?,?,now())";
 			PreparedStatement is = con.prepareStatement(insert_bid);
-			//Create a Prepared SQL statement allowing you to introduce the parameters of the query
 			
-			//out.print(is.toString());
-			//out.print("here: " + (String)session.getAttribute("username"));
+			
+	
 			is.setString(1, (String)result.getString("creator"));                              
 			is.setInt(2, curr_AuctionID);
 			is.setFloat(3,curr_price + curr_increment);
-			//is.setDate(4, java.sql.Date.valueOf(java.time.LocalDate.now()));
+			
 			is.executeUpdate();
 			
 			String update_currentprice = "UPDATE auction SET CurrentPrice = " + Float.toString(curr_price + curr_increment) + ", highest_bidder = \""+ (String)result.getString("creator")  + "\" WHERE AuctionID =" + Integer.toString(curr_AuctionID) + ";";
@@ -177,7 +175,6 @@
 		result = stmt.executeQuery(newCurrentPrice);
 		result.next();
 		float new_price = result.getFloat(1);
-		//out.print(newCurrentPrice);
 		
 		String select_auto_bids_to_delete = "select a.upperLimit,a.creator from autobid a WHERE a.AuctionID = " + curr_AuctionID + " AND a.upperLimit <" + Float.toString(new_price + curr_increment);
 		

@@ -96,7 +96,7 @@ To view an auction, enter the auctionID number.
 			else if(ongoing.equals("finished")){ //finished
 				query += " AND a.CloseDate < \"" + time + "\"";
 			}
-			out.print(time);
+			
 			
 			
 			//out.print("here2");
